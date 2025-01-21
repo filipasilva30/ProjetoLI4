@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vDBkVyR1ZsBsu472z4UmIuabTBb91RAod1APgKRLVu4=",
+  "Hash": "d4ie2u/Bh+dqagihYNFDmYlHTHytsR/ZWH5VhbsXaQw=",
   "Source": "LI4",
   "BasePath": "_content/LI4",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "LI4\\wwwroot",
       "Source": "LI4",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\bundle\\LI4.styles.css",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\bundle\\LI4.styles.css",
       "SourceId": "LI4",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/LI4",
       "RelativePath": "LI4#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
@@ -35,13 +35,13 @@
       "Integrity": "yjqs90AqRyrh3F65PSaSmpNQzpxy2HceZAOVw7Z/SOo=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\bundle\\LI4.styles.css"
+      "OriginalItemSpec": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\bundle\\LI4.styles.css"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css",
       "SourceId": "LI4",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/LI4",
       "RelativePath": "LI4#[.{fingerprint}]!.bundle.scp.css",
       "AssetKind": "All",
@@ -56,13 +56,13 @@
       "Integrity": "yjqs90AqRyrh3F65PSaSmpNQzpxy2HceZAOVw7Z/SOo=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\box.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\box.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "assets/box#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -80,10 +80,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\box.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\exit.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\exit.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "assets/exit#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -101,10 +101,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\exit.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\in-stock.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\in-stock.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "assets/in-stock#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -122,10 +122,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\in-stock.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\logo.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\logo.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "assets/logo#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -143,10 +143,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\logo.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\package.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\package.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "assets/package#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -164,10 +164,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\package.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\production.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\production.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "assets/production#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -185,10 +185,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\production.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\sino.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\sino.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "assets/sino#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -206,10 +206,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\sino.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\user.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\user.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "assets/user#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -227,10 +227,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\user.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Encomendas.css",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Encomendas.css",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "css/Encomendas#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -248,10 +248,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Encomendas.css"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\IniciarEncomenda.css",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\IniciarEncomenda.css",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "css/IniciarEncomenda#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -269,10 +269,10 @@
       "OriginalItemSpec": "wwwroot\\css\\IniciarEncomenda.css"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\LinhadeMontagem.css",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\LinhadeMontagem.css",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "css/LinhadeMontagem#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -290,10 +290,10 @@
       "OriginalItemSpec": "wwwroot\\css\\LinhadeMontagem.css"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Login.css",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Login.css",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "css/Login#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -311,10 +311,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Login.css"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\MenuCliente.css",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\MenuCliente.css",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "css/MenuCliente#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -332,10 +332,10 @@
       "OriginalItemSpec": "wwwroot\\css\\MenuCliente.css"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\MenuFuncionario.css",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\MenuFuncionario.css",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "css/MenuFuncionario#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -353,10 +353,10 @@
       "OriginalItemSpec": "wwwroot\\css\\MenuFuncionario.css"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Registo.css",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Registo.css",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "css/Registo#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -374,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Registo.css"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\android-chrome-192x192.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\android-chrome-192x192.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "favicon_io/android-chrome-192x192#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -395,10 +395,10 @@
       "OriginalItemSpec": "wwwroot\\favicon_io\\android-chrome-192x192.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\android-chrome-512x512.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\android-chrome-512x512.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "favicon_io/android-chrome-512x512#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -416,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\favicon_io\\android-chrome-512x512.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\apple-touch-icon.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\apple-touch-icon.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "favicon_io/apple-touch-icon#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -437,10 +437,10 @@
       "OriginalItemSpec": "wwwroot\\favicon_io\\apple-touch-icon.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon.ico",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon.ico",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "favicon_io/favicon#[.{fingerprint}]?.ico",
       "AssetKind": "All",
@@ -458,10 +458,10 @@
       "OriginalItemSpec": "wwwroot\\favicon_io\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon-16x16.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon-16x16.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "favicon_io/favicon-16x16#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -479,10 +479,10 @@
       "OriginalItemSpec": "wwwroot\\favicon_io\\favicon-16x16.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon-32x32.png",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon-32x32.png",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "favicon_io/favicon-32x32#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -500,10 +500,10 @@
       "OriginalItemSpec": "wwwroot\\favicon_io\\favicon-32x32.png"
     },
     {
-      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\site.webmanifest",
+      "Identity": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\site.webmanifest",
       "SourceId": "LI4",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\",
       "BasePath": "_content/LI4",
       "RelativePath": "favicon_io/site#[.{fingerprint}]?.webmanifest",
       "AssetKind": "All",
@@ -524,7 +524,7 @@
   "Endpoints": [
     {
       "Route": "assets/box.iwmo96let4.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\box.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\box.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -569,7 +569,7 @@
     },
     {
       "Route": "assets/box.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\box.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\box.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -606,7 +606,7 @@
     },
     {
       "Route": "assets/exit.hbhqah9qow.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\exit.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\exit.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -651,7 +651,7 @@
     },
     {
       "Route": "assets/exit.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\exit.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\exit.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -688,7 +688,7 @@
     },
     {
       "Route": "assets/in-stock.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\in-stock.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\in-stock.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -725,7 +725,7 @@
     },
     {
       "Route": "assets/in-stock.pt43ccns0q.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\in-stock.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\in-stock.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -770,7 +770,7 @@
     },
     {
       "Route": "assets/logo.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\logo.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\logo.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -807,7 +807,7 @@
     },
     {
       "Route": "assets/logo.sjg25icsu7.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\logo.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\logo.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -852,7 +852,7 @@
     },
     {
       "Route": "assets/package.e99l6adxqh.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\package.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\package.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -897,7 +897,7 @@
     },
     {
       "Route": "assets/package.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\package.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\package.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -934,7 +934,7 @@
     },
     {
       "Route": "assets/production.dywtcck4kh.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\production.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\production.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -979,7 +979,7 @@
     },
     {
       "Route": "assets/production.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\production.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\production.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1016,7 +1016,7 @@
     },
     {
       "Route": "assets/sino.84m443v4fu.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\sino.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\sino.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1061,7 +1061,7 @@
     },
     {
       "Route": "assets/sino.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\sino.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\sino.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1098,7 +1098,7 @@
     },
     {
       "Route": "assets/user.ox8fzgwt6h.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\user.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\user.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1143,7 +1143,7 @@
     },
     {
       "Route": "assets/user.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\user.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\user.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1180,7 +1180,7 @@
     },
     {
       "Route": "css/Encomendas.7zod18s2xo.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Encomendas.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Encomendas.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1225,7 +1225,7 @@
     },
     {
       "Route": "css/Encomendas.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Encomendas.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Encomendas.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1262,7 +1262,7 @@
     },
     {
       "Route": "css/IniciarEncomenda.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\IniciarEncomenda.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\IniciarEncomenda.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1299,7 +1299,7 @@
     },
     {
       "Route": "css/IniciarEncomenda.dyjx89twm7.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\IniciarEncomenda.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\IniciarEncomenda.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1344,7 +1344,7 @@
     },
     {
       "Route": "css/LinhadeMontagem.7lsn7zgs9s.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\LinhadeMontagem.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\LinhadeMontagem.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1389,7 +1389,7 @@
     },
     {
       "Route": "css/LinhadeMontagem.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\LinhadeMontagem.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\LinhadeMontagem.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1426,7 +1426,7 @@
     },
     {
       "Route": "css/Login.a20edv3g1t.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Login.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Login.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1471,7 +1471,7 @@
     },
     {
       "Route": "css/Login.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Login.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Login.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1508,7 +1508,7 @@
     },
     {
       "Route": "css/MenuCliente.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\MenuCliente.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\MenuCliente.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1545,7 +1545,7 @@
     },
     {
       "Route": "css/MenuCliente.p2a17dwffk.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\MenuCliente.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\MenuCliente.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1590,7 +1590,7 @@
     },
     {
       "Route": "css/MenuFuncionario.7kct9o05gz.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\MenuFuncionario.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\MenuFuncionario.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1635,7 +1635,7 @@
     },
     {
       "Route": "css/MenuFuncionario.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\MenuFuncionario.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\MenuFuncionario.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1672,7 +1672,7 @@
     },
     {
       "Route": "css/Registo.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Registo.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Registo.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1709,7 +1709,7 @@
     },
     {
       "Route": "css/Registo.rjjzo7do08.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Registo.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Registo.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1754,7 +1754,7 @@
     },
     {
       "Route": "favicon_io/android-chrome-192x192.9jy5o5gfvj.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\android-chrome-192x192.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\android-chrome-192x192.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1799,7 +1799,7 @@
     },
     {
       "Route": "favicon_io/android-chrome-192x192.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\android-chrome-192x192.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\android-chrome-192x192.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1836,7 +1836,7 @@
     },
     {
       "Route": "favicon_io/android-chrome-512x512.20zjvzmakh.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\android-chrome-512x512.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\android-chrome-512x512.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1881,7 +1881,7 @@
     },
     {
       "Route": "favicon_io/android-chrome-512x512.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\android-chrome-512x512.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\android-chrome-512x512.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1918,7 +1918,7 @@
     },
     {
       "Route": "favicon_io/apple-touch-icon.4p0r6t7dg6.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\apple-touch-icon.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\apple-touch-icon.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1963,7 +1963,7 @@
     },
     {
       "Route": "favicon_io/apple-touch-icon.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\apple-touch-icon.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\apple-touch-icon.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2000,7 +2000,7 @@
     },
     {
       "Route": "favicon_io/favicon.9w8frduh2q.ico",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon.ico",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon.ico",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2045,7 +2045,7 @@
     },
     {
       "Route": "favicon_io/favicon.ico",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon.ico",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon.ico",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2082,7 +2082,7 @@
     },
     {
       "Route": "favicon_io/favicon-16x16.b7ux454gsy.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon-16x16.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon-16x16.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2127,7 +2127,7 @@
     },
     {
       "Route": "favicon_io/favicon-16x16.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon-16x16.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon-16x16.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2164,7 +2164,7 @@
     },
     {
       "Route": "favicon_io/favicon-32x32.5n7gw9ibsa.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon-32x32.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon-32x32.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2209,7 +2209,7 @@
     },
     {
       "Route": "favicon_io/favicon-32x32.png",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon-32x32.png",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon-32x32.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2246,7 +2246,7 @@
     },
     {
       "Route": "favicon_io/site.6sx6pifph3.webmanifest",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\site.webmanifest",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\site.webmanifest",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2291,7 +2291,7 @@
     },
     {
       "Route": "favicon_io/site.webmanifest",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\site.webmanifest",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\site.webmanifest",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2328,7 +2328,7 @@
     },
     {
       "Route": "LI4.bundle.scp.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2365,7 +2365,7 @@
     },
     {
       "Route": "LI4.idl4chxgbu.bundle.scp.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2410,7 +2410,7 @@
     },
     {
       "Route": "LI4.idl4chxgbu.styles.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\bundle\\LI4.styles.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\bundle\\LI4.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2455,7 +2455,7 @@
     },
     {
       "Route": "LI4.styles.css",
-      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\bundle\\LI4.styles.css",
+      "AssetFile": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\bundle\\LI4.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {

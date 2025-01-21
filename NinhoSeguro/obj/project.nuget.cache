@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZSbyqig3uNk=",
+  "dgSpecHash": "z6F2LJhVkeA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\LI4.csproj",
+  "projectFilePath": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\LI4.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\filip\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\filip\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

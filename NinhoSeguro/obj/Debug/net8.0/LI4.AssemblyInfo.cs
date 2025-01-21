@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LI4")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01f209134e5c4d83421aaa4c2f24e48c3ba0f55d")]
 [assembly: System.Reflection.AssemblyProductAttribute("LI4")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LI4")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

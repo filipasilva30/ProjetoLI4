@@ -1,0 +1,9 @@
+/LI4/_Imports.razor
+.vs/
+*.suo
+bin/
+obj/
+wwwroot/_framework/
+*.json.gz
+*.pdb.gz
+*.wasm.gz

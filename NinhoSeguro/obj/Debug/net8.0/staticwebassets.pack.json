@@ -1,95 +1,95 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css",
       "PackagePath": "staticwebassets\\LI4.idl4chxgbu.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\box.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\box.png",
       "PackagePath": "staticwebassets\\assets\\box.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\exit.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\exit.png",
       "PackagePath": "staticwebassets\\assets\\exit.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\in-stock.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\in-stock.png",
       "PackagePath": "staticwebassets\\assets\\in-stock.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\logo.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\logo.png",
       "PackagePath": "staticwebassets\\assets\\logo.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\package.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\package.png",
       "PackagePath": "staticwebassets\\assets\\package.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\production.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\production.png",
       "PackagePath": "staticwebassets\\assets\\production.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\sino.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\sino.png",
       "PackagePath": "staticwebassets\\assets\\sino.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\user.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\user.png",
       "PackagePath": "staticwebassets\\assets\\user.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Encomendas.css",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Encomendas.css",
       "PackagePath": "staticwebassets\\css\\Encomendas.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\IniciarEncomenda.css",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\IniciarEncomenda.css",
       "PackagePath": "staticwebassets\\css\\IniciarEncomenda.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\LinhadeMontagem.css",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\LinhadeMontagem.css",
       "PackagePath": "staticwebassets\\css\\LinhadeMontagem.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Login.css",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Login.css",
       "PackagePath": "staticwebassets\\css\\Login.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\MenuCliente.css",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\MenuCliente.css",
       "PackagePath": "staticwebassets\\css\\MenuCliente.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\MenuFuncionario.css",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\MenuFuncionario.css",
       "PackagePath": "staticwebassets\\css\\MenuFuncionario.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Registo.css",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Registo.css",
       "PackagePath": "staticwebassets\\css\\Registo.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\android-chrome-192x192.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\android-chrome-192x192.png",
       "PackagePath": "staticwebassets\\favicon_io\\android-chrome-192x192.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\android-chrome-512x512.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\android-chrome-512x512.png",
       "PackagePath": "staticwebassets\\favicon_io\\android-chrome-512x512.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\apple-touch-icon.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\apple-touch-icon.png",
       "PackagePath": "staticwebassets\\favicon_io\\apple-touch-icon.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon-16x16.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon-16x16.png",
       "PackagePath": "staticwebassets\\favicon_io\\favicon-16x16.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon-32x32.png",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon-32x32.png",
       "PackagePath": "staticwebassets\\favicon_io\\favicon-32x32.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon.ico",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon_io\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\site.webmanifest",
+      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\site.webmanifest",
       "PackagePath": "staticwebassets\\favicon_io\\site.webmanifest"
     },
     {
