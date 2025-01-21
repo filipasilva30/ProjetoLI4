@@ -1,95 +1,415 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css",
-      "PackagePath": "staticwebassets\\LI4.idl4chxgbu.bundle.scp.css"
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\LI4.bundle.scp.css",
+      "PackagePath": "staticwebassets\\LI4.ed9750s332.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\box.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\IMG_2170.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\IMG_2170.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\IMG_2171.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\IMG_2171.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\IMG_2172.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\IMG_2172.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto1_0.jpg",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto1_0.jpg"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto1_1.jpg",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto1_1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto1_2.jpg",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto1_2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto1_3.jpg",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto1_3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto1_4.jpg",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto1_4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto1_5.jpg",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto1_5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_0.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_0.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_1.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_1.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_10.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_10.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_11.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_11.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_12.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_12.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_13.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_13.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_14.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_14.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_15.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_15.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_16.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_16.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_17.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_17.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_18.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_18.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_19.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_19.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_2.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_2.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_20.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_20.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_21.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_21.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_22.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_22.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_23.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_23.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_24.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_24.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_25.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_25.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_26.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_26.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_27.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_27.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_3.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_3.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_4.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_4.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_5.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_5.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_6.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_6.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_7.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_7.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_8.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_8.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto2_9.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto2_9.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_0.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_0.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_1.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_1.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_10.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_10.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_11.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_11.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_12.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_12.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_13.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_13.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_14.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_14.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_15.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_15.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_16.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_16.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_17.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_17.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_18.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_18.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_19.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_19.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_2.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_2.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_20.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_20.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_21.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_21.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_22.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_22.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_23.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_23.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_24.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_24.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_25.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_25.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_26.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_26.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_27.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_27.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_28.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_28.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_29.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_29.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_3.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_3.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_30.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_30.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_31.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_31.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_32.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_32.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_33.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_33.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_34.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_34.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_35.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_35.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_36.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_36.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_37.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_37.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_38.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_38.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_39.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_39.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_4.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_4.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_40.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_40.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_41.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_41.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_42.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_42.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_5.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_5.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_6.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_6.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_7.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_7.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_8.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_8.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\Fotoslinhamontagem\\produto3_9.PNG",
+      "PackagePath": "staticwebassets\\assets\\Fotoslinhamontagem\\produto3_9.PNG"
+    },
+    {
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\box.png",
       "PackagePath": "staticwebassets\\assets\\box.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\exit.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\exit.png",
       "PackagePath": "staticwebassets\\assets\\exit.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\in-stock.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\in-stock.png",
       "PackagePath": "staticwebassets\\assets\\in-stock.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\logo.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\logo.png",
       "PackagePath": "staticwebassets\\assets\\logo.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\package.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\package.png",
       "PackagePath": "staticwebassets\\assets\\package.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\production.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\production.png",
       "PackagePath": "staticwebassets\\assets\\production.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\sino.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\sino.png",
       "PackagePath": "staticwebassets\\assets\\sino.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\assets\\user.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\assets\\user.png",
       "PackagePath": "staticwebassets\\assets\\user.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Encomendas.css",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Encomendas.css",
       "PackagePath": "staticwebassets\\css\\Encomendas.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\IniciarEncomenda.css",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\IniciarEncomenda.css",
       "PackagePath": "staticwebassets\\css\\IniciarEncomenda.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\LinhadeMontagem.css",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\LinhadeMontagem.css",
       "PackagePath": "staticwebassets\\css\\LinhadeMontagem.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Login.css",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Login.css",
       "PackagePath": "staticwebassets\\css\\Login.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\MenuCliente.css",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\MenuCliente.css",
       "PackagePath": "staticwebassets\\css\\MenuCliente.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\MenuFuncionario.css",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\MenuFuncionario.css",
       "PackagePath": "staticwebassets\\css\\MenuFuncionario.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\css\\Registo.css",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\css\\Registo.css",
       "PackagePath": "staticwebassets\\css\\Registo.css"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\android-chrome-192x192.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\android-chrome-192x192.png",
       "PackagePath": "staticwebassets\\favicon_io\\android-chrome-192x192.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\android-chrome-512x512.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\android-chrome-512x512.png",
       "PackagePath": "staticwebassets\\favicon_io\\android-chrome-512x512.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\apple-touch-icon.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\apple-touch-icon.png",
       "PackagePath": "staticwebassets\\favicon_io\\apple-touch-icon.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon-16x16.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon-16x16.png",
       "PackagePath": "staticwebassets\\favicon_io\\favicon-16x16.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon-32x32.png",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon-32x32.png",
       "PackagePath": "staticwebassets\\favicon_io\\favicon-32x32.png"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\favicon.ico",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon_io\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\filip\\OneDrive\\Ambiente de Trabalho\\novoli4\\LI4\\wwwroot\\favicon_io\\site.webmanifest",
+      "Id": "C:\\Users\\maria\\OneDrive\\Ambiente de Trabalho\\ProjetoLI4\\NinhoSeguro\\wwwroot\\favicon_io\\site.webmanifest",
       "PackagePath": "staticwebassets\\favicon_io\\site.webmanifest"
     },
     {

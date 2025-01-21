@@ -10,17 +10,17 @@
     <div class="container">
         <div class="left-panel">
             <div class="select-box-container">
-                <select class="select-box" @onclick="SelecionarProduto">
+                <select class="select-box" @onchange="SelecionarProduto">
                     @foreach (var produto in produtos)
                     {
-                        <option value="@produto">@produto</option>
+                        <option value="@produto" selected="@(produto == selectedProduct)">@produto</option>
                     }
                 </select>
             </div>
 
-            <p><b>Tempo estimado:</b> @(tempoEstimado < 1 ? $"{Math.Round(tempoEstimado * 60)} minutos" : $"{tempoEstimado} horas")</p>
+            <p><b>Tempo estimado:</b> @(tempoEstimado < 1 ? $"{Math.Round(tempoEstimado * 60)} minutos" : $"{Math.Floor(tempoEstimado)} horas e {Math.Round((tempoEstimado - Math.Floor(tempoEstimado)) * 60)} minutos")</p>
             <p><b>Descrição:</b> @descricao</p>
-            <p><b>Etapa:</b> @etapa</p>
+            <p><b>Etapa:</b> @(etapa + 1) / @totalEtapas</p>
             <p><b>Estado:</b> @estado</p>
 
             <div class="progress-bar">
@@ -30,7 +30,7 @@
 
             <div class="nav-buttons">
                 <button @onclick="EtapaAnterior" disabled="@(etapa == 0)">Anterior</button>
-                <button @onclick="ProximaEtapa" disabled="@(etapa == 4)">Próxima</button>
+                <button @onclick="ProximaEtapa" disabled="@(etapa == totalEtapas - 1)">Próxima</button>
             </div>
         </div>
 
@@ -52,13 +52,14 @@
     private int progresso = 0;
     private double tempoEstimado;
     private string imagemProduto;
+    private int totalEtapas;
 
     private Dictionary<string, (string descricao, double tempoTotal, string[] imagens)> produtosInfo =
         new Dictionary<string, (string, double, string[])>
         {
-            { "Produto #1", ("Casa tamanho S cujos materiais utilizados são Madeira Pinho e Acácia", 1.0, new string[] { "assets/produto1_0.png", "assets/produto1_25.png", "assets/produto1_50.png", "assets/produto1_75.png", "assets/produto1_100.png" }) },
-            { "Produto #2", ("Casa tamanho M cujos materiais utilizados são madeira de Acácia e Wenge", 3.0, new string[] { "assets/produto2_0.png", "assets/produto2_25.png", "assets/produto2_50.png", "assets/produto2_75.png", "assets/produto2_100.png" }) },
-            { "Produto #3", ("Casa tamanho L cujos materiais utilizados são madeira Acácia e Rosewood", 4.0, new string[] { "assets/produto3_0.png", "assets/produto3_25.png", "assets/produto3_50.png", "assets/produto3_75.png", "assets/produto3_100.png" }) }
+            { "Produto #1", ("Casa tamanho S cujos materiais utilizados são Madeira Pinho e Acácia", 1.0, Enumerable.Range(0, 6).Select(i => $"assets/Fotoslinhamontagem/produto1_{i}.jpg").ToArray()) },
+            { "Produto #2", ("Casa tamanho M cujos materiais utilizados são madeira de Acácia e Wenge", 3.0, Enumerable.Range(0, 28).Select(i => $"assets/Fotoslinhamontagem/produto2_{i}.png").ToArray()) },
+            { "Produto #3", ("Casa tamanho L cujos materiais utilizados são madeira Acácia e Rosewood", 4.0, Enumerable.Range(0, 43).Select(i => $"assets/Fotoslinhamontagem/produto3_{i}.png").ToArray()) }
         };
 
     private List<string> produtos = new List<string>
@@ -73,9 +74,9 @@
         AtualizarProduto();
     }
 
-    private void SelecionarProduto()
+    private void SelecionarProduto(ChangeEventArgs e)
     {
-        selectedProduct = produtos.FirstOrDefault(p => p == selectedProduct) ?? "Produto #1";
+        selectedProduct = e.Value?.ToString() ?? "Produto #1";
         etapa = 0;
         AtualizarProduto();
     }
@@ -84,15 +85,16 @@
     {
         var produtoAtual = produtosInfo[selectedProduct];
         descricao = produtoAtual.descricao;
-        tempoEstimado = produtoAtual.tempoTotal - (etapa * produtoAtual.tempoTotal / 4);
-        progresso = etapa * 25;
-        estado = etapa == 0 ? "Em espera" : etapa == 4 ? "Finalizado" : "Em processamento";
+        totalEtapas = produtoAtual.imagens.Length;
+        tempoEstimado = produtoAtual.tempoTotal - (etapa * produtoAtual.tempoTotal / totalEtapas);
+        progresso = (int)((etapa / (double)(totalEtapas - 1)) * 100);
+        estado = etapa == 0 ? "Em espera" : etapa == totalEtapas - 1 ? "Finalizado" : "Em processamento";
         imagemProduto = produtoAtual.imagens[etapa];
     }
 
     private void ProximaEtapa()
     {
-        if (etapa < 4)
+        if (etapa < totalEtapas - 1)
         {
             etapa++;
             AtualizarProduto();
