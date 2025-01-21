@@ -1,0 +1,126 @@
+body {
+    background-color: #2c2b2b; 
+    margin: 0;
+    height: 100vh;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.container {
+    display: flex;
+    width: 800px;
+    background-color: #e6e6e6;
+    box-shadow: inset 0 0 3px 2px grey, 0 0 0 1px black;
+    padding: 20px;
+}
+
+.left-panel {
+    width: 50%;
+    padding: 20px;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 18px;
+    color: black;
+}
+
+.right-panel {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img.produto-img {
+    width: 80%;
+    height: auto;
+    border: 1px solid black;
+}
+
+.progress-bar {
+    width: 80%;
+    height: 25px;
+    background-color: white;
+    border: 1px solid black;
+    margin-top: 20px;
+    position: relative;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: grey;
+    width: 0;
+    transition: width 0.5s ease;
+}
+
+.progress-bar span {
+    position: absolute;
+    top: 0; /* Posiciona no topo da barra */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajusta para o centro exato */
+    font-weight: bold;
+    color: black;
+    line-height: 25px; /* Garante alinhamento vertical */
+}
+
+
+h1 {
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.select-box {
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    font-family: 'Comic Sans MS', cursive;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #ece8e8;
+    box-shadow: inset 0 0 3px 2px grey, 0 0 0 1px black;
+    appearance: none; /* Remove o estilo padrão do navegador */
+    -webkit-appearance: none; /* Para navegadores baseados em WebKit */
+    -moz-appearance: none; /* Para Firefox */
+    cursor: pointer;
+}
+
+/* Adiciona um ícone de seta para o select */
+.select-box-container {
+    position: relative;
+    display: inline-block;
+}
+
+.select-box-container::after {
+    content: '▼';
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: black;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #ece8e8;
+    font-family: 'Comic Sans MS', cursive;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: inset 0 0 3px 2px grey, 0 0 0 1px black;
+}
+
+button:hover {
+    background-color: #1c1c1cd7; 
+    color: white;
+    transform: scale(1.05);
+}

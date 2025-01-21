@@ -1,0 +1,47 @@
+@page "/encomendas"
+@using LI4.Data.Models
+@inject NavigationManager NavigationManager
+
+<link rel="stylesheet" href="css/Encomendas.css" />
+
+<div class="porta">
+    <img src="assets/exit.png" alt="exit" class="porta" @onclick="exitPage" /> 
+</div>
+
+<div class="tabela-container">
+    <h1 class="titulo">Encomendas</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Em espera</th>
+                <th>Em produção</th>
+                <th>Entregue</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < 6; i++)
+            {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button class="botao-voltar" @onclick="VoltarMenu">Voltar</button>
+</div>
+
+@code {
+    private void VoltarMenu()
+    {
+        NavigationManager.NavigateTo("/menufuncionario");
+    }
+
+    private void exitPage()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

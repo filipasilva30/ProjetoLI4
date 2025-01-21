@@ -1,0 +1,115 @@
+@page "/linhademontagem"
+@using LI4.Data.Models
+@inject NavigationManager NavigationManager
+
+<link rel="stylesheet" href="css/LinhadeMontagem.css" />
+
+<div class="menu-funcionario-container">
+    <h1 class="titulo">Linha de Montagem</h1>
+
+    <div class="container">
+        <div class="left-panel">
+            <div class="select-box-container">
+                <select class="select-box" @onclick="SelecionarProduto">
+                    @foreach (var produto in produtos)
+                    {
+                        <option value="@produto">@produto</option>
+                    }
+                </select>
+            </div>
+
+            <p><b>Tempo estimado:</b> @(tempoEstimado < 1 ? $"{Math.Round(tempoEstimado * 60)} minutos" : $"{tempoEstimado} horas")</p>
+            <p><b>Descrição:</b> @descricao</p>
+            <p><b>Etapa:</b> @etapa</p>
+            <p><b>Estado:</b> @estado</p>
+
+            <div class="progress-bar">
+                <div class="progress-bar-fill" style="width:@progresso%"></div>
+                <span>@progresso%</span>
+            </div>
+
+            <div class="nav-buttons">
+                <button @onclick="EtapaAnterior" disabled="@(etapa == 0)">Anterior</button>
+                <button @onclick="ProximaEtapa" disabled="@(etapa == 4)">Próxima</button>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <img src="@imagemProduto" alt="Produto" class="produto-img" />
+        </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 20px;">
+        <button @onclick="Voltar">Voltar</button>
+    </div>
+</div>
+
+@code {
+    private string selectedProduct = "Produto #1";
+    private int etapa = 0;
+    private string estado = "Em espera";
+    private string descricao;
+    private int progresso = 0;
+    private double tempoEstimado;
+    private string imagemProduto;
+
+    private Dictionary<string, (string descricao, double tempoTotal, string[] imagens)> produtosInfo =
+        new Dictionary<string, (string, double, string[])>
+        {
+            { "Produto #1", ("Casa tamanho S cujos materiais utilizados são Madeira Pinho e Acácia", 1.0, new string[] { "assets/produto1_0.png", "assets/produto1_25.png", "assets/produto1_50.png", "assets/produto1_75.png", "assets/produto1_100.png" }) },
+            { "Produto #2", ("Casa tamanho M cujos materiais utilizados são madeira de Acácia e Wenge", 3.0, new string[] { "assets/produto2_0.png", "assets/produto2_25.png", "assets/produto2_50.png", "assets/produto2_75.png", "assets/produto2_100.png" }) },
+            { "Produto #3", ("Casa tamanho L cujos materiais utilizados são madeira Acácia e Rosewood", 4.0, new string[] { "assets/produto3_0.png", "assets/produto3_25.png", "assets/produto3_50.png", "assets/produto3_75.png", "assets/produto3_100.png" }) }
+        };
+
+    private List<string> produtos = new List<string>
+    {
+        "Produto #1",
+        "Produto #2",
+        "Produto #3"
+    };
+
+    protected override void OnInitialized()
+    {
+        AtualizarProduto();
+    }
+
+    private void SelecionarProduto()
+    {
+        selectedProduct = produtos.FirstOrDefault(p => p == selectedProduct) ?? "Produto #1";
+        etapa = 0;
+        AtualizarProduto();
+    }
+
+    private void AtualizarProduto()
+    {
+        var produtoAtual = produtosInfo[selectedProduct];
+        descricao = produtoAtual.descricao;
+        tempoEstimado = produtoAtual.tempoTotal - (etapa * produtoAtual.tempoTotal / 4);
+        progresso = etapa * 25;
+        estado = etapa == 0 ? "Em espera" : etapa == 4 ? "Finalizado" : "Em processamento";
+        imagemProduto = produtoAtual.imagens[etapa];
+    }
+
+    private void ProximaEtapa()
+    {
+        if (etapa < 4)
+        {
+            etapa++;
+            AtualizarProduto();
+        }
+    }
+
+    private void EtapaAnterior()
+    {
+        if (etapa > 0)
+        {
+            etapa--;
+            AtualizarProduto();
+        }
+    }
+
+    private void Voltar()
+    {
+        NavigationManager.NavigateTo("/menufuncionario");
+    }
+}

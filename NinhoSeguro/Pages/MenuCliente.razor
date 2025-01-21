@@ -1,0 +1,27 @@
+﻿@page "/menucliente"
+@using LI4.Data.Models
+@inject NavigationManager NavigationManager
+
+<link rel="stylesheet" href="css/MenuCliente.css" />
+
+<div class="porta">
+    <img src="assets/exit.png" alt="exit" class="porta" @onclick="NavigateToHome" /> 
+</div>
+
+<div class="menu-cliente-container">
+    <h1 class="titulo">Menu</h1>
+    <button class="botao encomendar">Encomendar <img src="assets/package.png" alt="pacote" class="imagem" /> </button>
+    <button class="botao historico">Histórico <img src="assets/box.png" alt="box" class="imagem2" /> </button>
+</div>
+
+<div class="notificacao">
+    <img src="assets/sino.png" alt="sino" class="sino" /> <!-- @onclick="AbrirNovaAba"  -->
+</div>
+
+@code {
+
+    private void NavigateToHome()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

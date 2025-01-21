@@ -1,0 +1,109 @@
+﻿body {
+    background-color: #efd5b3eb; /* Cor de fundo */
+    font-family: 'Comic Sans MS', cursive;
+    font-weight: 600;
+}
+
+.login-container {
+    width: 350px;
+    margin: 0 auto;
+    padding-top: 100px;
+    text-align: center;
+}
+
+.logo {
+    width: 200px; 
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.editform {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: lightgrey;
+}
+
+input {
+    margin-top: 10px;
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 90%;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 3px 1px grey, 0 0 0 1px black;
+    font-size: 14px;
+}
+
+button {
+    padding: 11px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #4cff00;
+    color: black;
+    width: 70%;
+    font-size: 14px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 3px 1px grey, 0 0 0 1px black;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+button[type="submit"] {
+    margin-top: 20px;
+    background-color: #d7d1d1ff;
+}
+
+button[type="button"] {
+    margin-top: 20px;
+    background-color: #d7d1d1ff;
+}
+
+
+button[type="submit"]:hover {
+    background-color: #5c4936; 
+    color: white; 
+    transform: scale(1.05);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease; /
+}
+
+button[type="button"]:hover {
+    background-color: #5c4936; 
+    color: white; 
+    transform: scale(1.05); 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
+    transition: all 0.3s ease;
+}
+
+
+.label-password {
+    position: relative;
+    top: 8px;
+    left: -132px;
+    color: #;
+    font-weight: bold;
+    text-align: left;
+}
+
+.label-username {
+    position: relative;
+    top: 8px;
+    left: -120px;
+    color: black;
+    font-weight: bold;
+    text-align: left;
+}
