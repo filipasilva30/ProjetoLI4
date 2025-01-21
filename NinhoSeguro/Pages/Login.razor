@@ -1,0 +1,47 @@
+﻿@page "/"
+@using LI4.Data.Models
+@inject NavigationManager NavigationManager
+
+<link rel="stylesheet" href="css/Login.css" />
+
+<div class="login-container">
+    <img src="assets/logo.png" alt="Logo" class="logo" />
+
+    <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+        <div>
+            <label for="username" class="label-username">Username</label>
+            <InputText id="username" @bind-Value="loginModel.Username" />
+        </div>
+        <div>
+            <label for="password" class="label-password">Senha</label>
+            <InputText id="password" @bind-Value="loginModel.Password" type="password" />
+        </div>
+        <div class="actions">
+            <button type="submit">Iniciar sessão</button>
+            <button type="button" @onclick="NavigateToRegister">Registar</button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private LoginModel loginModel = new LoginModel();
+
+    private void HandleLogin()
+    {
+        if (loginModel.Username == "Fadmin" && loginModel.Password == "1234")
+        {
+            // Redirecionar para página principal após login bem-sucedido
+            NavigationManager.NavigateTo("/menufuncionario");
+        }
+        else
+        {
+            // Lógica para login falhado
+            Console.WriteLine("Login inválido!");
+        }
+    }
+
+    private void NavigateToRegister()
+    {
+        NavigationManager.NavigateTo("/registo");
+    }
+}

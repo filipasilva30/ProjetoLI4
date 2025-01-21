@@ -1,0 +1,53 @@
+@page "/menufuncionario"
+@using LI4.Data.Models
+@inject NavigationManager NavigationManager
+
+<link rel="stylesheet" href="css/MenuFuncionario.css" />
+
+<div class="porta">
+    <img src="assets/exit.png" alt="exit" class="porta" @onclick="exitPage" /> 
+</div>
+
+<div class="menu-funcionario-container">
+
+    <h1 class="titulo">Menu</h1>
+    <button class="botao encomendas" @onclick="NavigateToEncomendas">
+        Encomendas
+        <img src="assets/package.png" alt="Ícone" class="imagem"/>
+    </button>
+     <button class="botao linhademontagem" @onclick="NavigateToLinhadeMontagem">
+        Linha de Montagem
+        <img src="assets/production.png" alt="Ícone" class="imagem"/>
+    </button>
+    <button type="button" class="botao stock" @onclick="NavigateToConsultarStock">
+        Consultar Stock
+        <img src="assets/in-stock.png" alt="Ícone" class="imagem"/>
+    </button>
+        
+</div>
+
+
+
+@code {
+    
+
+    private void NavigateToEncomendas()
+    {
+        NavigationManager.NavigateTo("/encomendas");
+    }
+
+    private void NavigateToLinhadeMontagem()
+    {
+        NavigationManager.NavigateTo("/linhademontagem");
+    }
+
+    private void NavigateToConsultarStock()
+    {
+        NavigationManager.NavigateTo("/consultarstock");
+    }
+
+    private void exitPage()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

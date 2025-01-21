@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\LI4.props" />
+</Project>
