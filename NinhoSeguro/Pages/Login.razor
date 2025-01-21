@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using LI4.Data.Models
 @inject NavigationManager NavigationManager
+@inject LI4.Data.Services.LoginService LoginService
 
 <link rel="stylesheet" href="css/Login.css" />
 
@@ -21,22 +22,41 @@
             <button type="button" @onclick="NavigateToRegister">Registar</button>
         </div>
     </EditForm>
+
+    @if (!string.IsNullOrEmpty(loginMessage))
+    {
+        <div class="login-message">@loginMessage</div>
+    }
 </div>
 
 @code {
     private LoginModel loginModel = new LoginModel();
+    private string? loginMessage;
 
-    private void HandleLogin()
+    private async Task HandleLogin()
     {
-        if (loginModel.Username == "Fadmin" && loginModel.Password == "1234")
+        var (sucesso, mensagem, tipo, _) = await LoginService.IniciarSessaoAsync(loginModel);
+
+        if (sucesso)
         {
-            // Redirecionar para página principal após login bem-sucedido
-            NavigationManager.NavigateTo("/menufuncionario");
+            // Redireciona para o menu correto com base no tipo de utilizador
+            if (tipo == 1) // Cliente
+            {
+                NavigationManager.NavigateTo("/menucliente");
+            }
+            else if (tipo == 2) // Funcionário
+            {
+                NavigationManager.NavigateTo("/menufuncionario");
+            }
+            else
+            {
+                loginMessage = "Tipo de utilizador não reconhecido.";
+            }
         }
         else
         {
-            // Lógica para login falhado
-            Console.WriteLine("Login inválido!");
+            // Mostra mensagem de erro no login
+            loginMessage = mensagem;
         }
     }
 

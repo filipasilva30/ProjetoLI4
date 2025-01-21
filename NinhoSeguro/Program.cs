@@ -1,10 +1,15 @@
 using LI4;
+using LI4.Data;
+using LI4.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddSingleton<SqlDataAccess>();
+builder.Services.AddScoped<LoginService>();
 
 var app = builder.Build();
 
