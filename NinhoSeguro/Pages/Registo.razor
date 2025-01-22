@@ -64,6 +64,12 @@
         Console.WriteLine($"Registo realizado com sucesso: {registerModel.Username}");
     }
 
+    /* private async Task ProcessRegister()
+    {
+        var resultado = await RegisterService.RegistarClienteAsync(registerModel);
+        Console.WriteLine(resultado);
+    } */
+
     private void ClearForm()
     {
         registerModel = new RegisterModel();
