@@ -1,11 +1,12 @@
 ﻿@page "/registo"
 @using LI4.Data.Models
 @inject NavigationManager NavigationManager
+@inject LI4.Data.Services.RegisterService RegisterService
 
 <link rel="stylesheet" href="css/Registo.css" />
 <img src="assets/user.png" alt="Imagem de Registo" class="imagem-registo" />
 
-<EditForm Model="@registerModel" OnValidSubmit="@ProcessRegister">
+<EditForm Model="@registerModel" OnValidSubmit="@HandleRegister">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -48,7 +49,7 @@
 
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Registar</button>
-        <button type="button" class="btn btn-secondary" @onclick="CancelAndNavigate">Cancelar</button>
+        <button type="button" class="btn btn-secondary" @onclick="NavigateToHome">Cancelar</button>
         <div class="form-obrigatorio">
             <p><span class="asterisk">(*) </span> Campo obrigatório</p>
         </div>
@@ -58,29 +59,21 @@
 
 @code {
     private RegisterModel registerModel = new RegisterModel();
+    private string? registerMessage;
 
-    private void ProcessRegister()
+    private async Task HandleRegister()
     {
-        Console.WriteLine($"Registo realizado com sucesso: {registerModel.Username}");
-    }
+        var result = await RegisterService.RegistarClienteAsync(registerModel);
 
-    /* private async Task ProcessRegister()
-    {
-        var resultado = await RegisterService.RegistarClienteAsync(registerModel);
-        Console.WriteLine(resultado);
-    } */
-
-    private void ClearForm()
-    {
-        registerModel = new RegisterModel();
-    }
-
-
-    // juntar estes navigates num ficheiro .razor
-    private void CancelAndNavigate()
-    {
-        ClearForm(); // Limpa o formulário
-        NavigateToHome(); // Navega para a página inicial
+        if (result == "Cliente registado com sucesso!")
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            // Mostra a mensagem de erro na interface
+            registerMessage = result;
+        }
     }
 
     private void NavigateToHome()
