@@ -97,5 +97,23 @@ namespace LI4.Data.Services
 
             return encomenda[0].Estado;
         }
+
+        public async Task<string> AtualizarEstadoEncomendaAsync(int encomendaId, string novoEstado)
+        {
+            var encomenda = await _db.LoadData<Encomenda, dynamic>("SELECT * FROM Encomenda WHERE Numero = @IdEncomenda",
+                                                                   new { IdEncomenda = encomendaId });
+
+            if (encomenda == null || encomenda.Count == 0)
+            {
+                return "Encomenda não encontrada.";
+            }
+
+            var sql = "UPDATE Encomenda SET Estado = @Estado WHERE Numero = @IdEncomenda";
+            var parametros = new { Estado = novoEstado, IdEncomenda = encomendaId };
+
+            await _db.SaveData(sql, parametros);
+
+            return "Estado da encomenda atualizado com sucesso!";
+        }
     }
 }
