@@ -1,0 +1,92 @@
+/* Estilo geral da página de pagamento */
+.pagamento-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+.pagamento-container h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+/* Estilo da tabela de resumo de pagamento */
+.tabela-pagamento {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tabela-pagamento th, .tabela-pagamento td {
+    border: 1px solid #ffffff;
+    padding: 15px;
+    text-align: left;
+}
+
+.tabela-pagamento th {
+    background-color: #444;
+    font-weight: bold;
+}
+
+.tabela-pagamento td {
+    background-color: #333;
+}
+
+.tabela-pagamento tr:nth-child(even) {
+    background-color: #3a3a3a;
+}
+
+/* Estilização dos botões de ação */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn-cancelar, .btn-confirmar {
+    background-color: #ff4d4d;
+    border: none;
+    padding: 15px 30px;
+    color: #ffffff;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-cancelar:hover {
+    background-color: #ff3333;
+}
+
+.btn-confirmar {
+    background-color: #4caf50;
+}
+
+.btn-confirmar:hover {
+    background-color: #45a049;
+}
+
+/* Estilização responsiva */
+@media (max-width: 768px) {
+    .pagamento-container {
+        padding: 20px;
+    }
+
+    .btn-cancelar, .btn-confirmar {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}
