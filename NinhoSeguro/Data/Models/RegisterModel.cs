@@ -20,7 +20,7 @@ namespace LI4.Data.Models
         public string Password { get; set; }
 
         [Required(ErrorMessage = "O contacto telefónico é obrigatório.")]
-        [RegularExpression(@"^\d{9}$", ErrorMessage = "O contato telefónico deve ter 9 dígitos.")]
+        [RegularExpression(@"^\d{9}$", ErrorMessage = "O contacto telefónico deve ter 9 dígitos.")]
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "O NIF é obrigatório.")]

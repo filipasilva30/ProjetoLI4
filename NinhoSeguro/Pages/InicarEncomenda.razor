@@ -1,16 +1,5 @@
-﻿@page "/iniciarencomenda"
-@using LI4.Data.Services
-@inject OrderService OrderService
-
-<h3>InicarEncomenda</h3>
-
-<button @onclick="CriarEncomenda">Criar Encomenda</button>
+﻿<h3>InicarEncomenda</h3>
 
 @code {
-    private async Task CriarEncomenda()
-    {
-        // Exemplo de chamada ao serviço
-        await OrderService.IniciarEncomendaAsync("produtoXYZ");
-        Console.WriteLine("Encomenda criada com sucesso.");
-    }
+
 }
