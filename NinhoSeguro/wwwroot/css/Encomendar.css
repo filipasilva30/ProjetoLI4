@@ -102,7 +102,7 @@
 
         .botao.pagar:hover {
             color: white;
-            background-color: #308133c7;
+            background-color: #494a49 ; 
             transform: scale(1.05);
             box-shadow: 0px 4px 6px #0000004D;
         }
