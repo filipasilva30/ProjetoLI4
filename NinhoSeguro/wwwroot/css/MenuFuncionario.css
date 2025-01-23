@@ -16,11 +16,10 @@ body {
 }
 
 .menu-funcionario-container {
-
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
-    gap: 30px; 
+    gap: 30px;
 }
 
 .botao {
@@ -93,12 +92,12 @@ body {
 /* a porta está com um erro no hover*/
 
 .porta {
-    position: absolute; 
-    top: -155px; 
+    position: absolute;
+    top: -135px;
     right: -265px;
     width: 60px;
     height: auto;
-    transition: transform 0.3s ease, filter 0.3s ease; 
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
     .porta:hover {
