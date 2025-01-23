@@ -1,0 +1,60 @@
+@page "/consultarstock"
+@using LI4.Data.Models
+@inject NavigationManager NavigationManager
+
+<link rel="stylesheet" href="css/ConsultarStock.css" />
+
+<div class="stock-container">
+    <h1 class="titulo">STOCK</h1>
+    <div class="stock-list">
+        @foreach (var item in stockItems)
+        {
+            <div class="stock-item">
+                <div class="stock-info">
+                    <p class="stock-title">@item.Nome</p>
+                    <p class="stock-quantidade">@item.Quantidade Unidades</p>
+                </div>
+                <div class="stock-image">
+                    <img src="@item.ImagemUrl" alt="@item.Nome" />
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="nav-buttons">
+        <button @onclick="Voltar">Voltar</button>
+        <button @onclick="ReporStock">Repor</button>
+    </div>
+</div>
+
+@code {
+    private List<StockItem> stockItems = new()
+    {
+        new StockItem { Nome = "Tábua de madeira do tipo Acácia", Quantidade = 30, ImagemUrl = "assets/Stock/tabua_acacia.png" },
+        new StockItem { Nome = "Tábua de madeira do tipo Pinho", Quantidade = 20, ImagemUrl = "assets/Stock/tabua_pinho.png" },
+        new StockItem { Nome = "Tábua de madeira do tipo Rosewood", Quantidade = 15, ImagemUrl = "assets/Stock/tabua_rosewood.png" },
+        new StockItem { Nome = "Tábua de madeira do tipo Wenge", Quantidade = 10, ImagemUrl = "assets/Stock/tabua_wenge.png" },
+        new StockItem { Nome = "Cilindro de madeira do tipo Acácia", Quantidade = 5, ImagemUrl = "assets/Stock/cilindro.png" },
+        new StockItem { Nome = "Tubo de madeira do tipo Acácia", Quantidade = 8, ImagemUrl = "assets/Stock/tubo.png" },
+        new StockItem { Nome = "Casa de Tamanho S que envolve materiais como Pinho e Acácia", Quantidade = 3, ImagemUrl = "assets/casas/casa1.png" },
+        new StockItem { Nome = "Casa de Tamanho M que envolve materiais como Acácia e Wenge", Quantidade = 2, ImagemUrl = "assets/casas/casa2.png" },
+        new StockItem { Nome = "Casa de Tamanho L que envolve materiais como Acácia e Rosewood", Quantidade = 1, ImagemUrl = "assets/casas/casa3.png" }
+    };
+
+    private void Voltar()
+    {
+        NavigationManager.NavigateTo("/menufuncionario");
+    }
+
+    private void ReporStock()
+    {
+        // Lógica para repor o stock (a ser implementada)
+    }
+
+    private class StockItem
+    {
+        public string Nome { get; set; }
+        public int Quantidade { get; set; }
+        public string ImagemUrl { get; set; }
+    }
+}
