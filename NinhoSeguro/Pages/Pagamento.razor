@@ -1,0 +1,79 @@
+@page "/pagamento"
+@inject NavigationManager NavigationManager
+@using LI4.Data.Models
+
+<link rel="stylesheet" href="css/Pagamento.css" />
+
+<div class="pagamento-container">
+    <div class="header">
+        <h2 class="left">Encomenda #ID</h2>
+        <h3 class="right">#Nome</h3>
+    </div>
+    <hr />
+
+    <div class="info-encomenda">
+        <div>
+            <p><b>Efetuada em</b></p>
+            <p>25/11/2024</p>
+        </div>
+        <div>
+            <p><b>Data prevista de entrega</b></p>
+            <p>28/11/2024</p>
+        </div>
+        <div>
+            <p><b>NIF</b></p>
+            <p>246019359</p>
+        </div>
+        <div>
+            <p><b>Cliente</b></p>
+            <p>#ID</p>
+        </div>
+    </div>
+
+    <div class="tabela-produtos-scroll">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Unidades</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var produto in produtos)
+                {
+                    <tr>
+                        <td>@produto.Id</td>
+                        <td>@produto.Nome</td>
+                        <td>
+                            <div class="descricao-produto">
+                                @produto.Descricao
+                            </div>
+                        </td>
+                        <td>@produto.Quantidade</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="botoes">
+        <button class="botao pequeno cancelar" @onclick="Cancelar">Cancelar</button>
+        <button class="botao pequeno pagar">Efetuar pagamento</button>
+    </div>
+</div>
+
+@code {
+    private List<Produto> produtos = new List<Produto>
+    {
+        new Produto { Id = 1001, Nome = "Produto A", Descricao = "Casa tamanho S", Quantidade = 24 },
+        new Produto { Id = 1002, Nome = "Produto B", Descricao = "Casa tamanho M", Quantidade = 12 },
+        new Produto { Id = 1003, Nome = "Produto C", Descricao = "Casa tamanho L", Quantidade = 8 }
+    };
+
+    private void Cancelar()
+    {
+        NavigationManager.NavigateTo("/menucliente");
+    }
+}
