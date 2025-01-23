@@ -1,0 +1,56 @@
+﻿@page "/encomendar"
+@using LI4.Data.Models
+@inject NavigationManager NavigationManager
+
+<link rel="stylesheet" href="css/Encomendar.css" />
+
+<div class="menu-cliente-container">
+    <div class="container">
+        <div class="products-container">
+            @foreach (var produto in produtos)
+            {
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>@produto</h3>
+                        <p><b>Descrição:</b> @produtosInfo[produto].descricao</p>
+                        <p><b>Tipo dos materiais:</b> @produtosInfo[produto].materiais</p>
+                        <p><b>Preço:</b> @produtosInfo[produto].preco€</p>
+                        <p><b>Disponível:</b> @produtosInfo[produto].unidades unidades</p>
+                        <input type="number" min="0" class="input-quantidade" placeholder="0" />
+                        <label>Unidades</label>
+                    </div>
+                    <div class="product-image">
+                        <img src="@produtosInfo[produto].imagemUrl" alt="@produto" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 20px;">
+        <button class="botao cancelar" @onclick="Cancelar">Cancelar</button>
+        <button class="botao pagar">Pagar</button>
+    </div>
+</div>
+
+@code {
+    private List<string> produtos = new List<string>
+    {
+        "Produto #1",
+        "Produto #2",
+        "Produto #3"
+    };
+    // ir buscar tudo à base de dados, menos os materiais
+    private Dictionary<string, (string descricao, string materiais, double preco, int unidades, string imagemUrl)> produtosInfo =
+        new Dictionary<string, (string, string, double, int, string)>
+                {
+            { "Produto 1", ("Casa tamanho S", "Madeira Pinho e Acácia", 20.0, 2, "assets/produto1.png") },
+            { "Produto 2", ("Casa tamanho M", "Madeira Acácia e Wenge", 30.0, 5, "assets/produto2.png") },
+            { "Produto 3", ("Casa tamanho L", "Madeira Acácia e Rosewood", 45.0, 5, "assets/produto3.png") }
+                };
+
+    private void Cancelar() 
+    {
+        NavigationManager.NavigateTo("/menucliente");
+    }
+}
