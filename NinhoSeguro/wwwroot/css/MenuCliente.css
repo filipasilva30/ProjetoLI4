@@ -37,6 +37,12 @@
 }
 
 
+.botao-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
     .botao.encomendar {
         padding: 10px 5px;
         background-color: #ece8e8;
