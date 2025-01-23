@@ -56,9 +56,9 @@
     }
 
         .botao.historico:hover {
-            background-color: #1c1c1cd7; 
+            background-color: #1c1c1cd7;
             color: white;
-            transform: scale(1.05); 
+            transform: scale(1.05);
         }
 
 .imagem {
