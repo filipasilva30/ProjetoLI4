@@ -23,6 +23,7 @@ namespace LI4.Data.Services
         }
         public async Task<Encomenda> CriarEncomendaAsync(int clienteId, List<(Produto produto, int quantidade)> produtosEncomendados)
         {
+
             // Verificar se o cliente existe
             var cliente = await _db.LoadData<Utilizador, dynamic>("SELECT * FROM Utilizador WHERE Id = @ClienteId", new { ClienteId = clienteId });
             if (cliente == null || cliente.Count == 0)
@@ -33,7 +34,7 @@ namespace LI4.Data.Services
             // Calcular custo total
             decimal custoTotal = produtosEncomendados.Sum(item => item.produto.Preco * item.quantidade);
 
-            // Inserir a encomenda no banco e obter o número gerado
+
             var sqlEncomenda = @"INSERT INTO Encomenda (Custo, Data, DataPrevEntrega, PagamentoEfetuado, Estado, IdCliente) 
                          OUTPUT INSERTED.Numero 
                          VALUES (@Custo, @Data, @DataPrevEntrega, @PagamentoEfetuado, @Estado, @IdCliente)";
@@ -83,7 +84,9 @@ namespace LI4.Data.Services
                 Console.WriteLine($"Produto {item.produto.Nome} com quantidade {item.quantidade} foi inserido.");
             }
 
+
             return encomenda;
+
         }
 
         // lista de encomendas de um dado cliente
