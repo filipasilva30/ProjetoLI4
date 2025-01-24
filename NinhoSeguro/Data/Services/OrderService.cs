@@ -5,19 +5,39 @@ namespace LI4.Data.Services
 {
     public class OrderService
     {
+
         private readonly SqlDataAccess _db;
 
         public OrderService(SqlDataAccess db)
         {
             _db = db;
         }
+
+        public async Task<Utilizador> ObterClientePorIdAsync(int clienteId)
+        {
+            var sql = "SELECT Nome, NIF FROM Utilizador WHERE Id = @ClienteId";
+            var parametros = new { ClienteId = clienteId };
+
+            var clientes = await _db.LoadData<Utilizador, dynamic>(sql, parametros);
+            return clientes.FirstOrDefault();
+        }
         public async Task<Encomenda> CriarEncomendaAsync(int clienteId, List<(Produto produto, int quantidade)> produtosEncomendados)
         {
-            decimal custoTotal = produtosEncomendados.Sum(item => item.produto.Preco * item.quantidade); 
+
+            // Verificar se o cliente existe
+            var cliente = await _db.LoadData<Utilizador, dynamic>("SELECT * FROM Utilizador WHERE Id = @ClienteId", new { ClienteId = clienteId });
+            if (cliente == null || cliente.Count == 0)
+            {
+                throw new Exception("Cliente não encontrado.");
+            }
+
+            // Calcular custo total
+            decimal custoTotal = produtosEncomendados.Sum(item => item.produto.Preco * item.quantidade);
+
 
             var sqlEncomenda = @"INSERT INTO Encomenda (Custo, Data, DataPrevEntrega, PagamentoEfetuado, Estado, IdCliente) 
-                                    OUTPUT INSERTED.Numero 
-                                    VALUES (@Custo, @Data, @DataPrevEntrega, @PagamentoEfetuado, @Estado, @IdCliente)";
+                         OUTPUT INSERTED.Numero 
+                         VALUES (@Custo, @Data, @DataPrevEntrega, @PagamentoEfetuado, @Estado, @IdCliente)";
 
             var parametrosEncomenda = new
             {
@@ -28,6 +48,7 @@ namespace LI4.Data.Services
                 Estado = "Em espera",
                 IdCliente = clienteId
             };
+
             var encomendaId = (await _db.LoadData<int, dynamic>(sqlEncomenda, parametrosEncomenda)).FirstOrDefault();
 
             if (encomendaId == 0)
@@ -40,42 +61,32 @@ namespace LI4.Data.Services
                 Numero = encomendaId,
                 Custo = custoTotal,
                 Data = DateTime.Now,
-                DataPrevEntrega = DateTime.Now.AddDays(5),
+                DataPrevEntrega = DateTime.Now.AddDays(7),
                 PagamentoEfetuado = false,
                 Estado = "Em espera",
                 IdCliente = clienteId
             };
 
-            var queries = new Dictionary<string, object>();
+            // Inserir os produtos da encomenda um por um
+            var sqlProduto = @"INSERT INTO Encomenda_tem_Produto (Quantidade, NumEncomenda, IdProduto) 
+                       VALUES (@Quantidade, @NumEncomenda, @IdProduto)";
+
             foreach (var item in produtosEncomendados)
             {
-                var sqlProduto = @"INSERT INTO Encomenda_tem_Produto (Quantidade, NumEncomenda, IdProduto) 
-                   VALUES (@Quantidade, @NumEncomenda, @IdProduto)";
-
                 var parametrosProduto = new
                 {
                     Quantidade = item.quantidade,
-                    NumEncomenda = encomendaId,  
+                    NumEncomenda = encomendaId,
                     IdProduto = item.produto.Id
                 };
 
-                queries[sqlProduto] = parametrosProduto;
+                await _db.SaveData(sqlProduto, parametrosProduto);
+                Console.WriteLine($"Produto {item.produto.Nome} com quantidade {item.quantidade} foi inserido.");
             }
-            await _db.ExecuteTransaction(queries);
-            foreach (var item in produtosEncomendados)
-            {
-                int novaQuantidade = item.produto.Quantidade - item.quantidade;
 
-                if (novaQuantidade < 0)
-                {
-                    throw new Exception($"Quantidade insuficiente no stock para o produto {item.produto.Nome}.");
-                }
-                await _db.SaveData(
-                    "UPDATE Produto SET Quantidade = @NovaQuantidade WHERE Id = @ProdutoId",
-                    new { NovaQuantidade = novaQuantidade, ProdutoId = item.produto.Id }
-                );
-            }
-            return encomenda;   
+
+            return encomenda;
+
         }
 
         // lista de encomendas de um dado cliente
@@ -109,6 +120,21 @@ namespace LI4.Data.Services
             return encomenda[0].Estado;
         }
 
+        public async Task<List<Produto>> ListarProdutosPorEncomendaAsync(int encomendaId)
+        {
+            var sql = @"
+            SELECT p.Id, p.Nome, p.Descricao, ep.Quantidade, p.Preco
+            FROM Encomenda_tem_Produto ep
+            INNER JOIN Produto p ON ep.IdProduto = p.Id
+            WHERE ep.NumEncomenda = @NumEncomenda";
+
+            var parametros = new { NumEncomenda = encomendaId };
+
+            var produtos = await _db.LoadData<Produto, dynamic>(sql, parametros);
+            return produtos;
+        }
+
+
         public async Task<string> AtualizarEstadoEncomendaAsync(int encomendaId, string novoEstado)
         {
             var encomenda = await _db.LoadData<Encomenda, dynamic>("SELECT * FROM Encomenda WHERE Numero = @NumEncomenda",
@@ -125,6 +151,22 @@ namespace LI4.Data.Services
             await _db.SaveData(sql, parametros);
 
             return "Estado da encomenda atualizado com sucesso!";
+        }
+
+        public async Task<bool> AtualizarPagamentoEfetuadoAsync(int encomendaId)
+        {
+            var sql = "UPDATE Encomenda SET PagamentoEfetuado = 1 WHERE Numero = @NumEncomenda";
+            var parametros = new { NumEncomenda = encomendaId };
+
+            try
+            {
+                await _db.SaveData(sql, parametros);
+                return true; // Se não houver exceções, retorna verdadeiro.
+            }
+            catch (Exception)
+            {
+                return false; // Em caso de erro, retorna falso.
+            }
         }
     }
 }

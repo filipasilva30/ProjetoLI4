@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="css/Encomendar.css" />
 
 <div class="menu-cliente-container">
-    <div class="container">  
+    <div class="container">
         <h4>ID do Cliente: @clienteId</h4>
         <div class="products-container">
             @foreach (var produto in produtos)
@@ -22,10 +22,12 @@
                     <div class="product-info">
                         <h3>@produto.Nome</h3>
                         <p><b>Descrição:</b> @produto.Descricao</p>
-                        <p><b>Tipo dos materiais:</b> @GetMateriais(produto.Nome)</p>   
+                        <p><b>Tipo dos materiais:</b> @GetMateriais(produto.Nome)</p>
                         <p><b>Preço:</b> @produto.Preco €</p>
                         <p><b>Disponível:</b> @produto.Quantidade unidades</p>
-                        <input type="number" min="0" class="input-quantidade" placeholder="0" @bind="produtoQuantidade[produto.Id]" />
+                        <input type="number" min="0" class="input-quantidade" placeholder="0"
+                               @bind="produtoQuantidade[produto.Id]"
+                               @oninput="(e) => AtualizarQuantidade(produto.Id, e.Value.ToString())" />
                         <label>Unidades</label>
                     </div>
                     <div class="product-image">
@@ -44,7 +46,7 @@
 @code {
     private List<Produto> produtos = new List<Produto>();
     private Dictionary<int, int> produtoQuantidade = new Dictionary<int, int>(); // Armazena a quantidade de cada produto
-    private int clienteId; 
+    private int clienteId;
 
     protected override async Task OnInitializedAsync()
     {
@@ -71,6 +73,18 @@
         }
     }
 
+    private void AtualizarQuantidade(int produtoId, string value)
+    {
+        if (int.TryParse(value, out int quantidade))
+        {
+            produtoQuantidade[produtoId] = quantidade;
+        }
+        else
+        {
+            produtoQuantidade[produtoId] = 0;
+        }
+    }
+
     private void Cancelar()
     {
         NavigationManager.NavigateTo("/menucliente");
@@ -80,14 +94,15 @@
     {
         try
         {
-            var produtosEncomendados = produtos
-                .Where(p => produtoQuantidade.ContainsKey(p.Id) && produtoQuantidade[p.Id] > 0)
-                .Select(p => (p, produtoQuantidade[p.Id]))
-                .ToList();
+            var produtosEncomendados = new List<(Produto, int)>();
 
-            foreach (var item in produtosEncomendados)
+            foreach (var produto in produtos)
             {
-                Console.WriteLine($"Product: {item.p.Nome}, Quantity: {item.Item2}");
+                if (produtoQuantidade.ContainsKey(produto.Id) && produtoQuantidade[produto.Id] > 0)
+                {
+                    produtosEncomendados.Add((produto, produtoQuantidade[produto.Id]));
+                    Console.WriteLine($"Produto: {produto.Nome}, Quantidade: {produtoQuantidade[produto.Id]}");
+                }
             }
 
             if (produtosEncomendados.Any())
@@ -100,18 +115,17 @@
                 }
                 else
                 {
-                    Console.WriteLine("Failed to create order.");
+                    Console.WriteLine("Falha ao criar a encomenda.");
                 }
             }
             else
             {
-                Console.WriteLine("Please select at least one product.");
+                Console.WriteLine("Por favor, selecione pelo menos um produto.");
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error creating order: {ex.Message}");
-            Console.WriteLine($"Stack trace: {ex.StackTrace}");
+            Console.WriteLine($"Erro ao criar encomenda: {ex.Message}");
         }
     }
 
@@ -120,13 +134,13 @@
         switch (nomeProduto)
         {
             case "Produto 1":
-                return "casa1.png"; 
+                return "casa1.png";
             case "Produto 2":
-                return "casa2.png"; 
+                return "casa2.png";
             case "Produto 3":
-                return "casa3.png"; 
+                return "casa3.png";
             default:
-                return "default.png"; 
+                return "default.png";
         }
     }
 
@@ -135,13 +149,13 @@
         switch (nomeProduto)
         {
             case "Produto 1":
-                return "Madeira Pinho e Acácia"; 
+                return "Madeira Pinho e Acácia";
             case "Produto 2":
-                return "Madeira Acácia e Wenge"; 
+                return "Madeira Acácia e Wenge";
             case "Produto 3":
-                return "Madeira Acácia e Rosewood"; 
+                return "Madeira Acácia e Rosewood";
             default:
-                return "Material desconhecido"; 
+                return "Material desconhecido";
         }
     }
 }
