@@ -10,7 +10,7 @@
     <div class="container">
         <div class="left-panel">
             <div class="select-box-container">
-                <select class="select-box" @onclick="SelecionarProduto">
+                <select class="select-box" @onchange="SelecionarProduto">
                     @foreach (var produto in produtos)
                     {
                         <option value="@produto">@produto</option>
@@ -18,9 +18,9 @@
                 </select>
             </div>
 
-            <p><b>Tempo estimado:</b> @(tempoEstimado < 1 ? $"{Math.Round(tempoEstimado * 60)} minutos" : $"{tempoEstimado} horas")</p>
+            <p><b>Tempo estimado:</b> @tempoFormatado</p>
             <p><b>Descrição:</b> @descricao</p>
-            <p><b>Etapa:</b> @etapa</p>
+            <p><b>Etapa:</b> @(etapa + 1) de @totalEtapas</p>
             <p><b>Estado:</b> @estado</p>
 
             <div class="progress-bar">
@@ -30,7 +30,7 @@
 
             <div class="nav-buttons">
                 <button @onclick="EtapaAnterior" disabled="@(etapa == 0)">Anterior</button>
-                <button @onclick="ProximaEtapa" disabled="@(etapa == 4)">Próxima</button>
+                <button @onclick="ProximaEtapa" disabled="@(etapa == totalEtapas - 1)">Próxima</button>
             </div>
         </div>
 
@@ -47,18 +47,19 @@
 @code {
     private string selectedProduct = "Produto #1";
     private int etapa = 0;
-    private string estado = "Em espera";
+    private string estado;
     private string descricao;
     private int progresso = 0;
-    private double tempoEstimado;
+    private string tempoFormatado;
+    private int totalEtapas;
     private string imagemProduto;
 
-    private Dictionary<string, (string descricao, double tempoTotal, string[] imagens)> produtosInfo =
-        new Dictionary<string, (string, double, string[])>
+    private Dictionary<string, (string descricao, double tempoTotal, int etapas, string[] imagens)> produtosInfo =
+        new Dictionary<string, (string, double, int, string[])>
         {
-            { "Produto #1", ("Casa tamanho S cujos materiais utilizados são Madeira Pinho e Acácia", 1.0, new string[] { "assets/produto1_0.png", "assets/produto1_25.png", "assets/produto1_50.png", "assets/produto1_75.png", "assets/produto1_100.png" }) },
-            { "Produto #2", ("Casa tamanho M cujos materiais utilizados são madeira de Acácia e Wenge", 3.0, new string[] { "assets/produto2_0.png", "assets/produto2_25.png", "assets/produto2_50.png", "assets/produto2_75.png", "assets/produto2_100.png" }) },
-            { "Produto #3", ("Casa tamanho L cujos materiais utilizados são madeira Acácia e Rosewood", 4.0, new string[] { "assets/produto3_0.png", "assets/produto3_25.png", "assets/produto3_50.png", "assets/produto3_75.png", "assets/produto3_100.png" }) }
+            { "Produto #1", ("Casa tamanho S cujos materiais utilizados são Madeira Pinho e Acácia", 1.0, 5, new string[] { "assets/lmontagem/passo1_s.png", "assets/lmontagem/passo2_s.png", "assets/lmontagem/passo3_s.png", "assets/lmontagem/passo4_s.png", "assets/lmontagem/passo5_s.png" }) },
+            { "Produto #2", ("Casa tamanho M cujos materiais utilizados são Madeira Acácia e Wenge", 3.0, 7, new string[] { "assets/lmontagem/passo1_m.png", "assets/lmontagem/passo2_m.png", "assets/lmontagem/passo3_m.png", "assets/lmontagem/passo4_m.png", "assets/lmontagem/passo5_m.png", "assets/lmontagem/passo6_m.png", "assets/lmontagem/passo7_m.png" }) },
+            { "Produto #3", ("Casa tamanho L cujos materiais utilizados são Madeira Acácia e Rosewood", 3.0, 13, new string[] { "assets/lmontagem/passo1_l.png", "assets/lmontagem/passo2_l.png", "assets/lmontagem/passo3_l.png", "assets/lmontagem/passo4_l.png", "assets/lmontagem/passo5_l.png", "assets/lmontagem/passo6_l.png", "assets/lmontagem/passo7_l.png", "assets/lmontagem/passo8_l.png", "assets/lmontagem/passo9_l.png", "assets/lmontagem/passo10_l.png", "assets/lmontagem/passo11_l.png", "assets/lmontagem/passo12_l.png", "assets/lmontagem/passo13_l.png" }) }
         };
 
     private List<string> produtos = new List<string>
@@ -73,9 +74,9 @@
         AtualizarProduto();
     }
 
-    private void SelecionarProduto()
+    private void SelecionarProduto(ChangeEventArgs e)
     {
-        selectedProduct = produtos.FirstOrDefault(p => p == selectedProduct) ?? "Produto #1";
+        selectedProduct = e.Value?.ToString() ?? "Produto #1";
         etapa = 0;
         AtualizarProduto();
     }
@@ -84,15 +85,50 @@
     {
         var produtoAtual = produtosInfo[selectedProduct];
         descricao = produtoAtual.descricao;
-        tempoEstimado = produtoAtual.tempoTotal - (etapa * produtoAtual.tempoTotal / 4);
-        progresso = etapa * 25;
-        estado = etapa == 0 ? "Em espera" : etapa == 4 ? "Finalizado" : "Em processamento";
+        totalEtapas = produtoAtual.etapas;
+        double tempoRestante = produtoAtual.tempoTotal - (etapa * produtoAtual.tempoTotal / totalEtapas);
+        progresso = (int)(((double)(etapa + 1) / totalEtapas) * 100);
         imagemProduto = produtoAtual.imagens[etapa];
+
+        // Definição do estado conforme requisitos
+        if (etapa == 0)
+        {
+            estado = "Em processamento";
+        }
+        else if (etapa == totalEtapas - 1)
+        {
+            estado = "Finalizado";
+        }
+        else if (etapa == totalEtapas - 2)
+        {
+            estado = "Quase finalizado";
+        }
+        else
+        {
+            estado = "Em processamento";
+        }
+
+        // Formatação do tempo estimado
+        int horas = (int)tempoRestante;
+        int minutos = (int)((tempoRestante - horas) * 60);
+
+        if (horas > 0 && minutos > 0)
+        {
+            tempoFormatado = $"{horas} hora(s) e {minutos} minuto(s)";
+        }
+        else if (horas > 0)
+        {
+            tempoFormatado = $"{horas} hora(s)";
+        }
+        else
+        {
+            tempoFormatado = $"{minutos} minuto(s)";
+        }
     }
 
     private void ProximaEtapa()
     {
-        if (etapa < 4)
+        if (etapa < totalEtapas - 1)
         {
             etapa++;
             AtualizarProduto();
