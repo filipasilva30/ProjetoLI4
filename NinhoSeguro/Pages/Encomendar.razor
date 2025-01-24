@@ -3,10 +3,12 @@
 @using LI4.Data.Services
 @using LI4.Auth
 @using System.Security.Claims;
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject NavigationManager NavigationManager
 @inject StockService StockService
 @inject OrderService OrderService
 @inject AuthProvider AuthenticationStateProvider
+@inject ProtectedSessionStorage sessionStorage
 
 <link rel="stylesheet" href="css/Encomendar.css" />
 
@@ -20,10 +22,10 @@
                     <div class="product-info">
                         <h3>@produto.Nome</h3>
                         <p><b>Descrição:</b> @produto.Descricao</p>
-                        <p><b>Tipo dos materiais:</b> @GetMateriais(produto.Nome)</p>
+                        <p><b>Tipo dos materiais:</b> @GetMateriais(produto.Nome)</p>   
                         <p><b>Preço:</b> @produto.Preco €</p>
                         <p><b>Disponível:</b> @produto.Quantidade unidades</p>
-                        <input type="number" min="0" class="input-quantidade" placeholder="0" />
+                        <input type="number" min="0" class="input-quantidade" placeholder="0" @bind="produtoQuantidade[produto.Id]" />
                         <label>Unidades</label>
                     </div>
                     <div class="product-image">
@@ -48,6 +50,13 @@
     {
         produtos = await StockService.ListarProdutosEmStockAsync();
 
+        foreach (var produto in produtos)
+        {
+            if (!produtoQuantidade.ContainsKey(produto.Id))
+            {
+                produtoQuantidade[produto.Id] = 0; // Define a quantidade inicial como 0
+            }
+        }
         var ourProvider = (AuthProvider)AuthenticationStateProvider;
         var authState = await ourProvider.GetAuthenticationStateAsync();
         var user = authState.User;
@@ -77,12 +86,17 @@
         if (produtosEncomendados.Any())
         {
             var encomenda = await OrderService.CriarEncomendaAsync(clienteId, produtosEncomendados);
+            if (encomenda != null && encomenda.Numero > 0)  
+            {
+                await sessionStorage.SetAsync("Encomenda", encomenda);
 
-            NavigationManager.NavigateTo("/pagamento");
+                Console.WriteLine($"Encomenda criada com sucesso! Número: {encomenda.Numero}");
+                NavigationManager.NavigateTo($"/pagamento/{encomenda.Numero}");
+            }
         }
         else
         {
-            // Exibir mensagem de erro se nenhum produto foi selecionado
+            Console.WriteLine("Nenhum produto selecionado.");
         }
     }
 
@@ -91,11 +105,11 @@
         switch (nomeProduto)
         {
             case "Produto 1":
-                return "casaS.png"; 
+                return "casa1.png"; 
             case "Produto 2":
-                return "casaM.png"; 
+                return "casa2.png"; 
             case "Produto 3":
-                return "casaL.png"; 
+                return "casa3.png"; 
             default:
                 return "default.png"; 
         }
