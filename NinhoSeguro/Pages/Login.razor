@@ -1,5 +1,7 @@
 ﻿@page "/"
 @using LI4.Data.Models
+@using LI4.Auth
+@inject AuthProvider AuthProvider
 @inject NavigationManager NavigationManager
 @inject LI4.Data.Services.LoginService LoginService
 
@@ -35,16 +37,24 @@
 
     private async Task HandleLogin()
     {
-        var (sucesso, mensagem, tipo, _) = await LoginService.IniciarSessaoAsync(loginModel);
+        var (sucesso, mensagem, tipo, clienteId,utilizador) = await LoginService.IniciarSessaoAsync(loginModel);
 
-        if (sucesso)
+        if (sucesso && utilizador != null)
         {
-            // Redireciona para o menu correto com base no tipo de utilizador
-            if (tipo == 1) // Cliente
+            var session = new Session
+                {
+                    Id = utilizador.Id,
+                    Nome = utilizador.Nome,
+                    Tipo = tipo.GetValueOrDefault()
+                };
+
+            await AuthProvider.UpdateAuthenticationState(session);
+
+            if (tipo == 1) 
             {
                 NavigationManager.NavigateTo("/menucliente");
             }
-            else if (tipo == 2) // Funcionário
+            else if (tipo == 2) 
             {
                 NavigationManager.NavigateTo("/menufuncionario");
             }

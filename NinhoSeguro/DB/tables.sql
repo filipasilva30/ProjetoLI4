@@ -36,6 +36,7 @@ CREATE TABLE Produto (
 	Nome VARCHAR(100) NOT NULL,
 	Descricao TEXT NOT NULL,
 	Quantidade INT NOT NULL,
+	Preco DECIMAL(10,2) NOT NULL,
 	Montagem INT NOT NULL,
 	FOREIGN KEY (Montagem) REFERENCES Montagem(IdEtapa)
 )

@@ -11,13 +11,13 @@ namespace LI4.Data.Services
             _db = db;
         }
 
-        public async Task<(bool Sucesso, string Mensagem, int? Tipo, Utilizador? Utilizador)> IniciarSessaoAsync(LoginModel modelo)
+        public async Task<(bool Sucesso, string Mensagem, int? Tipo, int? ClienteId, Utilizador? Utilizador)> IniciarSessaoAsync(LoginModel modelo)
         {
             // Validações iniciais
             if (string.IsNullOrWhiteSpace(modelo.Username) ||
                 string.IsNullOrWhiteSpace(modelo.Password))
             {
-                return (false, "Credenciais inválidas.", null, null);
+                return (false, "Credenciais inválidas.", null, null, null);
             }
 
             // Verificar se o utilizador existe
@@ -26,7 +26,7 @@ namespace LI4.Data.Services
 
             if (resultado == null || resultado.Count == 0)
             {
-                return (false, "Não existe conta com o username inserido.", null, null);
+                return (false, "Não existe conta com o username inserido.", null, null, null);
             }
 
             var utilizador = resultado.FirstOrDefault();
@@ -34,11 +34,11 @@ namespace LI4.Data.Services
             // Validar senha
             if (utilizador.Senha != modelo.Password)
             {
-                return (false, "Senha inválida.", null, null);
+                return (false, "Senha inválida.", null, null, null);
             }
 
             // Retornar o tipo do utilizador e os dados dele
-            return (true, "Login efetuado com sucesso.", utilizador.Tipo, utilizador);
+            return (true, "Login efetuado com sucesso.", utilizador.Tipo, utilizador.Id, utilizador);
         }
     }
 }

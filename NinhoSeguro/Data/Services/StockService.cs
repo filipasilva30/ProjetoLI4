@@ -1,6 +1,4 @@
-﻿using LI4.Data.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using LI4.Data.Models;  
 
 namespace LI4.Data.Services
 {
@@ -14,8 +12,21 @@ namespace LI4.Data.Services
         }
         public async Task<List<Produto>> ListarProdutosEmStockAsync()
         {
-            var sql = @"SELECT * FROM Produto";
-            return await _db.LoadData<Produto, dynamic>(sql, new { });
+            var sql = @"
+                        SELECT Id, Nome, Descricao, Quantidade, Preco 
+                        FROM Produto";
+
+            var produtosData = await _db.LoadData<dynamic, object>(sql, new { });
+            var produtos = produtosData.Select(p => new Produto
+            {
+                Id = p.Id,
+                Nome = p.Nome,
+                Descricao = p.Descricao,
+                Quantidade = p.Quantidade,
+                Preco = p.Preco
+            }).ToList();
+
+            return produtos;
         }
 
         public async Task<List<Material>> ListarMateriaisEmStockAsync()
