@@ -13,17 +13,8 @@ namespace LI4.Data.Services
         }
         public async Task<Encomenda> CriarEncomendaAsync(int clienteId, List<(Produto produto, int quantidade)> produtosEncomendados)
         {
-            // Verificar se o cliente existe
-            var cliente = await _db.LoadData<Utilizador, dynamic>("SELECT * FROM Utilizador WHERE Id = @ClienteId", new { ClienteId = clienteId });
-            if (cliente == null || cliente.Count == 0)
-            {
-                throw new Exception("Cliente não encontrado.");
-            }
-
-            // Calcular custo total
             decimal custoTotal = produtosEncomendados.Sum(item => item.produto.Preco * item.quantidade); 
 
-            // Inserir a encomenda no banco
             var sqlEncomenda = @"INSERT INTO Encomenda (Custo, Data, DataPrevEntrega, PagamentoEfetuado, Estado, IdCliente) 
                                     OUTPUT INSERTED.Numero 
                                     VALUES (@Custo, @Data, @DataPrevEntrega, @PagamentoEfetuado, @Estado, @IdCliente)";
@@ -71,6 +62,19 @@ namespace LI4.Data.Services
                 queries[sqlProduto] = parametrosProduto;
             }
             await _db.ExecuteTransaction(queries);
+            foreach (var item in produtosEncomendados)
+            {
+                int novaQuantidade = item.produto.Quantidade - item.quantidade;
+
+                if (novaQuantidade < 0)
+                {
+                    throw new Exception($"Quantidade insuficiente no stock para o produto {item.produto.Nome}.");
+                }
+                await _db.SaveData(
+                    "UPDATE Produto SET Quantidade = @NovaQuantidade WHERE Id = @ProdutoId",
+                    new { NovaQuantidade = novaQuantidade, ProdutoId = item.produto.Id }
+                );
+            }
             return encomenda;   
         }
 
