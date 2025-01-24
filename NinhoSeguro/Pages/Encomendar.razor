@@ -37,7 +37,7 @@
     </div>
     <div style="text-align:center; margin-top: 20px;">
         <button class="botao cancelar" @onclick="Cancelar">Cancelar</button>
-        <button class="botao pagar">Pagar</button>
+        <button class="botao pagar" @onclick="CriarEncomenda">Pagar</button>
     </div>
 </div>
 
@@ -78,25 +78,40 @@
 
     private async Task CriarEncomenda()
     {
-        var produtosEncomendados = produtos
-            .Where(p => produtoQuantidade.ContainsKey(p.Id) && produtoQuantidade[p.Id] > 0) 
-            .Select(p => (p, produtoQuantidade[p.Id])) 
-            .ToList();
-
-        if (produtosEncomendados.Any())
+        try
         {
-            var encomenda = await OrderService.CriarEncomendaAsync(clienteId, produtosEncomendados);
-            if (encomenda != null && encomenda.Numero > 0)  
-            {
-                await sessionStorage.SetAsync("Encomenda", encomenda);
+            var produtosEncomendados = produtos
+                .Where(p => produtoQuantidade.ContainsKey(p.Id) && produtoQuantidade[p.Id] > 0)
+                .Select(p => (p, produtoQuantidade[p.Id]))
+                .ToList();
 
-                Console.WriteLine($"Encomenda criada com sucesso! Número: {encomenda.Numero}");
-                NavigationManager.NavigateTo($"/pagamento/{encomenda.Numero}");
+            foreach (var item in produtosEncomendados)
+            {
+                Console.WriteLine($"Product: {item.p.Nome}, Quantity: {item.Item2}");
+            }
+
+            if (produtosEncomendados.Any())
+            {
+                var encomenda = await OrderService.CriarEncomendaAsync(clienteId, produtosEncomendados);
+                if (encomenda != null && encomenda.Numero > 0)
+                {
+                    await sessionStorage.SetAsync("Encomenda", encomenda);
+                    NavigationManager.NavigateTo($"/pagamento/{encomenda.Numero}");
+                }
+                else
+                {
+                    Console.WriteLine("Failed to create order.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please select at least one product.");
             }
         }
-        else
+        catch (Exception ex)
         {
-            Console.WriteLine("Nenhum produto selecionado.");
+            Console.WriteLine($"Error creating order: {ex.Message}");
+            Console.WriteLine($"Stack trace: {ex.StackTrace}");
         }
     }
 

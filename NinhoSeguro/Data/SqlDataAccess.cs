@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 
 namespace LI4.Data
 {
