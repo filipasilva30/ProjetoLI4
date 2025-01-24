@@ -20,7 +20,7 @@ namespace LI4.Data.Services
                 string.IsNullOrWhiteSpace(modelo.Phone) ||
                 string.IsNullOrWhiteSpace(modelo.NIF))
             {
-                return "Dados inválidos ou incompletos.";
+                return "Dados inválidos ou incompletos";
             }
             // Verificar se o e-mail ou o username já estão registados
             var clienteExistente = await _db.LoadData<Utilizador, dynamic>("SELECT * FROM Utilizador WHERE Email = @Email OR Username = @Username",
@@ -29,14 +29,9 @@ namespace LI4.Data.Services
             if (clienteExistente != null && clienteExistente.Count > 0)
             {
                 if (clienteExistente.Any(u => u.Email == modelo.Email))
-                    return "Já existe uma conta associada ao email.";
+                    return "Já existe uma conta associada ao email";
                 if (clienteExistente.Any(u => u.Username == modelo.Username))
-                    return "O username inserido já está a ser utilizado.";
-            }
-
-            if (!modelo.Username.StartsWith("cl"))
-            {
-                return "O username deve começar com 'cl'.";
+                    return "O username inserido já está a ser utilizado";
             }
 
             // Preparar a inserção do novo cliente
@@ -61,7 +56,7 @@ namespace LI4.Data.Services
             }
             catch (Exception)
             {
-                return "Erro ao registar cliente.";
+                return "Erro ao registar cliente";
             }
         }
     }
