@@ -6,7 +6,7 @@
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public int Quantidade { get; set; }
+        public decimal Preco { get; set; }
         public LinhaMontagem Montagem { get; set; }
-        public List<Produto_tem_Material> Materiais { get; set; }
     }
 }

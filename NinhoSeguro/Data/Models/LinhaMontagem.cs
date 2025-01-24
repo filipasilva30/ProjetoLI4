@@ -6,6 +6,5 @@
         public string Descricao { get; set; }
         public TimeSpan Duracao { get; set; }
         public int PassoSeguinte { get; set; }
-        public Produto Produto { get; set; }
     }
 }

@@ -12,59 +12,68 @@ namespace LI4.Data.Services
             _db = db;
         }
 
-        public async Task<string> CriarEncomendaAsync(int clienteId, Dictionary<Produto, int> itens, bool pagamentoEfetuado)
-        {
-            if (!pagamentoEfetuado)
-                return "O pagamento não foi efetuado. A encomenda não pode ser criada.";
 
+        public async Task<Encomenda> CriarEncomendaAsync(int clienteId, List<(Produto produto, int quantidade)> produtosEncomendados)
+        {
             // Verificar se o cliente existe
             var cliente = await _db.LoadData<Utilizador, dynamic>("SELECT * FROM Utilizador WHERE Id = @ClienteId", new { ClienteId = clienteId });
             if (cliente == null || cliente.Count == 0)
             {
-                return "Cliente não encontrado.";
+                throw new Exception("Cliente não encontrado.");
             }
 
             // Calcular custo total
-            decimal custoTotal = itens.Sum(item => item.Key.Quantidade * item.Value);
+            decimal custoTotal = produtosEncomendados.Sum(item => item.produto.Preco * item.quantidade); 
 
             // Inserir a encomenda no banco
             var sqlEncomenda = @"INSERT INTO Encomenda (Custo, Data, DataPrevEntrega, PagamentoEfetuado, Estado, IdCliente) 
-                                 OUTPUT INSERTED.Numero 
-                                 VALUES (@Custo, @Data, @DataPrevEntrega, @PagamentoEfetuado, @Estado, @IdCliente)";
+                                    OUTPUT INSERTED.Numero 
+                                    VALUES (@Custo, @Data, @DataPrevEntrega, @PagamentoEfetuado, @Estado, @IdCliente)";
 
             var parametrosEncomenda = new
             {
                 Custo = custoTotal,
                 Data = DateTime.Now,
-                DataPrevEntrega = DateTime.Now.AddDays(5),
-                PagamentoEfetuado = true,
+                DataPrevEntrega = DateTime.Now.AddDays(7),
+                PagamentoEfetuado = false,
                 Estado = "Em espera",
                 IdCliente = clienteId
             };
 
-            var encomendaId = await _db.LoadData<int, dynamic>(sqlEncomenda, parametrosEncomenda);
+            var encomendaId = (await _db.LoadData<int, dynamic>(sqlEncomenda, parametrosEncomenda)).FirstOrDefault();
 
-            // Inserir os itens da encomenda
+            if (encomendaId == 0)
+            {
+                throw new Exception("Erro ao criar encomenda.");
+            }
+
+            var encomenda = new Encomenda
+            {
+                Custo = custoTotal,
+                Data = DateTime.Now,
+                DataPrevEntrega = DateTime.Now.AddDays(5),
+                PagamentoEfetuado = false,
+                Estado = "Em espera",
+                IdCliente = clienteId
+            };
+
             var queries = new Dictionary<string, object>();
-
-            foreach (var item in itens)
+            foreach (var item in produtosEncomendados)
             {
                 var sqlProduto = @"INSERT INTO Encomenda_tem_Produto (Quantidade, IdEncomenda, IdProduto) 
-                                   VALUES (@Quantidade, @IdEncomenda, @IdProduto)";
+                           VALUES (@Quantidade, @IdEncomenda, @IdProduto)";
 
                 var parametrosProduto = new
                 {
-                    Quantidade = item.Value,
+                    Quantidade = item.quantidade,
                     IdEncomenda = encomendaId,
-                    IdProduto = item.Key.Id
+                    IdProduto = item.produto.Id
                 };
 
                 queries[sqlProduto] = parametrosProduto;
             }
-
             await _db.ExecuteTransaction(queries);
-
-            return "Encomenda criada com sucesso!";
+            return encomenda;
         }
 
         // lista de encomendas de um dado cliente

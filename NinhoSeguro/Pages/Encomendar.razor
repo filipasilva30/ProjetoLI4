@@ -1,32 +1,38 @@
 ﻿@page "/encomendar"
 @using LI4.Data.Models
+@using LI4.Data.Services
+@using LI4.Auth
+@using System.Security.Claims;
 @inject NavigationManager NavigationManager
+@inject StockService StockService
+@inject OrderService OrderService
+@inject AuthProvider AuthenticationStateProvider
 
 <link rel="stylesheet" href="css/Encomendar.css" />
 
 <div class="menu-cliente-container">
-    <div class="container">
+    <div class="container">  
+        <h4>ID do Cliente: @clienteId</h4>
         <div class="products-container">
             @foreach (var produto in produtos)
             {
                 <div class="product-card">
                     <div class="product-info">
-                        <h3>@produto</h3>
-                        <p><b>Descrição:</b> @produtosInfo[produto].descricao</p>
-                        <p><b>Tipo dos materiais:</b> @produtosInfo[produto].materiais</p>
-                        <p><b>Preço:</b> @produtosInfo[produto].preco€</p>
-                        <p><b>Disponível:</b> @produtosInfo[produto].unidades unidades</p>
+                        <h3>@produto.Nome</h3>
+                        <p><b>Descrição:</b> @produto.Descricao</p>
+                        <p><b>Tipo dos materiais:</b> @GetMateriais(produto.Nome)</p>
+                        <p><b>Preço:</b> @produto.Preco €</p>
+                        <p><b>Disponível:</b> @produto.Quantidade unidades</p>
                         <input type="number" min="0" class="input-quantidade" placeholder="0" />
                         <label>Unidades</label>
                     </div>
                     <div class="product-image">
-                        <img src="@produtosInfo[produto].imagemUrl" alt="@produto" />
+                        <img src="assets/casas/@GetImageName(produto.Nome)" alt="@produto.Nome" />
                     </div>
                 </div>
             }
         </div>
     </div>
-
     <div style="text-align:center; margin-top: 20px;">
         <button class="botao cancelar" @onclick="Cancelar">Cancelar</button>
         <button class="botao pagar">Pagar</button>
@@ -34,23 +40,79 @@
 </div>
 
 @code {
-    private List<string> produtos = new List<string>
-    {
-        "Produto 1",
-        "Produto 2",
-        "Produto 3"
-    };
-    // ir buscar tudo à base de dados, menos os materiais
-    private Dictionary<string, (string descricao, string materiais, double preco, int unidades, string imagemUrl)> produtosInfo =
-        new Dictionary<string, (string, string, double, int, string)>
-                {
-            { "Produto 1", ("Casa tamanho S", "Madeira Pinho e Acácia", 20.0, 2, "assets/produto1.png") },
-            { "Produto 2", ("Casa tamanho M", "Madeira Acácia e Wenge", 30.0, 5, "assets/produto2.png") },
-            { "Produto 3", ("Casa tamanho L", "Madeira Acácia e Rosewood", 45.0, 5, "assets/produto3.png") }
-                };
+    private List<Produto> produtos = new List<Produto>();
+    private Dictionary<int, int> produtoQuantidade = new Dictionary<int, int>(); // Armazena a quantidade de cada produto
+    private int clienteId; 
 
-    private void Cancelar() 
+    protected override async Task OnInitializedAsync()
+    {
+        produtos = await StockService.ListarProdutosEmStockAsync();
+
+        var ourProvider = (AuthProvider)AuthenticationStateProvider;
+        var authState = await ourProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated ?? false)
+        {
+            clienteId = int.Parse(user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "0");
+        }
+        else
+        {
+            clienteId = 0; // não autenticado
+        }
+    }
+
+    private void Cancelar()
     {
         NavigationManager.NavigateTo("/menucliente");
+    }
+
+    private async Task CriarEncomenda()
+    {
+        var produtosEncomendados = produtos
+            .Where(p => produtoQuantidade.ContainsKey(p.Id) && produtoQuantidade[p.Id] > 0) 
+            .Select(p => (p, produtoQuantidade[p.Id])) 
+            .ToList();
+
+        if (produtosEncomendados.Any())
+        {
+            var encomenda = await OrderService.CriarEncomendaAsync(clienteId, produtosEncomendados);
+
+            NavigationManager.NavigateTo("/pagamento");
+        }
+        else
+        {
+            // Exibir mensagem de erro se nenhum produto foi selecionado
+        }
+    }
+
+    private string GetImageName(string nomeProduto)
+    {
+        switch (nomeProduto)
+        {
+            case "Produto 1":
+                return "casaS.png"; 
+            case "Produto 2":
+                return "casaM.png"; 
+            case "Produto 3":
+                return "casaL.png"; 
+            default:
+                return "default.png"; 
+        }
+    }
+
+    private string GetMateriais(string nomeProduto)
+    {
+        switch (nomeProduto)
+        {
+            case "Produto 1":
+                return "Madeira Pinho e Acácia"; 
+            case "Produto 2":
+                return "Madeira Acácia e Wenge"; 
+            case "Produto 3":
+                return "Madeira Acácia e Rosewood"; 
+            default:
+                return "Material desconhecido"; 
+        }
     }
 }
