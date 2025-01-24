@@ -9,6 +9,6 @@
         public string Username { get; set; }
         public string Senha { get; set; }
         public string ContactoTel { get; set; }
-        public int NIF { get; set; }
+        public string NIF { get; set; }
     }
 }

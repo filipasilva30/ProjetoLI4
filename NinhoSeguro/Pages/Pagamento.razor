@@ -1,32 +1,37 @@
-@page "/pagamento"
-@inject NavigationManager NavigationManager
+@page "/pagamento/{numeroEncomenda:int}"
 @using LI4.Data.Models
+@using LI4.Data.Services
+@using LI4.Auth
+@using System.Security.Claims
+@inject NavigationManager NavigationManager
+@inject OrderService OrderService
+@inject AuthProvider AuthenticationStateProvider
 
 <link rel="stylesheet" href="css/Pagamento.css" />
 
 <div class="pagamento-container">
     <div class="header">
-        <h2 class="left">Encomenda #ID</h2>
-        <h3 class="right">#Nome</h3>
+        <h2 class="left">Encomenda #@encomenda.Numero</h2>
+        <h3 class="right">@encomendaClienteNome</h3>
     </div>
     <hr />
 
     <div class="info-encomenda">
         <div>
             <p><b>Efetuada em</b></p>
-            <p>25/11/2024</p> 
+            <p>@encomenda.Data.ToShortDateString()</p>
         </div>
         <div>
             <p><b>Data prevista de entrega</b></p>
-            <p>28/11/2024</p>
+            <p>@(encomenda.DataPrevEntrega != null ? encomenda.DataPrevEntrega.ToShortDateString() : "N/A")</p>
         </div>
         <div>
             <p><b>NIF</b></p>
-            <p>246019359</p>
+            <p>@encomendaClienteNIF</p>
         </div>
         <div>
             <p><b>Cliente</b></p>
-            <p>#ID</p>
+            <p>@encomendaClienteNome</p>
         </div>
     </div>
 
@@ -35,42 +40,105 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nome</th>
                     <th>Descrição</th>
-                    <th>Unidades</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var produto in produtos)
+                @foreach (var item in produtos)
                 {
                     <tr>
-                        <td>@produto.Id</td>
-                        <td>@produto.Nome</td>
-                        <td>
-                            <div class="descricao-produto">
-                                @produto.Descricao
-                            </div>
-                        </td>
-                        <td>@produto.Quantidade</td>
+                        <td>@item.Id</td>
+                        <td>@item.Descricao</td>
+                        <td>@item.Quantidade</td>
+                        <td>@(item.Quantidade * item.Preco)</td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
 
+    <div class="valor-total">
+        <p><b>Valor Total:</b> @encomenda.Custo.ToString("C")</p>
+    </div>
+
     <div class="botoes">
         <button class="botao pequeno cancelar" @onclick="Cancelar">Cancelar</button>
-        <button class="botao pequeno pagar">Efetuar pagamento</button>
+        <button class="botao pequeno pagar" @onclick="EfetuarPagamento">Efetuar pagamento</button>
     </div>
 </div>
 
 @code {
-    private List<Produto> produtos = new List<Produto>
+    [Parameter] public int numeroEncomenda { get; set; }
+
+    private Encomenda encomenda = new();
+    private List<Produto> produtos = new();
+    private string encomendaClienteNome = "";
+    private string encomendaClienteNIF = "";
+
+    protected override async Task OnInitializedAsync()
     {
-        new Produto { Id = 1001, Nome = "Produto A", Descricao = "Casa tamanho S", Quantidade = 24 },
-        new Produto { Id = 1002, Nome = "Produto B", Descricao = "Casa tamanho M", Quantidade = 12 },
-        new Produto { Id = 1003, Nome = "Produto C", Descricao = "Casa tamanho L", Quantidade = 8 }
-    };
+        try
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (!user.Identity?.IsAuthenticated ?? true)
+            {
+                NavigationManager.NavigateTo("/login", forceLoad: true);
+                return;
+            }
+
+            var encomendas = await OrderService.ListarTodasEncomendasAsync();
+            encomenda = encomendas.FirstOrDefault(e => e.Numero == numeroEncomenda) ?? new Encomenda();
+
+            if (encomenda.Numero == 0)
+            {
+                Console.WriteLine("Encomenda não encontrada.");
+                return;
+            }
+
+            produtos = await OrderService.ListarProdutosPorEncomendaAsync(numeroEncomenda);
+
+            var clienteId = int.Parse(user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "0");
+
+            // Obter informações detalhadas do cliente
+            var cliente = await OrderService.ObterClientePorIdAsync(clienteId);
+
+            if (cliente != null)
+            {
+                encomendaClienteNome = cliente.Nome;
+                encomendaClienteNIF = cliente.NIF;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao carregar encomenda: {ex.Message}");
+        }
+    }
+
+    private async Task EfetuarPagamento()
+    {
+        try
+        {
+            bool sucesso = await OrderService.AtualizarPagamentoEfetuadoAsync(numeroEncomenda);
+
+            if (sucesso)
+            {
+                Console.WriteLine("Pagamento realizado com sucesso.");
+                NavigationManager.NavigateTo("/menucliente");
+            }
+            else
+            {
+                Console.WriteLine("Falha ao processar o pagamento.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao processar pagamento: {ex.Message}");
+        }
+    }
 
     private void Cancelar()
     {
