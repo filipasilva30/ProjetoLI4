@@ -11,8 +11,6 @@ namespace LI4.Data.Services
         {
             _db = db;
         }
-
-
         public async Task<Encomenda> CriarEncomendaAsync(int clienteId, List<(Produto produto, int quantidade)> produtosEncomendados)
         {
             // Verificar se o cliente existe
@@ -39,7 +37,6 @@ namespace LI4.Data.Services
                 Estado = "Em espera",
                 IdCliente = clienteId
             };
-
             var encomendaId = (await _db.LoadData<int, dynamic>(sqlEncomenda, parametrosEncomenda)).FirstOrDefault();
 
             if (encomendaId == 0)
@@ -49,6 +46,7 @@ namespace LI4.Data.Services
 
             var encomenda = new Encomenda
             {
+                Numero = encomendaId,
                 Custo = custoTotal,
                 Data = DateTime.Now,
                 DataPrevEntrega = DateTime.Now.AddDays(5),
@@ -60,20 +58,20 @@ namespace LI4.Data.Services
             var queries = new Dictionary<string, object>();
             foreach (var item in produtosEncomendados)
             {
-                var sqlProduto = @"INSERT INTO Encomenda_tem_Produto (Quantidade, IdEncomenda, IdProduto) 
-                           VALUES (@Quantidade, @IdEncomenda, @IdProduto)";
+                var sqlProduto = @"INSERT INTO Encomenda_tem_Produto (Quantidade, NumEncomenda, IdProduto) 
+                   VALUES (@Quantidade, @NumEncomenda, @IdProduto)";
 
                 var parametrosProduto = new
                 {
                     Quantidade = item.quantidade,
-                    IdEncomenda = encomendaId,
+                    NumEncomenda = encomendaId,  
                     IdProduto = item.produto.Id
                 };
 
                 queries[sqlProduto] = parametrosProduto;
             }
             await _db.ExecuteTransaction(queries);
-            return encomenda;
+            return encomenda;   
         }
 
         // lista de encomendas de um dado cliente
@@ -96,8 +94,8 @@ namespace LI4.Data.Services
 
         public async Task<string> ConsultarEstadoEncomendaAsync(int encomendaId)
         {
-            var encomenda = await _db.LoadData<Encomenda, dynamic>("SELECT Estado FROM Encomenda WHERE Numero = @IdEncomenda",
-                                                                   new { IdEncomenda = encomendaId });
+            var encomenda = await _db.LoadData<Encomenda, dynamic>("SELECT Estado FROM Encomenda WHERE Numero = @NumEncomenda",
+                                                                   new { NumEncomenda = encomendaId });
 
             if (encomenda == null || encomenda.Count == 0)
             {
@@ -109,16 +107,16 @@ namespace LI4.Data.Services
 
         public async Task<string> AtualizarEstadoEncomendaAsync(int encomendaId, string novoEstado)
         {
-            var encomenda = await _db.LoadData<Encomenda, dynamic>("SELECT * FROM Encomenda WHERE Numero = @IdEncomenda",
-                                                                   new { IdEncomenda = encomendaId });
+            var encomenda = await _db.LoadData<Encomenda, dynamic>("SELECT * FROM Encomenda WHERE Numero = @NumEncomenda",
+                                                                   new { NumEncomenda = encomendaId });
 
             if (encomenda == null || encomenda.Count == 0)
             {
                 return "Encomenda não encontrada.";
             }
 
-            var sql = "UPDATE Encomenda SET Estado = @Estado WHERE Numero = @IdEncomenda";
-            var parametros = new { Estado = novoEstado, IdEncomenda = encomendaId };
+            var sql = "UPDATE Encomenda SET Estado = @Estado WHERE Numero = @NumEncomenda";
+            var parametros = new { Estado = novoEstado, NumEncomenda = encomendaId };
 
             await _db.SaveData(sql, parametros);
 
