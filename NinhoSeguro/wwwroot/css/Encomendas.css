@@ -8,43 +8,53 @@ body {
     font-family: 'Comic Sans MS', cursive;
 }
 
+/* Título centralizado e estilizado */
 .titulo {
     color: white;
     font-size: 40px;
     margin-bottom: 20px;
+    text-align: center;
 }
 
+/* Contêiner da tabela */
 .tabela-container {
     background-color: #1c1c1c;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 3px 2px grey, 0 0 0 1px black;
     text-align: center;
 }
 
+/* Estilização da tabela */
 table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
+    box-shadow: inset 0 0 3px 2px grey, 0 0 0 1px black;
 }
 
+/* Estilo das células da tabela */
 th, td {
-    border: 1px solid #000;
+    border: 1px solid black;
     padding: 15px;
     text-align: center;
     font-size: 20px;
 }
 
+/* Cabeçalho da tabela */
 th {
     background-color: #d3d3d3;
+    font-weight: bold;
 }
 
+/* Botão voltar com estilo atualizado */
 .botao-voltar {
     font-size: 20px;
+    font-family: 'Comic Sans MS', cursive;
     padding: 10px 20px;
     margin-top: 20px;
     background-color: #ece8e8;
-    border: none;
+    border: 2px solid black;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
@@ -57,6 +67,7 @@ th {
     transform: scale(1.05);
 }
 
+/* Estilização da imagem da porta */
 .porta {
     position: absolute; 
     top: -155px; 
@@ -66,7 +77,7 @@ th {
     transition: transform 0.3s ease, filter 0.3s ease; 
 }
 
-    .porta:hover {
-        transform: scale(1.03);
-        filter: brightness(1.2);
-    }
+.porta:hover {
+    transform: scale(1.03);
+    filter: brightness(1.2);
+}
