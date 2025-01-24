@@ -20,12 +20,12 @@
             </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < 6; i++)
+            @for (int i = 1; i <= 6; i++)
             {
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td @onclick="() => IrParaEncomenda(i)" style="cursor: pointer;">Encomenda #@i</td>
+                    <td @onclick="() => IrParaEncomenda(i + 10)" style="cursor: pointer;">Encomenda #@(i + 10)</td>
+                    <td @onclick="() => IrParaEncomenda(i + 20)" style="cursor: pointer;">Encomenda #@(i + 20)</td>
                 </tr>
             }
         </tbody>
@@ -43,5 +43,10 @@
     private void exitPage()
     {
         NavigationManager.NavigateTo("/");
+    }
+
+    private void IrParaEncomenda(int id)
+    {
+        NavigationManager.NavigateTo($"/encomenda/{id}");
     }
 }

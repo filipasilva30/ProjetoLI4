@@ -1,0 +1,94 @@
+@page "/encomenda/{id:int}"
+@using LI4.Data.Models
+@inject NavigationManager NavigationManager
+
+<link rel="stylesheet" href="css/EncomendaId.css" />
+
+<div class="encomenda-container">
+    <div class="header">
+        <h1 class="titulo">ENCOMENDA #@id</h1>
+        <p class="cliente-info">Cliente: <b>@clienteNome</b></p>
+    </div>
+
+    <div class="encomenda-info">
+        <p>Data prevista para a finalização da produção: <b>@dataPrevista</b></p>
+        <p>Estado atual: <em>@estadoAtual</em></p>
+    </div>
+
+    <div class="produtos-list">
+        @foreach (var produto in produtos)
+        {
+            <div class="produto-item">
+                <div class="produto-info">
+                    <h3 class="produto-nome">@produto.Nome</h3>
+                    <p>Quantidade encomendada: <b>@produto.QuantidadeEncomendada</b></p>
+                    <p>Quantidade disponível: <b>@produto.QuantidadeDisponivel</b></p>
+                    <div class="produto-actions">
+                        <button @onclick="() => Produzir(produto.Id)">Produzir</button>
+                    </div>
+                </div>
+                <div class="produto-image">
+                    <img src="@produto.ImagemUrl" alt="@produto.Nome" />
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="nav-buttons">
+        <button @onclick="Voltar">VOLTAR</button>
+        <button @onclick="EnviarNotificacao">Enviar notificação</button>
+        <button @onclick="EnviarEncomenda">Enviar Encomenda</button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int id { get; set; }
+    private string dataPrevista = "01/02/2025";
+    private string estadoAtual = "Em espera";
+    private string clienteNome = "João Silva";
+    private List<Produto> produtos = new List<Produto>();
+
+    protected override void OnInitialized()
+    {
+        produtos = ObterProdutosPorEncomenda(id);
+    }
+
+    private List<Produto> ObterProdutosPorEncomenda(int encomendaId)
+    {
+        return new List<Produto>
+        {
+            new Produto { Id = 1, Nome = "Casa de Tamanho S", QuantidadeEncomendada = 10, QuantidadeDisponivel = 5, ImagemUrl = "assets/casas/casa1.png" },
+            new Produto { Id = 2, Nome = "Casa de Tamanho M", QuantidadeEncomendada = 10, QuantidadeDisponivel = 3, ImagemUrl = "assets/casas/casa2.png" },
+            new Produto { Id = 3, Nome = "Casa de Tamanho L", QuantidadeEncomendada = 10, QuantidadeDisponivel = 1, ImagemUrl = "assets/casas/casa3.png" }
+        };
+    }
+
+    private void Produzir(int produtoId)
+    {
+        Console.WriteLine($"Produzindo produto com ID: {produtoId}");
+    }
+
+    private void Voltar()
+    {
+        NavigationManager.NavigateTo("/encomendas");
+    }
+
+    private void EnviarNotificacao()
+    {
+        Console.WriteLine("Notificação enviada!");
+    }
+
+    private void EnviarEncomenda()
+    {
+        Console.WriteLine("Encomenda enviada!");
+    }
+
+    private class Produto
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public int QuantidadeEncomendada { get; set; }
+        public int QuantidadeDisponivel { get; set; }
+        public string ImagemUrl { get; set; }
+    }
+}
