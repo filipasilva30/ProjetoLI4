@@ -38,21 +38,21 @@
 }
 
 .product-info {
-    width: 60%;
+    width: 70%; /* Aumenta o espaço disponível para o texto */
     color: #333;
     text-align: left;
 }
 
-    .product-info h3 {
-        margin: 0;
-        font-size: 18px;
-    }
+.product-info h3 {
+    margin: 0;
+    font-size: 18px;
+}
 
-    .product-info p {
-        margin: 10px 0;
-        font-size: 14px;
-        color: #666;
-    }
+.product-info p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #666;
+}
 
 .input-quantidade {
     width: 40px;
@@ -64,8 +64,16 @@
     border-radius: 5px;
 }
 
+.product-image {
+    width: 30%;
+    text-align: right; 
+    padding-right: 15px; 
+    margin-right: 10px;
+}
+
 .product-image img {
-    max-width: 100px;
+    max-width: 120%;
+    height: auto;
     border-radius: 10px;
 }
 
@@ -83,26 +91,26 @@
     text-align: center;
 }
 
-    .botao.cancelar {
-        background-color: #d7d1d1ff;
-        color: black;
-    }
+.botao.cancelar {
+    background-color: #d7d1d1ff;
+    color: black;
+}
 
-        .botao.cancelar:hover {
-            background-color: #d10f0fa4;
-            color: white;
-            transform: scale(1.05);
-            box-shadow: 0px 4px 6px #0000004D;
-        }
+.botao.cancelar:hover {
+    background-color: #d10f0fa4;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 6px #0000004D;
+}
 
-    .botao.pagar {
-        background-color: #d7d1d1ff;
-        color: black;
-    }
+.botao.pagar {
+    background-color: #d7d1d1ff;
+    color: black;
+}
 
-        .botao.pagar:hover {
-            color: white;
-            background-color: #494a49 ; 
-            transform: scale(1.05);
-            box-shadow: 0px 4px 6px #0000004D;
-        }
+.botao.pagar:hover {
+    color: white;
+    background-color: #494a49;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 6px #0000004D;
+}
