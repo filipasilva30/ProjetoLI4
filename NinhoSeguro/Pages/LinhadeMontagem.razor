@@ -1,16 +1,16 @@
-@page "/linhademontagem"
+@page "/linhademontagem/{produtoId:int}"
 @using LI4.Data.Models
 @inject NavigationManager NavigationManager
 
 <link rel="stylesheet" href="css/LinhadeMontagem.css" />
 
 <div class="menu-funcionario-container">
-    <h1 class="titulo">Linha de Montagem</h1>
+    <h1 class="titulo">Linha de Montagem - Produto #@produtoId</h1>
 
     <div class="container">
         <div class="left-panel">
             <div class="select-box-container">
-                <select class="select-box" @onchange="SelecionarProduto">
+                <select class="select-box" @onchange="SelecionarProduto" value="@selectedProduct">
                     @foreach (var produto in produtos)
                     {
                         <option value="@produto">@produto</option>
@@ -45,7 +45,7 @@
 </div>
 
 @code {
-    private string selectedProduct = "Produto #1";
+    [Parameter] public int produtoId { get; set; } // Recebe o ID do produto da URL
     private int etapa = 0;
     private string estado;
     private string descricao;
@@ -54,12 +54,15 @@
     private int totalEtapas;
     private string imagemProduto;
 
+    // Definição do produto selecionado. Inicialmente é "Produto #1"
+    private string selectedProduct;
+
     private Dictionary<string, (string descricao, double tempoTotal, int etapas, string[] imagens)> produtosInfo =
         new Dictionary<string, (string, double, int, string[])>
         {
             { "Produto #1", ("Casa tamanho S cujos materiais utilizados são Madeira Pinho e Acácia", 1.0, 5, new string[] { "assets/lmontagem/passo1_s.png", "assets/lmontagem/passo2_s.png", "assets/lmontagem/passo3_s.png", "assets/lmontagem/passo4_s.png", "assets/lmontagem/passo5_s.png" }) },
             { "Produto #2", ("Casa tamanho M cujos materiais utilizados são Madeira Acácia e Wenge", 3.0, 7, new string[] { "assets/lmontagem/passo1_m.png", "assets/lmontagem/passo2_m.png", "assets/lmontagem/passo3_m.png", "assets/lmontagem/passo4_m.png", "assets/lmontagem/passo5_m.png", "assets/lmontagem/passo6_m.png", "assets/lmontagem/passo7_m.png" }) },
-            { "Produto #3", ("Casa tamanho L cujos materiais utilizados são Madeira Acácia e Rosewood", 3.0, 13, new string[] { "assets/lmontagem/passo1_l.png", "assets/lmontagem/passo2_l.png", "assets/lmontagem/passo3_l.png", "assets/lmontagem/passo4_l.png", "assets/lmontagem/passo5_l.png", "assets/lmontagem/passo6_l.png", "assets/lmontagem/passo7_l.png", "assets/lmontagem/passo8_l.png", "assets/lmontagem/passo9_l.png", "assets/lmontagem/passo10_l.png", "assets/lmontagem/passo11_l.png", "assets/lmontagem/passo12_l.png", "assets/lmontagem/passo13_l.png" }) }
+            { "Produto #3", ("Casa tamanho L cujos materiais utilizados são Madeira Acácia e Rosewood", 4.0, 13, new string[] { "assets/lmontagem/passo1_l.png", "assets/lmontagem/passo2_l.png", "assets/lmontagem/passo3_l.png", "assets/lmontagem/passo4_l.png", "assets/lmontagem/passo5_l.png", "assets/lmontagem/passo6_l.png", "assets/lmontagem/passo7_l.png", "assets/lmontagem/passo8_l.png", "assets/lmontagem/passo9_l.png", "assets/lmontagem/passo10_l.png", "assets/lmontagem/passo11_l.png", "assets/lmontagem/passo12_l.png", "assets/lmontagem/passo13_l.png" }) }
         };
 
     private List<string> produtos = new List<string>
@@ -71,6 +74,8 @@
 
     protected override void OnInitialized()
     {
+        // Inicializar o produto selecionado com base no produtoId
+        selectedProduct = "Produto #" + produtoId; // Supondo que o produtoId seja de 1 a 3
         AtualizarProduto();
     }
 
