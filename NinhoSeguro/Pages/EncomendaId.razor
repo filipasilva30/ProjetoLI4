@@ -1,6 +1,7 @@
 @page "/encomenda/{id:int}"
 @using LI4.Data.Models
 @inject NavigationManager NavigationManager
+@inject LI4.Data.Services.OrderService OrderService
 
 <link rel="stylesheet" href="css/EncomendaId.css" />
 
@@ -15,6 +16,14 @@
         <p>Estado atual: <em>@estadoAtual</em></p>
     </div>
 
+    <!-- Botão de Produzir abaixo do estado atual -->
+    @if (estadoAtual == "Em espera")
+    {
+        <div class="produzir-container">
+            <button @onclick="ProduzirTodos">Produzir Todos os Produtos</button>
+        </div>
+    }
+
     <div class="produtos-list">
         @foreach (var produto in produtos)
         {
@@ -24,7 +33,18 @@
                     <p>Quantidade encomendada: <b>@produto.QuantidadeEncomendada</b></p>
                     <p>Quantidade disponível: <b>@produto.QuantidadeDisponivel</b></p>
                     <div class="produto-actions">
-                        <button @onclick="() => Produzir(produto.Id)">Produzir</button>
+                        @if (produto.Estado == "Em produção")
+                        {
+                            <button @onclick="() => VerLinhaDeMontagem(produto.Id)">Ver Linha de Montagem</button>
+                        }
+                        else if (produto.Estado == "Em espera")
+                        {
+                            <button @onclick="() => ProduzirTodos()">Produzir</button>
+                        }
+                        else if (produto.Estado == "Entregue")
+                        {
+                            <span>Produto Entregue</span>
+                        }
                     </div>
                 </div>
                 <div class="produto-image">
@@ -36,36 +56,85 @@
 
     <div class="nav-buttons">
         <button @onclick="Voltar">VOLTAR</button>
-        <button @onclick="EnviarNotificacao">Enviar notificação</button>
-        <button @onclick="EnviarEncomenda">Enviar Encomenda</button>
+        @if (estadoAtual != "Entregue")
+        {
+            <button @onclick="EnviarNotificacao">Enviar notificação</button>
+        }
+        @if (estadoAtual == "Em espera")
+        {
+            <button @onclick="EnviarEncomenda">Enviar Encomenda</button>
+        }
     </div>
 </div>
 
 @code {
     [Parameter] public int id { get; set; }
-    private string dataPrevista = "01/02/2025";
-    private string estadoAtual = "Em espera";
-    private string clienteNome = "João Silva";
+    private string dataPrevista;
+    private string estadoAtual;
+    private int clienteNome;  // Corrigido de int para string
     private List<Produto> produtos = new List<Produto>();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        produtos = ObterProdutosPorEncomenda(id);
-    }
-
-    private List<Produto> ObterProdutosPorEncomenda(int encomendaId)
-    {
-        return new List<Produto>
+        try
         {
-            new Produto { Id = 1, Nome = "Casa de Tamanho S", QuantidadeEncomendada = 10, QuantidadeDisponivel = 5, ImagemUrl = "assets/casas/casa1.png" },
-            new Produto { Id = 2, Nome = "Casa de Tamanho M", QuantidadeEncomendada = 10, QuantidadeDisponivel = 3, ImagemUrl = "assets/casas/casa2.png" },
-            new Produto { Id = 3, Nome = "Casa de Tamanho L", QuantidadeEncomendada = 10, QuantidadeDisponivel = 1, ImagemUrl = "assets/casas/casa3.png" }
-        };
+            // Obter a encomenda com os produtos
+            var encomenda = await OrderService.ListarTodasEncomendasAsync();
+            var encomendaSelecionada = encomenda.FirstOrDefault(e => e.Numero == id);
+
+            if (encomendaSelecionada != null)
+            {
+                clienteNome = encomendaSelecionada.IdCliente;  // Atualizado para string
+                dataPrevista = encomendaSelecionada.DataPrevEntrega.ToString("dd/MM/yyyy");
+                estadoAtual = encomendaSelecionada.Estado;
+
+                // Obter os produtos associados à encomenda
+                var produtosDb = await OrderService.ListarProdutosPorEncomendaAsync(id);
+                produtos = produtosDb.Select(p => new Produto
+                {
+                    Id = p.Id,
+                    Nome = p.Nome,
+                    QuantidadeEncomendada = p.Quantidade,
+                    QuantidadeDisponivel = p.Preco, // Ajuste para quantidade disponível, se necessário
+                    ImagemUrl = $"assets/casas/casa{p.Id}.png", // Ajuste conforme necessário
+                    Estado = encomendaSelecionada.Estado // Propagar o estado da encomenda
+                }).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao carregar encomenda: {ex.Message}");
+        }
     }
 
-    private void Produzir(int produtoId)
+    private async Task ProduzirTodos()
     {
-        Console.WriteLine($"Produzindo produto com ID: {produtoId}");
+        // Alterar o estado de todos os produtos para "Em produção"
+        foreach (var produto in produtos)
+        {
+            if (produto.Estado == "Em espera")
+            {
+                produto.Estado = "Em produção"; // Alterar o estado para "Em produção"
+            }
+        }
+        estadoAtual = "Em produção"; // Alterar o estado da encomenda também
+
+        // Atualizar o estado da encomenda na base de dados
+        var resultado = await OrderService.AtualizarEstadoEncomendaAsync(id, "Em produção");
+        if (resultado == "Estado da encomenda atualizado com sucesso!")
+        {
+            Console.WriteLine("Todos os produtos foram alterados para 'Em produção'.");
+        }
+        else
+        {
+            Console.WriteLine("Erro ao atualizar o estado da encomenda.");
+        }
+    }
+
+    private void VerLinhaDeMontagem(int produtoId)
+    {
+        // Redireciona para a página de linha de montagem com o id do produto
+        NavigationManager.NavigateTo($"/linhademontagem/{produtoId}");
     }
 
     private void Voltar()
@@ -88,7 +157,8 @@
         public int Id { get; set; }
         public string Nome { get; set; }
         public int QuantidadeEncomendada { get; set; }
-        public int QuantidadeDisponivel { get; set; }
+        public decimal QuantidadeDisponivel { get; set; }
         public string ImagemUrl { get; set; }
+        public string Estado { get; set; } // Estado do produto (Em espera, Em produção, Entregue)
     }
 }

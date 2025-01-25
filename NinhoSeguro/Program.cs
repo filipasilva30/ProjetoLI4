@@ -24,6 +24,7 @@ builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<RegisterService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<StockService>();
+builder.Services.AddScoped<LinhaMontagemService>();
 
 builder.Services.AddServerSideBlazor()
     .AddCircuitOptions(options => { options.DetailedErrors = true; });

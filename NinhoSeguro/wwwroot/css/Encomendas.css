@@ -16,6 +16,12 @@ body {
     text-align: center;
 }
 
+.semencomendas {
+    color: white;
+    font-size: 25px;
+    margin-bottom: 20px;
+    text-align: center;
+}
 /* Contêiner da tabela */
 .tabela-container {
     background-color: #1c1c1c;

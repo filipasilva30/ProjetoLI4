@@ -1,6 +1,8 @@
 ﻿using LI4.Data.Models;
 using LI4.Data;
 
+namespace LI4.Data.Services
+{
 public class LinhaMontagemService
 {
     private readonly SqlDataAccess _db;
@@ -19,4 +21,5 @@ public class LinhaMontagemService
         var etapas = await _db.LoadData<LinhaMontagem, dynamic>(sql, parametros);
         return etapas;
     }
+}
 }
