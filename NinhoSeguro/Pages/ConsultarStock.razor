@@ -1,24 +1,59 @@
 @page "/consultarstock"
 @using LI4.Data.Models
+@using LI4.Data.Services
+@inject StockService StockService
 @inject NavigationManager NavigationManager
 
 <link rel="stylesheet" href="css/ConsultarStock.css" />
 
- <h1 class="titulo">STOCK</h1>
+<h1 class="titulo">STOCK</h1>
 
 <div class="stock-container">
+    <h2 class="subtitulo">Produtos</h2>
     <div class="stock-list">
-        @foreach (var item in stockItems)
+        @if (produtosEmStock != null && produtosEmStock.Any())
         {
-            <div class="stock-item">
-                <div class="stock-info">
-                    <p class="stock-title">@item.Nome</p>
-                    <p class="stock-quantidade">@item.Quantidade Unidades</p>
+            @foreach (var produto in produtosEmStock)
+            {
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <p class="stock-title">@produto.Descricao</p>
+                        <input type="number" min="0" @bind="produto.Quantidade" placeholder="Atualizar Quantidade" class="quantidade-input" />
+                        <span>Unidades</span>
+                    </div>
+                    <div class="stock-image">
+                        <img src="assets/casas/@GetImagemProduto(produto.Descricao)" alt="@produto.Descricao" />
+                    </div>
                 </div>
-                <div class="stock-image">
-                    <img src="@item.ImagemUrl" alt="@item.Nome" />
+            }
+        }
+        else
+        {
+            <p>Nenhum produto em stock.</p>
+        }
+    </div>
+
+    <h2 class="subtitulo">Materiais</h2>
+    <div class="stock-list">
+        @if (materiaisEmStock != null && materiaisEmStock.Any())
+        {
+            @foreach (var material in materiaisEmStock)
+            {
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <p class="stock-title">@material.Nome</p>
+                        <input type="number" min="0" @bind="material.Quantidade" placeholder="Atualizar Quantidade" class="quantidade-input" />
+                        <span>Unidades</span>
+                    </div>
+                    <div class="stock-image">
+                        <img src="assets/Stock/@GetImagemMaterial(material.Nome)" alt="@material.Nome" />
+                    </div>
                 </div>
-            </div>
+            }
+        }
+        else
+        {
+            <p>Nenhum material em stock.</p>
         }
     </div>
 
@@ -28,34 +63,59 @@
     </div>
 </div>
 
-@code {
-    private List<StockItem> stockItems = new()
+@code { 
+    private List<Produto> produtosEmStock = new List<Produto>();
+    private List<Material> materiaisEmStock = new List<Material>();
+
+    protected override async Task OnInitializedAsync()
     {
-        new StockItem { Nome = "Tábua de madeira do tipo Acácia", Quantidade = 30, ImagemUrl = "assets/Stock/tabua_acacia.png" },
-        new StockItem { Nome = "Tábua de madeira do tipo Pinho", Quantidade = 20, ImagemUrl = "assets/Stock/tabua_pinho.png" },
-        new StockItem { Nome = "Tábua de madeira do tipo Rosewood", Quantidade = 15, ImagemUrl = "assets/Stock/tabua_rosewood.png" },
-        new StockItem { Nome = "Tábua de madeira do tipo Wenge", Quantidade = 10, ImagemUrl = "assets/Stock/tabua_wenge.png" },
-        new StockItem { Nome = "Cilindro de madeira do tipo Acácia", Quantidade = 5, ImagemUrl = "assets/Stock/cilindro.png" },
-        new StockItem { Nome = "Tubo de madeira do tipo Acácia", Quantidade = 8, ImagemUrl = "assets/Stock/tubo.png" },
-        new StockItem { Nome = "Casa de Tamanho S que envolve materiais como Pinho e Acácia", Quantidade = 3, ImagemUrl = "assets/casas/casa1.png" },
-        new StockItem { Nome = "Casa de Tamanho M que envolve materiais como Acácia e Wenge", Quantidade = 2, ImagemUrl = "assets/casas/casa2.png" },
-        new StockItem { Nome = "Casa de Tamanho L que envolve materiais como Acácia e Rosewood", Quantidade = 1, ImagemUrl = "assets/casas/casa3.png" }
-    };
+        produtosEmStock = await StockService.ListarProdutosEmStockAsync();
+        materiaisEmStock = await StockService.ListarMateriaisEmStockAsync();
+    }
 
     private void Voltar()
     {
         NavigationManager.NavigateTo("/menufuncionario");
     }
 
-    private void ReporStock()
+    private async Task ReporStock()
     {
-        // Lógica para repor o stock (a ser implementada)
+        foreach (var produto in produtosEmStock)
+        {
+            await StockService.AtualizarStockProdutoAsync(produto.Id, produto.Quantidade);
+        }
+
+        foreach (var material in materiaisEmStock)
+        {
+            await StockService.AtualizarStockMaterialAsync(material.Id, material.Quantidade);
+        }
+
+        produtosEmStock = await StockService.ListarProdutosEmStockAsync();
+        materiaisEmStock = await StockService.ListarMateriaisEmStockAsync();
     }
 
-    private class StockItem
+    private string GetImagemMaterial(string nome)
     {
-        public string Nome { get; set; }
-        public int Quantidade { get; set; }
-        public string ImagemUrl { get; set; }
+        return nome switch
+        {
+            "Tábua de madeira do tipo Acácia" => "tabua_acacia.png",
+            "Tábua de madeira do tipo Pinho" => "tabua_pinho.png",
+            "Tábua de madeira do tipo Rosewood" => "tabua_rosewood.png",
+            "Tábua de madeira do tipo Wenge" => "tabua_wenge.png",
+            "Cilindro de madeira do tipo Acácia" => "cilindro.png",
+            "Tubo de madeira do tipo Acácia" => "tubo.png",
+            _ => "default.png"
+        };
+    }   
+
+    private string GetImagemProduto(string descricao)
+    {
+        return descricao switch
+        {
+            "Casa tamanho S" => "casa1.png",
+            "Casa tamanho M" => "casa2.png",
+            "Casa tamanho L" => "casa3.png",
+            _ => "default.png"
+        };
     }
 }
