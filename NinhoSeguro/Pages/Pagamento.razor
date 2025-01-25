@@ -103,7 +103,6 @@
 
             var clienteId = int.Parse(user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "0");
 
-            // Obter informações detalhadas do cliente
             var cliente = await OrderService.ObterClientePorIdAsync(clienteId);
 
             if (cliente != null)
@@ -140,8 +139,17 @@
         }
     }
 
-    private void Cancelar()
+    private async Task Cancelar()
     {
+        try
+        {
+            await OrderService.EliminarEncomendaAsync(numeroEncomenda);
+            Console.WriteLine("Encomenda cancelada com sucesso.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao cancelar encomenda: {ex.Message}");
+        }
         NavigationManager.NavigateTo("/menucliente");
     }
 }

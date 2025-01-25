@@ -13,6 +13,28 @@ namespace LI4.Data.Services
             _db = db;
         }
 
+        public async Task<bool> EliminarEncomendaAsync(int encomendaId)
+        {
+            try
+            {
+                // Eliminar os produtos associados à encomenda
+                var sqlDeleteProdutos = "DELETE FROM Encomenda_tem_Produto WHERE NumEncomenda = @NumEncomenda";
+                await _db.SaveData(sqlDeleteProdutos, new { NumEncomenda = encomendaId });
+
+                // Eliminar a encomenda
+                var sqlDeleteEncomenda = "DELETE FROM Encomenda WHERE Numero = @NumEncomenda";
+                await _db.SaveData(sqlDeleteEncomenda, new { NumEncomenda = encomendaId });
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
+
         public async Task<Utilizador> ObterClientePorIdAsync(int clienteId)
         {
             var sql = "SELECT Nome, NIF FROM Utilizador WHERE Id = @ClienteId";
