@@ -10,10 +10,6 @@
 
 <link rel="stylesheet" href="css/Encomendas.css" />
 
-<div class="porta">
-    <img src="assets/exit.png" alt="exit" class="porta" @onclick="exitPage" />
-</div>
-
 <div class="tabela-container">
     <h1 class="titulo">Histórico de Encomendas</h1>
 
@@ -35,7 +31,7 @@
                     <td>
                         @foreach (var encomenda in encomendas.Where(e => e.Estado != "Entregue"))
                         {
-                            <div style="cursor: pointer;">
+                            <div style="cursor: pointer;" @onclick="() => IrParaEncomenda(encomenda.Numero)">
                                 Encomenda #@encomenda.Numero
                             </div>
                         }
@@ -43,7 +39,7 @@
                     <td>
                         @foreach (var encomenda in encomendas.Where(e => e.Estado == "Entregue"))
                         {
-                            <div style="cursor: pointer;">
+                            <div style="cursor: pointer;" @onclick="() => IrParaEncomenda(encomenda.Numero)">
                                 Encomenda #@encomenda.Numero
                             </div>
                         }
@@ -83,13 +79,8 @@
         NavigationManager.NavigateTo("/menucliente");
     }
 
-    private void exitPage()
-    {
-        NavigationManager.NavigateTo("/");
-    }
-
     private void IrParaEncomenda(int id)
     {
-        NavigationManager.NavigateTo($"/encomenda/{id}");
+        NavigationManager.NavigateTo($"/encomendacliente/{id}");
     }
 }
