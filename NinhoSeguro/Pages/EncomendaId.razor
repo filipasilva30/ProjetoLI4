@@ -12,11 +12,12 @@
     </div>
 
     <div class="encomenda-info">
-        <p>Data prevista para a finalização da produção: <b>@dataPrevista</b></p>
+        <!-- Alterado para "Data prevista de entrega" -->
+        <p>Data prevista de entrega: <b>@dataPrevista</b></p>
         <p>Estado atual: <em>@estadoAtual</em></p>
     </div>
 
-    <!-- Botão de Produzir abaixo do estado atual -->
+    <!-- Botão de Produzir Todos os Produtos abaixo do estado atual -->
     @if (estadoAtual == "Em espera")
     {
         <div class="produzir-container">
@@ -31,7 +32,7 @@
                 <div class="produto-info">
                     <h3 class="produto-nome">@produto.Nome</h3>
                     <p>Quantidade encomendada: <b>@produto.QuantidadeEncomendada</b></p>
-                    <p>Quantidade disponível: <b>@produto.QuantidadeDisponivel</b></p>
+                    <p>Estado: <b>@produto.Estado</b></p>
                     <div class="produto-actions">
                         @if (produto.Estado == "Em produção")
                         {
@@ -39,7 +40,7 @@
                         }
                         else if (produto.Estado == "Em espera")
                         {
-                            <button @onclick="() => ProduzirTodos()">Produzir</button>
+                            <!-- Não exibe o botão individual de Produzir -->
                         }
                         else if (produto.Estado == "Entregue")
                         {
@@ -60,7 +61,7 @@
         {
             <button @onclick="EnviarNotificacao">Enviar notificação</button>
         }
-        @if (estadoAtual == "Em espera")
+        @if (estadoAtual == "Em produção")
         {
             <button @onclick="EnviarEncomenda">Enviar Encomenda</button>
         }
@@ -85,6 +86,7 @@
             if (encomendaSelecionada != null)
             {
                 clienteNome = encomendaSelecionada.IdCliente;  // Atualizado para string
+                // Alterado para "Data prevista de entrega"
                 dataPrevista = encomendaSelecionada.DataPrevEntrega.ToString("dd/MM/yyyy");
                 estadoAtual = encomendaSelecionada.Estado;
 
@@ -131,6 +133,30 @@
         }
     }
 
+    private async Task EnviarEncomenda()
+    {
+        // Alterar o estado de todos os produtos para "Entregue"
+        foreach (var produto in produtos)
+        {
+            if (produto.Estado == "Em produção")
+            {
+                produto.Estado = "Entregue"; // Alterar o estado do produto para "Entregue"
+            }
+        }
+        estadoAtual = "Entregue"; // Alterar o estado da encomenda para "Entregue"
+
+        // Atualizar o estado da encomenda e dos produtos na base de dados
+        var resultadoEncomenda = await OrderService.AtualizarEstadoEncomendaAsync(id, "Entregue");
+        if (resultadoEncomenda == "Estado da encomenda atualizado com sucesso!")
+        {
+            Console.WriteLine("Todos os produtos foram alterados para 'Entregue'.");
+        }
+        else
+        {
+            Console.WriteLine("Erro ao atualizar o estado da encomenda.");
+        }
+    }
+
     private void VerLinhaDeMontagem(int produtoId)
     {
         // Redireciona para a página de linha de montagem com o id do produto
@@ -147,17 +173,12 @@
         Console.WriteLine("Notificação enviada!");
     }
 
-    private void EnviarEncomenda()
-    {
-        Console.WriteLine("Encomenda enviada!");
-    }
-
     private class Produto
     {
         public int Id { get; set; }
         public string Nome { get; set; }
         public int QuantidadeEncomendada { get; set; }
-        public decimal QuantidadeDisponivel { get; set; }
+        public decimal QuantidadeDisponivel { get; set; } // Removido da exibição
         public string ImagemUrl { get; set; }
         public string Estado { get; set; } // Estado do produto (Em espera, Em produção, Entregue)
     }
