@@ -48,18 +48,6 @@ body {
             transform: scale(1.05); 
         }
 
-    
-    .botao.linhademontagem {
-        background-color: #ece8e8; 
-        color: black; 
-    }
-
-        .botao.linhademontagem:hover {
-            background-color: #1c1c1cd7; 
-            color: white;
-            transform: scale(1.05); 
-        }
-
     .botao.stock {
         background-color: #ece8e8; 
         color: black; 

@@ -33,8 +33,6 @@ namespace LI4.Data.Services
             }
         }
 
-
-
         public async Task<Utilizador> ObterClientePorIdAsync(int clienteId)
         {
             var sql = "SELECT Nome, NIF FROM Utilizador WHERE Id = @ClienteId";
@@ -111,6 +109,21 @@ namespace LI4.Data.Services
 
         }
 
+        public async Task<int> GetQuantidadeEncomendadaAsync(int encomendaId, int produtoId)
+        {
+            var sql = @"
+            SELECT Quantidade 
+            FROM Encomenda_tem_Produto 
+            WHERE NumEncomenda = @EncomendaId AND IdProduto = @ProdutoId";
+
+            var quantidade = await _db.LoadData<int, dynamic>(
+                sql,
+                new { EncomendaId = encomendaId, ProdutoId = produtoId }
+            );
+
+            return quantidade.FirstOrDefault();
+        }
+
         // lista de encomendas de um dado cliente
         public async Task<List<Encomenda>> ListarEncomendasClienteAsync(int clienteId)
         {
@@ -129,17 +142,14 @@ namespace LI4.Data.Services
             return encomendas;
         }
 
-        public async Task<string> ConsultarEstadoEncomendaAsync(int encomendaId)
+        public async Task<string> ObterNomeProdutoPorIdAsync(int produtoId)
         {
-            var encomenda = await _db.LoadData<Encomenda, dynamic>("SELECT Estado FROM Encomenda WHERE Numero = @NumEncomenda",
-                                                                   new { NumEncomenda = encomendaId });
+            var sql = "SELECT Nome FROM Produto WHERE Id = @ProdutoId";
+            var parametros = new { ProdutoId = produtoId };
 
-            if (encomenda == null || encomenda.Count == 0)
-            {
-                return "Encomenda não encontrada.";
-            }
+            var nomeProduto = await _db.LoadData<string, dynamic>(sql, parametros);
 
-            return encomenda[0].Estado;
+            return nomeProduto.FirstOrDefault();
         }
 
         public async Task<List<Produto>> ListarProdutosPorEncomendaAsync(int encomendaId)
@@ -156,6 +166,18 @@ namespace LI4.Data.Services
             return produtos;
         }
 
+        public async Task<string> ConsultarEstadoEncomendaAsync(int encomendaId)
+        {
+            var encomenda = await _db.LoadData<Encomenda, dynamic>("SELECT Estado FROM Encomenda WHERE Numero = @NumEncomenda",
+                                                                   new { NumEncomenda = encomendaId });
+
+            if (encomenda == null || encomenda.Count == 0)
+            {
+                return "Encomenda não encontrada.";
+            }
+
+            return encomenda[0].Estado;
+        }
 
         public async Task<string> AtualizarEstadoEncomendaAsync(int encomendaId, string novoEstado)
         {
