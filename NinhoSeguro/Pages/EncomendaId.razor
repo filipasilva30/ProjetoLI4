@@ -9,8 +9,8 @@
 
 <div class="encomenda-container">
     <div class="header">
-        <h1 class="titulo">ENCOMENDA #@id</h1>
-        <p class="cliente-info">Cliente: <b>@clienteNome</b></p>
+        <h2 class="left">Encomenda #@id</h2>
+        <h3 class="right">Cliente: @clienteNome</h3> 
     </div>
 
     <div class="encomenda-info">
@@ -18,7 +18,7 @@
         <p>Estado atual: <em>@estadoAtual</em></p>
     </div>
 
-     @if (estadoAtual == "Em espera")
+    @if (estadoAtual == "Em espera")
     {
         <div class="produzir-container">
             <button @onclick="VerificarMateriais">Verificar Materiais</button>
@@ -82,38 +82,53 @@
 
     <div class="nav-buttons">
         <button @onclick="Voltar">VOLTAR</button>
-        @if (estadoAtual != "Entregue")
+        <button @onclick="MostrarModal">Enviar notificação</button>
+        @if (estadoAtual == "Em produção")
         {
-            <button @onclick="EnviarNotificacao">Enviar notificação</button>
             <button @onclick="EnviarEncomenda">Enviar Encomenda</button>
         }   
     </div>
 </div>
+
+@if (mostrarModal)
+{
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-icon">⚠️</span>
+                <h3>Aviso</h3>
+            </div>
+            <p>Não é possível enviar notificações de momento. </p>
+            <button class="modal-close" @onclick="FecharModal">Fechar</button>
+        </div>
+    </div>
+}
 
 @code {
     [Parameter] public int id { get; set; }
 
     private string dataPrevista;
     private string estadoAtual;
-    private int clienteNome;
+    private string clienteNome="";
     private Dictionary<int, string> nomesProdutos = new Dictionary<int, string>();
     private List<Encomenda_tem_Produto> produtosEncomenda = new List<Encomenda_tem_Produto>();
     private bool verificacaoConcluida = false;
     private bool podeProduzir = false;
     private string mensagemErro;
     private Dictionary<int, int> produtosProduziveis = new();
+    private bool mostrarModal = false;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            // Obter a encomenda com os produtos
             var encomenda = await OrderService.ListarTodasEncomendasAsync();
             var encomendaSelecionada = encomenda.FirstOrDefault(e => e.Numero == id);
 
             if (encomendaSelecionada != null)
             {
-                clienteNome = encomendaSelecionada.IdCliente;
+                var cliente = await OrderService.ObterClientePorIdAsync(encomendaSelecionada.IdCliente);
+                clienteNome = cliente.Nome;
                 dataPrevista = encomendaSelecionada.DataPrevEntrega.ToString("dd/MM/yyyy");
                 estadoAtual = encomendaSelecionada.Estado;
                 produtosEncomenda = (await OrderService.ListarProdutosPorEncomendaAsync(id))
@@ -154,7 +169,6 @@
 
     private async Task EnviarEncomenda()
     {
-
         if (estadoAtual != "Entregue")
         {
             estadoAtual = "Entregue";
@@ -162,7 +176,6 @@
             if (resultadoEncomenda == "Estado da encomenda atualizado com sucesso!")
             {
                 await StockService.AtualizarStockApósEnvioAsync(produtosEncomenda);
-
                 var dataAtual = DateTime.Now;
                 var sucesso = await OrderService.AtualizarDataEncomendaAsync(id, dataAtual);
 
@@ -190,7 +203,7 @@
 
     private void VerLinhaDeMontagem(int produtoId)
     {
-        NavigationManager.NavigateTo($"/linhademontagem/{produtoId}/{id}");   // para saber o produto e a encomenda
+        NavigationManager.NavigateTo($"/linhademontagem/{produtoId}/{id}");
     }
 
     private void Voltar()
@@ -198,23 +211,24 @@
         NavigationManager.NavigateTo($"/encomendas");
     }
 
-    private void EnviarNotificacao()
+    private void MostrarModal()
     {
-        Console.WriteLine("Notificação enviada!");
+        mostrarModal = true;
+    }
+
+    private void FecharModal()
+    {
+        mostrarModal = false;
     }
 
     private string GetImageName(int idProduto)
     {
-        switch (idProduto)
+        return idProduto switch
         {
-            case 1:
-                return "casa1.png";
-            case 2:
-                return "casa2.png";
-            case 3:
-                return "casa3.png";
-            default:
-                return "default.png";
-        }
+            1 => "casa1.png",
+            2 => "casa2.png",
+            3 => "casa3.png",
+            _ => "default.png",
+        };
     }
 }

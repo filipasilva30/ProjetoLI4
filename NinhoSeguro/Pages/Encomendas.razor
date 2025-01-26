@@ -14,58 +14,61 @@
     }
     else
     {
-        <table>
-            <thead>
-                <tr>
-                    <th>Em espera</th>
-                    <th>Em produção</th>
-                    <th>Entregue</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (var i = 0; i < Math.Max(
-                        encomendas.Count(e => e.Estado == "Em espera"),
-                        Math.Max(
-                            encomendas.Count(e => e.Estado == "Em produção"),
-                            encomendas.Count(e => e.Estado == "Entregue")
-                        )); i++)
-                {
+        <div class="tabela-scroll">
+            <table>
+                <thead>
                     <tr>
-                        <td>
-                            @if (i < encomendas.Count(e => e.Estado == "Em espera"))
-                            {
-                                var encomenda = encomendas.Where(e => e.Estado == "Em espera").ElementAt(i);
-                                <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
-                                Encomenda #@encomenda.Numero
-                            </p>
-                            }
-                        </td>
-                        <td>
-                            @if (i < encomendas.Count(e => e.Estado == "Em produção"))
-                            {
-                                var encomenda = encomendas.Where(e => e.Estado == "Em produção").ElementAt(i);
-                                <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
-                                Encomenda #@encomenda.Numero
-                            </p>
-                            }
-                        </td>
-                        <td>
-                            @if (i < encomendas.Count(e => e.Estado == "Entregue"))
-                            {
-                                var encomenda = encomendas.Where(e => e.Estado == "Entregue").ElementAt(i);
-                                <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
-                                Encomenda #@encomenda.Numero
-                            </p>
-                            }
-                        </td>
+                        <th>Em espera</th>
+                        <th>Em produção</th>
+                        <th>Entregue</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Math.Max(
+                            encomendas.Count(e => e.Estado == "Em espera"),
+                            Math.Max(
+                                encomendas.Count(e => e.Estado == "Em produção"),
+                                encomendas.Count(e => e.Estado == "Entregue")
+                            )); i++)
+                    {
+                        <tr>
+                            <td>
+                                @if (i < encomendas.Count(e => e.Estado == "Em espera"))
+                                {
+                                    var encomenda = encomendas.Where(e => e.Estado == "Em espera").ElementAt(i);
+                                    <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
+                                        Encomenda #@encomenda.Numero
+                                    </p>
+                                }
+                            </td>
+                            <td>
+                                @if (i < encomendas.Count(e => e.Estado == "Em produção"))
+                                {
+                                    var encomenda = encomendas.Where(e => e.Estado == "Em produção").ElementAt(i);
+                                    <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
+                                        Encomenda #@encomenda.Numero
+                                    </p>
+                                }
+                            </td>
+                            <td>
+                                @if (i < encomendas.Count(e => e.Estado == "Entregue"))
+                                {
+                                    var encomenda = encomendas.Where(e => e.Estado == "Entregue").ElementAt(i);
+                                    <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
+                                        Encomenda #@encomenda.Numero
+                                    </p>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
 
     <button class="botao-voltar" @onclick="VoltarMenu">Voltar</button>
 </div>
+
 
 @code {
     private List<Encomenda> encomendas = new();
