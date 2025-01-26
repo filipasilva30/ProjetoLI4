@@ -7,6 +7,6 @@
         public string Descricao { get; set; }
         public int Quantidade { get; set; }
         public decimal Preco { get; set; }
-        public LinhaMontagem Montagem { get; set; }
+        public int Montagem { get; set; }
     }
 }

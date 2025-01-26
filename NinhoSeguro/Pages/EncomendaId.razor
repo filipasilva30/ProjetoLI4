@@ -70,6 +70,7 @@
 
 @code {
     [Parameter] public int id { get; set; }
+
     private string dataPrevista;
     private string estadoAtual;
     private int clienteNome;  // Corrigido de int para string
@@ -160,12 +161,12 @@
     private void VerLinhaDeMontagem(int produtoId)
     {
         // Redireciona para a página de linha de montagem com o id do produto
-        NavigationManager.NavigateTo($"/linhademontagem/{produtoId}");
+        NavigationManager.NavigateTo($"/linhademontagem/{produtoId}/{id}");
     }
 
     private void Voltar()
     {
-        NavigationManager.NavigateTo("/encomendas");
+        NavigationManager.NavigateTo($"/encomenda/{id}");
     }
 
     private void EnviarNotificacao()
