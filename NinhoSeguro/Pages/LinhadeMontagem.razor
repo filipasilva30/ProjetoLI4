@@ -1,5 +1,7 @@
-@page "/linhademontagem/{produtoId:int}"
+@page "/linhademontagem/{produtoId:int}/{id:int}"
 @using LI4.Data.Models
+@using LI4.Data.Services
+@inject LinhaMontagemService MontagemService
 @inject NavigationManager NavigationManager
 
 <link rel="stylesheet" href="css/LinhadeMontagem.css" />
@@ -9,18 +11,9 @@
 
     <div class="container">
         <div class="left-panel">
-            <div class="select-box-container">
-                <select class="select-box" @onchange="SelecionarProduto" value="@selectedProduct">
-                    @foreach (var produto in produtos)
-                    {
-                        <option value="@produto">@produto</option>
-                    }
-                </select>
-            </div>
-
             <p><b>Tempo estimado:</b> @tempoFormatado</p>
             <p><b>Descrição:</b> @descricao</p>
-            <p><b>Etapa:</b> @(etapa + 1) de @totalEtapas</p>
+            <p><b>Etapa:</b> @(etapaAtual + 1) de @totalEtapas</p>
             <p><b>Estado:</b> @estado</p>
 
             <div class="progress-bar">
@@ -29,8 +22,8 @@
             </div>
 
             <div class="nav-buttons">
-                <button @onclick="EtapaAnterior" disabled="@(etapa == 0)">Anterior</button>
-                <button @onclick="ProximaEtapa" disabled="@(etapa == totalEtapas - 1)">Próxima</button>
+                <button @onclick="EtapaAnterior" disabled="@(etapaAtual == 0)">Anterior</button>
+                <button @onclick="ProximaEtapa" disabled="@(etapaAtual == totalEtapas - 1)">Próxima</button>
             </div>
         </div>
 
@@ -45,112 +38,100 @@
 </div>
 
 @code {
-    [Parameter] public int produtoId { get; set; } // Recebe o ID do produto da URL
-    private int etapa = 0;
-    private string estado;
+    [Parameter] public int produtoId { get; set; } 
+    [Parameter] public int id { get; set; }
+
     private string descricao;
+    private string tipoCasa;
+    private string imagemProduto;
+    private string estado;
+    private int etapaAtual = 0;
+    private int totalEtapas;
     private int progresso = 0;
     private string tempoFormatado;
-    private int totalEtapas;
-    private string imagemProduto;
+    private List<LinhaMontagem> etapas;
 
-    // Definição do produto selecionado. Inicialmente é "Produto #1"
-    private string selectedProduct;
-
-    private Dictionary<string, (string descricao, double tempoTotal, int etapas, string[] imagens)> produtosInfo =
-        new Dictionary<string, (string, double, int, string[])>
+    protected override async Task OnInitializedAsync()
+    {
+        try
         {
-            { "Produto #1", ("Casa tamanho S cujos materiais utilizados são Madeira Pinho e Acácia", 1.0, 5, new string[] { "assets/lmontagem/passo1_s.png", "assets/lmontagem/passo2_s.png", "assets/lmontagem/passo3_s.png", "assets/lmontagem/passo4_s.png", "assets/lmontagem/passo5_s.png" }) },
-            { "Produto #2", ("Casa tamanho M cujos materiais utilizados são Madeira Acácia e Wenge", 3.0, 7, new string[] { "assets/lmontagem/passo1_m.png", "assets/lmontagem/passo2_m.png", "assets/lmontagem/passo3_m.png", "assets/lmontagem/passo4_m.png", "assets/lmontagem/passo5_m.png", "assets/lmontagem/passo6_m.png", "assets/lmontagem/passo7_m.png" }) },
-            { "Produto #3", ("Casa tamanho L cujos materiais utilizados são Madeira Acácia e Rosewood", 4.0, 13, new string[] { "assets/lmontagem/passo1_l.png", "assets/lmontagem/passo2_l.png", "assets/lmontagem/passo3_l.png", "assets/lmontagem/passo4_l.png", "assets/lmontagem/passo5_l.png", "assets/lmontagem/passo6_l.png", "assets/lmontagem/passo7_l.png", "assets/lmontagem/passo8_l.png", "assets/lmontagem/passo9_l.png", "assets/lmontagem/passo10_l.png", "assets/lmontagem/passo11_l.png", "assets/lmontagem/passo12_l.png", "assets/lmontagem/passo13_l.png" }) }
-        };
+            etapas = await MontagemService.ConsultarLinhaMontagemAsync(produtoId);
 
-    private List<string> produtos = new List<string>
-    {
-        "Produto #1",
-        "Produto #2",
-        "Produto #3"
-    };
+            tipoCasa = produtoId switch
+            {
+                1 => "s",
+                2 => "m", 
+                3 => "l", 
+                _ => "default" 
+            };
 
-    protected override void OnInitialized()
-    {
-        // Inicializar o produto selecionado com base no produtoId
-        selectedProduct = "Produto #" + produtoId; // Supondo que o produtoId seja de 1 a 3
-        AtualizarProduto();
+            if (etapas != null && etapas.Any())
+            {
+                totalEtapas = etapas.Count;
+                AtualizarEtapa();
+            }
+            else
+            {
+                descricao = "Nenhuma etapa encontrada para este produto.";
+                totalEtapas = 0;
+            }
+        }
+        catch (Exception ex)
+        {
+            descricao = $"Erro ao carregar a linha de montagem: {ex.Message}";
+        }
     }
 
-    private void SelecionarProduto(ChangeEventArgs e)
+    private void AtualizarEtapa()
     {
-        selectedProduct = e.Value?.ToString() ?? "Produto #1";
-        etapa = 0;
-        AtualizarProduto();
-    }
+        if (etapas != null && etapas.Count > etapaAtual)
+        {
+            var etapaAtualObj = etapas[etapaAtual];
+            descricao = etapaAtualObj.Descricao;
+            tempoFormatado = $"{etapaAtualObj.Duracao.Hours} h {etapaAtualObj.Duracao.Minutes} min";
+            progresso = (int)(((double)(etapaAtual + 1) / totalEtapas) * 100);
 
-    private void AtualizarProduto()
-    {
-        var produtoAtual = produtosInfo[selectedProduct];
-        descricao = produtoAtual.descricao;
-        totalEtapas = produtoAtual.etapas;
-        double tempoRestante = produtoAtual.tempoTotal - (etapa * produtoAtual.tempoTotal / totalEtapas);
-        progresso = (int)(((double)(etapa + 1) / totalEtapas) * 100);
-        imagemProduto = produtoAtual.imagens[etapa];
-
-        // Definição do estado conforme requisitos
-        if (etapa == 0)
-        {
-            estado = "Em processamento";
-        }
-        else if (etapa == totalEtapas - 1)
-        {
-            estado = "Finalizado";
-        }
-        else if (etapa == totalEtapas - 2)
-        {
-            estado = "Quase finalizado";
-        }
-        else
-        {
-            estado = "Em processamento";
-        }
-
-        // Formatação do tempo estimado
-        int horas = (int)tempoRestante;
-        int minutos = (int)((tempoRestante - horas) * 60);
-
-        if (horas > 0 && minutos > 0)
-        {
-            tempoFormatado = $"{horas} hora(s) e {minutos} minuto(s)";
-        }
-        else if (horas > 0)
-        {
-            tempoFormatado = $"{horas} hora(s)";
-        }
-        else
-        {
-            tempoFormatado = $"{minutos} minuto(s)";
+            // Determinar o estado da montagem
+            if (etapaAtual == 0)
+            {
+                estado = "Em processamento";
+            }
+            else if (etapaAtual == totalEtapas - 1)
+            {
+                estado = "Finalizado";
+            }
+            else if (etapaAtual == totalEtapas - 2)
+            {
+                estado = "Quase finalizado";
+            }
+            else
+            {
+                estado = "Em processamento";
+            }
+            imagemProduto = $"/assets/lmontagem/passo{etapaAtual + 1}_{tipoCasa}.png";
         }
     }
 
     private void ProximaEtapa()
     {
-        if (etapa < totalEtapas - 1)
+        if (etapaAtual < totalEtapas - 1)
         {
-            etapa++;
-            AtualizarProduto();
+            etapaAtual++;
+            AtualizarEtapa();
         }
     }
 
     private void EtapaAnterior()
     {
-        if (etapa > 0)
+        if (etapaAtual > 0)
         {
-            etapa--;
-            AtualizarProduto();
+            etapaAtual--;
+            AtualizarEtapa();
         }
     }
 
     private void Voltar()
     {
-        NavigationManager.NavigateTo("/menufuncionario");
+        NavigationManager.NavigateTo($"/encomenda/{id}");
     }
 }
