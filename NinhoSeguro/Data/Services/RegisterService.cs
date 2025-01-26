@@ -24,7 +24,7 @@ namespace LI4.Data.Services
             }
             // Verificar se o e-mail ou o username já estão registados
             var clienteExistente = await _db.LoadData<Utilizador, dynamic>("SELECT * FROM Utilizador WHERE Email = @Email OR Username = @Username",
-                                                                           new { Email = modelo.Email, Username = modelo.Username });
+                                                                           new { Email = modelo.Email, Username = modelo.Username, NIF = modelo.NIF });
 
             if (clienteExistente != null && clienteExistente.Count > 0)
             {
@@ -32,6 +32,8 @@ namespace LI4.Data.Services
                     return "Já existe uma conta associada ao email";
                 if (clienteExistente.Any(u => u.Username == modelo.Username))
                     return "O username inserido já está a ser utilizado";
+                if (clienteExistente.Any(u => u.NIF == modelo.NIF))
+                    return "Já existe uma conta associada a esse NIF";
             }
 
             // Preparar a inserção do novo cliente

@@ -4,11 +4,19 @@
 @inject LI4.Data.Services.RegisterService RegisterService
 
 <link rel="stylesheet" href="css/Registo.css" />
+
+@if (!string.IsNullOrEmpty(registerMessage))
+{
+    <div class="warning-container">
+        @registerMessage
+        <button class="warning-close" @onclick="() => registerMessage = null">×</button>
+    </div>
+}
 <img src="assets/user.png" alt="Imagem de Registo" class="imagem-registo" />
+
 
 <EditForm Model="@registerModel" OnValidSubmit="@HandleRegister">
     <DataAnnotationsValidator />
-    <ValidationSummary />
 
     <div class="form-container">
         <div class="left-column">
