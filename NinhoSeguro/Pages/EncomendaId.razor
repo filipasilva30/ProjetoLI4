@@ -2,6 +2,7 @@
 @using LI4.Data.Models
 @inject NavigationManager NavigationManager
 @inject LI4.Data.Services.OrderService OrderService
+@inject LI4.Data.Services.StockService StockService
 
 <link rel="stylesheet" href="css/EncomendaId.css" />
 
@@ -12,12 +13,10 @@
     </div>
 
     <div class="encomenda-info">
-        <!-- Alterado para "Data prevista de entrega" -->
         <p>Data prevista de entrega: <b>@dataPrevista</b></p>
         <p>Estado atual: <em>@estadoAtual</em></p>
     </div>
 
-    <!-- Botão de Produzir Todos os Produtos abaixo do estado atual -->
     @if (estadoAtual == "Em espera")
     {
         <div class="produzir-container">
@@ -26,30 +25,35 @@
     }
 
     <div class="produtos-list">
-        @foreach (var produto in produtos)
+        @foreach (var produtoEncomenda in produtosEncomenda)
         {
+            var nomeProduto = nomesProdutos.ContainsKey(produtoEncomenda.IdProduto) ? nomesProdutos[produtoEncomenda.IdProduto] : "Desconhecido";
+
             <div class="produto-item">
                 <div class="produto-info">
-                    <h3 class="produto-nome">@produto.Nome</h3>
-                    <p>Quantidade encomendada: <b>@produto.QuantidadeEncomendada</b></p>
-                    <p>Estado: <b>@produto.Estado</b></p>
+                    <h3 class="produto-nome">@nomeProduto</h3>
+                    <p>Quantidade encomendada: <b>@produtoEncomenda.Quantidade</b></p>
                     <div class="produto-actions">
-                        @if (produto.Estado == "Em produção")
+                        @if (estadoAtual == "Em espera")
                         {
-                            <button @onclick="() => VerLinhaDeMontagem(produto.Id)">Ver Linha de Montagem</button>
+                            <div class="produto-actions">
+                                <button @onclick="() => ProduzirProduto(produtoEncomenda.IdProduto)">Produzir</button>
+                            </div>
                         }
-                        else if (produto.Estado == "Em espera")
+                        else if (estadoAtual == "Em produção")
                         {
-                            <!-- Não exibe o botão individual de Produzir -->
+                            <div class="produto-actions">
+                                <button @onclick="() => VerLinhaDeMontagem(produtoEncomenda.IdProduto)">Ver Linha de Montagem</button>
+                            </div>
                         }
-                        else if (produto.Estado == "Entregue")
+                        else if (estadoAtual == "Entregue")
                         {
                             <span>Produto Entregue</span>
                         }
                     </div>
                 </div>
                 <div class="produto-image">
-                    <img src="@produto.ImagemUrl" alt="@produto.Nome" />
+                    <img src="assets/casas/@GetImageName(produtoEncomenda.IdProduto)" alt="@produtoEncomenda.IdProduto" />
                 </div>
             </div>
         }
@@ -60,11 +64,8 @@
         @if (estadoAtual != "Entregue")
         {
             <button @onclick="EnviarNotificacao">Enviar notificação</button>
-        }
-        @if (estadoAtual == "Em produção")
-        {
             <button @onclick="EnviarEncomenda">Enviar Encomenda</button>
-        }
+        }   
     </div>
 </div>
 
@@ -73,8 +74,9 @@
 
     private string dataPrevista;
     private string estadoAtual;
-    private int clienteNome;  // Corrigido de int para string
-    private List<Produto> produtos = new List<Produto>();
+    private int clienteNome;
+    private Dictionary<int, string> nomesProdutos = new Dictionary<int, string>(); // Dicionário para armazenar os nomes dos produtos
+    private List<Encomenda_tem_Produto> produtosEncomenda = new List<Encomenda_tem_Produto>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -86,22 +88,23 @@
 
             if (encomendaSelecionada != null)
             {
-                clienteNome = encomendaSelecionada.IdCliente;  // Atualizado para string
-                // Alterado para "Data prevista de entrega"
+                clienteNome = encomendaSelecionada.IdCliente;
                 dataPrevista = encomendaSelecionada.DataPrevEntrega.ToString("dd/MM/yyyy");
                 estadoAtual = encomendaSelecionada.Estado;
+                produtosEncomenda = (await OrderService.ListarProdutosPorEncomendaAsync(id))
+                    .Select(p => new Encomenda_tem_Produto
+                        {
+                            Quantidade = p.Quantidade,
+                            IdEncomenda = id,
+                            IdProduto = p.Id
+                        })
+                    .ToList();
 
-                // Obter os produtos associados à encomenda
-                var produtosDb = await OrderService.ListarProdutosPorEncomendaAsync(id);
-                produtos = produtosDb.Select(p => new Produto
+                foreach (var produto in produtosEncomenda)
                 {
-                    Id = p.Id,
-                    Nome = p.Nome,
-                    QuantidadeEncomendada = p.Quantidade,
-                    QuantidadeDisponivel = p.Preco, // Ajuste para quantidade disponível, se necessário
-                    ImagemUrl = $"assets/casas/casa{p.Id}.png", // Ajuste conforme necessário
-                    Estado = encomendaSelecionada.Estado // Propagar o estado da encomenda
-                }).ToList();
+                    var nomeProduto = await OrderService.ObterNomeProdutoPorIdAsync(produto.IdProduto);
+                    nomesProdutos[produto.IdProduto] = nomeProduto;
+                }
             }
         }
         catch (Exception ex)
@@ -112,61 +115,40 @@
 
     private async Task ProduzirTodos()
     {
-        // Alterar o estado de todos os produtos para "Em produção"
-        foreach (var produto in produtos)
-        {
-            if (produto.Estado == "Em espera")
-            {
-                produto.Estado = "Em produção"; // Alterar o estado para "Em produção"
-            }
-        }
-        estadoAtual = "Em produção"; // Alterar o estado da encomenda também
+        await OrderService.AtualizarEstadoEncomendaAsync(id, "Em produção");
+    }
 
-        // Atualizar o estado da encomenda na base de dados
-        var resultado = await OrderService.AtualizarEstadoEncomendaAsync(id, "Em produção");
-        if (resultado == "Estado da encomenda atualizado com sucesso!")
+    private async Task ProduzirProduto(int produtoId)
+    {
+        if (estadoAtual == "Em espera")
         {
-            Console.WriteLine("Todos os produtos foram alterados para 'Em produção'.");
-        }
-        else
-        {
-            Console.WriteLine("Erro ao atualizar o estado da encomenda.");
+            estadoAtual = "Em produção"; 
+            await OrderService.AtualizarEstadoEncomendaAsync(id, estadoAtual);
         }
     }
 
     private async Task EnviarEncomenda()
     {
-        // Alterar o estado de todos os produtos para "Entregue"
-        foreach (var produto in produtos)
-        {
-            if (produto.Estado == "Em produção")
-            {
-                produto.Estado = "Entregue"; // Alterar o estado do produto para "Entregue"
-            }
-        }
-        estadoAtual = "Entregue"; // Alterar o estado da encomenda para "Entregue"
 
-        // Atualizar o estado da encomenda e dos produtos na base de dados
-        var resultadoEncomenda = await OrderService.AtualizarEstadoEncomendaAsync(id, "Entregue");
-        if (resultadoEncomenda == "Estado da encomenda atualizado com sucesso!")
+        if (estadoAtual != "Entregue")
         {
-            Console.WriteLine("Todos os produtos foram alterados para 'Entregue'.");
-        }
-        else
-        {
-            Console.WriteLine("Erro ao atualizar o estado da encomenda.");
+            estadoAtual = "Entregue";
+            var resultadoEncomenda = await OrderService.AtualizarEstadoEncomendaAsync(id, estadoAtual);
+            if (resultadoEncomenda == "Estado da encomenda atualizado com sucesso!")
+            {
+                await StockService.AtualizarStockApósEnvioAsync(produtosEncomenda);
+            }
         }
     }
 
     private void VerLinhaDeMontagem(int produtoId)
     {
-        // Redireciona para a página de linha de montagem com o id do produto
-        NavigationManager.NavigateTo($"/linhademontagem/{produtoId}/{id}");
+        NavigationManager.NavigateTo($"/linhademontagem/{produtoId}/{id}");   // para saber o produto e a encomenda
     }
 
     private void Voltar()
     {
-        NavigationManager.NavigateTo($"/encomenda/{id}");
+        NavigationManager.NavigateTo($"/encomendas");
     }
 
     private void EnviarNotificacao()
@@ -174,13 +156,18 @@
         Console.WriteLine("Notificação enviada!");
     }
 
-    private class Produto
+    private string GetImageName(int idProduto)
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public int QuantidadeEncomendada { get; set; }
-        public decimal QuantidadeDisponivel { get; set; } // Removido da exibição
-        public string ImagemUrl { get; set; }
-        public string Estado { get; set; } // Estado do produto (Em espera, Em produção, Entregue)
+        switch (idProduto)
+        {
+            case 1:
+                return "casa1.png";
+            case 2:
+                return "casa2.png";
+            case 3:
+                return "casa3.png";
+            default:
+                return "default.png";
+        }
     }
 }
