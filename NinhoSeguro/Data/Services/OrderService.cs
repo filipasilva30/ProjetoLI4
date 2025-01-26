@@ -134,23 +134,6 @@ namespace LI4.Data.Services
             return encomendas;
         }
 
-        public async Task<bool> AtualizarDataEncomendaAsync(int encomendaId, DateTime novaData)
-        {
-            var sql = "UPDATE Encomenda SET Data = @NovaData WHERE Numero = @NumEncomenda";
-            var parametros = new { NovaData = novaData, NumEncomenda = encomendaId };
-
-            try
-            {
-                await _db.SaveData(sql, parametros);
-                return true; 
-            }
-            catch (Exception ex)
-            {
-                return false; 
-            }
-        }
-
-
         // lista de todas as encomendas para o funcionário ver
         public async Task<List<Encomenda>> ListarTodasEncomendasAsync()
         {
@@ -212,6 +195,21 @@ namespace LI4.Data.Services
             await _db.SaveData(sql, parametros);
 
             return "Estado da encomenda atualizado com sucesso!";
+        }
+        public async Task<bool> AtualizarDataEncomendaAsync(int encomendaId, DateTime novaData)
+        {
+            var sql = "UPDATE Encomenda SET DataPrevEntrega = @NovaData WHERE Numero = @NumEncomenda";
+            var parametros = new { NovaData = novaData, NumEncomenda = encomendaId };
+
+            try
+            {
+                await _db.SaveData(sql, parametros);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public async Task<bool> AtualizarPagamentoEfetuadoAsync(int encomendaId)
