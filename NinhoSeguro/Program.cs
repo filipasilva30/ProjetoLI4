@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
@@ -25,6 +24,7 @@ builder.Services.AddScoped<RegisterService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<StockService>();
 builder.Services.AddScoped<LinhaMontagemService>();
+builder.Services.AddScoped<ProductionService>();  // Adicionado para corrigir o erro
 
 builder.Services.AddServerSideBlazor()
     .AddCircuitOptions(options => { options.DetailedErrors = true; });
@@ -38,7 +38,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 
 app.UseHttpsRedirection();
 
