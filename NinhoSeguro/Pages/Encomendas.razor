@@ -5,10 +5,6 @@
 
 <link rel="stylesheet" href="css/Encomendas.css" />
 
-<div class="porta">
-    <img src="assets/exit.png" alt="exit" class="porta" @onclick="exitPage" /> 
-</div>
-
 <div class="tabela-container">
     <h1 class="titulo">Encomendas</h1>
 
@@ -31,25 +27,25 @@
                     <td>
                         @foreach (var encomenda in encomendas.Where(e => e.Estado == "Em espera"))
                         {
-                            <div @onclick="() => IrParaEncomenda(encomenda.Numero)" style="cursor: pointer;">
+                            <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
                                 Encomenda #@encomenda.Numero
-                            </div>
+                            </p>
                         }
                     </td>
                     <td>
                         @foreach (var encomenda in encomendas.Where(e => e.Estado == "Em produção"))
                         {
-                            <div @onclick="() => IrParaEncomenda(encomenda.Numero)" style="cursor: pointer;">
+                            <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
                                 Encomenda #@encomenda.Numero
-                            </div>
+                            </p>
                         }
                     </td>
                     <td>
                         @foreach (var encomenda in encomendas.Where(e => e.Estado == "Entregue"))
                         {
-                            <div @onclick="() => IrParaEncomenda(encomenda.Numero)" style="cursor: pointer;">
+                            <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
                                 Encomenda #@encomenda.Numero
-                            </div>
+                            </p>
                         }
                     </td>
                 </tr>
@@ -78,11 +74,6 @@
     private void VoltarMenu()
     {
         NavigationManager.NavigateTo("/menufuncionario");
-    }
-
-    private void exitPage()
-    {
-        NavigationManager.NavigateTo("/");
     }
 
     private void IrParaEncomenda(int id)
