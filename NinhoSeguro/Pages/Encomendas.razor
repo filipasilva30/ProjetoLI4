@@ -23,32 +23,43 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        @foreach (var encomenda in encomendas.Where(e => e.Estado == "Em espera"))
-                        {
-                            <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
+                @for (var i = 0; i < Math.Max(
+                        encomendas.Count(e => e.Estado == "Em espera"),
+                        Math.Max(
+                            encomendas.Count(e => e.Estado == "Em produção"),
+                            encomendas.Count(e => e.Estado == "Entregue")
+                        )); i++)
+                {
+                    <tr>
+                        <td>
+                            @if (i < encomendas.Count(e => e.Estado == "Em espera"))
+                            {
+                                var encomenda = encomendas.Where(e => e.Estado == "Em espera").ElementAt(i);
+                                <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
                                 Encomenda #@encomenda.Numero
                             </p>
-                        }
-                    </td>
-                    <td>
-                        @foreach (var encomenda in encomendas.Where(e => e.Estado == "Em produção"))
-                        {
-                            <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
+                            }
+                        </td>
+                        <td>
+                            @if (i < encomendas.Count(e => e.Estado == "Em produção"))
+                            {
+                                var encomenda = encomendas.Where(e => e.Estado == "Em produção").ElementAt(i);
+                                <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
                                 Encomenda #@encomenda.Numero
                             </p>
-                        }
-                    </td>
-                    <td>
-                        @foreach (var encomenda in encomendas.Where(e => e.Estado == "Entregue"))
-                        {
-                            <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
+                            }
+                        </td>
+                        <td>
+                            @if (i < encomendas.Count(e => e.Estado == "Entregue"))
+                            {
+                                var encomenda = encomendas.Where(e => e.Estado == "Entregue").ElementAt(i);
+                                <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
                                 Encomenda #@encomenda.Numero
                             </p>
-                        }
-                    </td>
-                </tr>
+                            }
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     }
@@ -78,6 +89,7 @@
 
     private void IrParaEncomenda(int id)
     {
+        Console.WriteLine($"Navegando para encomenda: {id}");
         NavigationManager.NavigateTo($"/encomenda/{id}");
     }
 }
