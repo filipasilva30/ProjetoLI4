@@ -17,11 +17,31 @@
         <p>Estado atual: <em>@estadoAtual</em></p>
     </div>
 
-    @if (estadoAtual == "Em espera")
+     @if (estadoAtual == "Em espera")
     {
         <div class="produzir-container">
-            <button @onclick="ProduzirTodos">Produzir Todos os Produtos</button>
+            <button @onclick="VerificarMateriais">Verificar Materiais</button>
         </div>
+    }
+
+    @if (verificacaoConcluida)
+    {
+        @if (podeProduzir)
+        {
+            <div class="produzir-container">
+                <button @onclick="ProduzirTodos">Produzir Todos os Produtos</button>
+            </div>
+            <ul class="produtos-produziveis">
+                @foreach (var produto in produtosProduziveis)
+                {
+                    <li>Produto @produto.Key: Pode produzir @produto.Value unidade(s)</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="mensagem-erro">@mensagemErro</p>
+        }
     }
 
     <div class="produtos-list">
@@ -75,8 +95,12 @@
     private string dataPrevista;
     private string estadoAtual;
     private int clienteNome;
-    private Dictionary<int, string> nomesProdutos = new Dictionary<int, string>(); // Dicionário para armazenar os nomes dos produtos
+    private Dictionary<int, string> nomesProdutos = new Dictionary<int, string>();
     private List<Encomenda_tem_Produto> produtosEncomenda = new List<Encomenda_tem_Produto>();
+    private bool verificacaoConcluida = false;
+    private bool podeProduzir = false;
+    private string mensagemErro;
+    private Dictionary<int, int> produtosProduziveis = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -152,6 +176,15 @@
                 }
             }
         }
+    }
+
+    private async Task VerificarMateriais()
+    {
+        var resultado = await ProductionService.VerificarMateriaisParaProducaoAsync(id);
+        verificacaoConcluida = true;
+        podeProduzir = resultado.PodeProduzir;
+        mensagemErro = resultado.Mensagem;
+        produtosProduziveis = resultado.ProdutosProduziveis;
     }
 
     private void VerLinhaDeMontagem(int produtoId)
