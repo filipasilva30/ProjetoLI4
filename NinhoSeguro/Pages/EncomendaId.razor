@@ -137,6 +137,19 @@
             if (resultadoEncomenda == "Estado da encomenda atualizado com sucesso!")
             {
                 await StockService.AtualizarStockApósEnvioAsync(produtosEncomenda);
+
+                var dataAtual = DateTime.Now;
+                var sucesso = await OrderService.AtualizarDataEncomendaAsync(id, dataAtual);
+
+                if (sucesso)
+                {
+                    dataPrevista = dataAtual.ToString("dd/MM/yyyy");
+                    Console.WriteLine("Data de entrega atualizada para a data atual!");
+                }
+                else
+                {
+                    Console.WriteLine("Erro ao atualizar a data de entrega.");
+                }
             }
         }
     }
