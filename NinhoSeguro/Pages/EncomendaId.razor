@@ -2,6 +2,7 @@
 @using LI4.Data.Models
 @inject NavigationManager NavigationManager
 @inject LI4.Data.Services.OrderService OrderService
+@inject LI4.Data.Services.ProductionService ProductionService
 
 <link rel="stylesheet" href="css/EncomendaId.css" />
 
@@ -12,17 +13,29 @@
     </div>
 
     <div class="encomenda-info">
-        <!-- Alterado para "Data prevista de entrega" -->
         <p>Data prevista de entrega: <b>@dataPrevista</b></p>
         <p>Estado atual: <em>@estadoAtual</em></p>
     </div>
 
-    <!-- Botão de Produzir Todos os Produtos abaixo do estado atual -->
     @if (estadoAtual == "Em espera")
     {
         <div class="produzir-container">
-            <button @onclick="ProduzirTodos">Produzir Todos os Produtos</button>
+            <button @onclick="VerificarMateriais">Verificar Materiais</button>
         </div>
+    }
+
+    @if (verificacaoConcluida)
+    {
+        @if (podeProduzir)
+        {
+            <div class="produzir-container">
+                <button @onclick="ProduzirTodos">Produzir Todos os Produtos</button>
+            </div>
+        }
+        else
+        {
+            <p style="color: red;">@mensagemErro</p>
+        }
     }
 
     <div class="produtos-list">
@@ -40,7 +53,6 @@
                         }
                         else if (produto.Estado == "Em espera")
                         {
-                            <!-- Não exibe o botão individual de Produzir -->
                         }
                         else if (produto.Estado == "Entregue")
                         {
@@ -57,23 +69,19 @@
 
     <div class="nav-buttons">
         <button @onclick="Voltar">VOLTAR</button>
-        @if (estadoAtual != "Entregue")
-        {
-            <button @onclick="EnviarNotificacao">Enviar notificação</button>
-        }
-        @if (estadoAtual == "Em produção")
-        {
-            <button @onclick="EnviarEncomenda">Enviar Encomenda</button>
-        }
     </div>
 </div>
+
 
 @code {
     [Parameter] public int id { get; set; }
     private string dataPrevista;
     private string estadoAtual;
-    private int clienteNome;  // Corrigido de int para string
+    private string clienteNome;
     private List<Produto> produtos = new List<Produto>();
+    private bool verificacaoConcluida = false;
+    private bool podeProduzir = false;
+    private string mensagemErro;
 
     protected override async Task OnInitializedAsync()
     {
@@ -107,6 +115,14 @@
         {
             Console.WriteLine($"Erro ao carregar encomenda: {ex.Message}");
         }
+    }
+
+    private async Task VerificarMateriais()
+    {
+        var resultado = await ProductionService.VerificarMateriaisParaProducaoAsync(id);
+        verificacaoConcluida = true;
+        podeProduzir = resultado.PodeProduzir;
+        mensagemErro = resultado.Mensagem;
     }
 
     private async Task ProduzirTodos()
