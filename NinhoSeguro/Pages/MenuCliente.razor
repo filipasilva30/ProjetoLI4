@@ -11,7 +11,7 @@
 <div class="menu-cliente-container">
     <h1 class="titulo">Menu</h1>
     <button class="botao encomendar" @onclick="NavigateToEncomendar" >Encomendar <img src="assets/package.png" alt="pacote" class="imagem" /> </button>
-    <button class="botao historico">Histórico <img src="assets/box.png" alt="box" class="imagem2" /> </button>
+    <button class="botao historico" @onclick="NavigateToHistorico">Histórico <img src="assets/box.png" alt="box" class="imagem2" /> </button>
 </div>
 
 <div class="notificacao">
@@ -27,5 +27,10 @@
     private void NavigateToEncomendar()
     {
         NavigationManager.NavigateTo("/encomendar");
+    }
+
+    private void NavigateToHistorico()
+    {
+        NavigationManager.NavigateTo("/historico");
     }
 }

@@ -1,0 +1,95 @@
+﻿@page "/historico"
+@using LI4.Data.Models
+@using LI4.Auth
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject NavigationManager NavigationManager
+@inject LI4.Data.Services.OrderService OrderService
+@inject AuthProvider AuthenticationStateProvider
+@inject ProtectedSessionStorage sessionStorage
+
+<link rel="stylesheet" href="css/Encomendas.css" />
+
+<div class="porta">
+    <img src="assets/exit.png" alt="exit" class="porta" @onclick="exitPage" />
+</div>
+
+<div class="tabela-container">
+    <h1 class="titulo">Histórico de Encomendas</h1>
+
+    @if (encomendas == null || encomendas.Count == 0)
+    {
+        <h1 class='semencomendas'>Não há encomendas disponíveis de momento.</h1>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Encomendas Realizadas</th>
+                    <th>Encomendas Entregues</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @foreach (var encomenda in encomendas.Where(e => e.Estado != "Entregue"))
+                        {
+                            <div style="cursor: pointer;">
+                                Encomenda #@encomenda.Numero
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @foreach (var encomenda in encomendas.Where(e => e.Estado == "Entregue"))
+                        {
+                            <div style="cursor: pointer;">
+                                Encomenda #@encomenda.Numero
+                            </div>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+
+    <button class="botao-voltar" @onclick="VoltarMenu">Voltar</button>
+</div>
+
+@code {
+    private List<Encomenda> encomendas = new();
+    private int clienteId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var ourProvider = (AuthProvider)AuthenticationStateProvider;
+        var authState = await ourProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated ?? false)
+        {
+            clienteId = int.Parse(user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "0");
+            encomendas = await OrderService.ListarEncomendasClienteAsync(clienteId);
+        }
+        else
+        {
+            clienteId = 0;
+            NavigationManager.NavigateTo("/login", forceLoad: true);
+        }
+    }
+
+    private void VoltarMenu()
+    {
+        NavigationManager.NavigateTo("/menucliente");
+    }
+
+    private void exitPage()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void IrParaEncomenda(int id)
+    {
+        NavigationManager.NavigateTo($"/encomenda/{id}");
+    }
+}
