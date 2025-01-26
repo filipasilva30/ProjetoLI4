@@ -148,3 +148,35 @@ button:hover {
     color: white;
     transform: scale(1.05);
 }
+
+.mensagem-erro {
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.produtos-produziveis {
+    background-color: #1c1c1c;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.produtos-produziveis ul {
+    list-style: none;
+    padding: 0;
+}
+
+.produtos-produziveis li {
+    font-size: 18px;
+    color: #ece8e8;
+    padding: 10px 0;
+    border-bottom: 1px solid grey;
+}
+
+.produtos-produziveis li:last-child {
+    border-bottom: none;
+}
