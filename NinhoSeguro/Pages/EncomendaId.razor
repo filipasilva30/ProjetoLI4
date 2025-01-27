@@ -10,7 +10,7 @@
 <div class="encomenda-container">
     <div class="header">
         <h2 class="left">Encomenda #@id</h2>
-        <h3 class="right">Cliente: @clienteNome</h3> 
+        <h3 class="right">Cliente: @clienteNome</h3>
     </div>
 
     <div class="encomenda-info">
@@ -62,8 +62,8 @@
     <div class="produtos-list">
         @foreach (var produtoEncomenda in produtosEncomenda)
         {
-            var nomeProduto = nomesProdutos.ContainsKey(produtoEncomenda.IdProduto) 
-                ? nomesProdutos[produtoEncomenda.IdProduto] 
+            var nomeProduto = nomesProdutos.ContainsKey(produtoEncomenda.IdProduto)
+                ? nomesProdutos[produtoEncomenda.IdProduto]
                 : "Desconhecido";
 
             <div class="produto-item">
@@ -98,7 +98,7 @@
             <button @onclick="EnviarEncomenda" disabled="@(!temCasasEmStock && estadoAtual != "Em produção")">
                 Enviar Encomenda
             </button>
-        }   
+        }
     </div>
 </div>
 
@@ -121,7 +121,7 @@
 
     private string dataPrevista;
     private string estadoAtual;
-    private string clienteNome="";
+    private string clienteNome = "";
     private Dictionary<int, string> nomesProdutos = new();
     private List<Encomenda_tem_Produto> produtosEncomenda = new();
     private bool verificacaoConcluida = false;
@@ -145,6 +145,7 @@
                 clienteNome = cliente.Nome;
                 dataPrevista = encomendaSelecionada.DataPrevEntrega.ToString("dd/MM/yyyy");
                 estadoAtual = encomendaSelecionada.Estado;
+
                 produtosEncomenda = (await OrderService.ListarProdutosPorEncomendaAsync(id))
                     .Select(p => new Encomenda_tem_Produto
                     {
@@ -197,8 +198,7 @@
         }
 
         verificacaoConcluida = true;
-        StateHasChanged(); 
-        // Assim que terminar, re-renderiza para atualizar o UI
+        StateHasChanged();
 
         if (!temCasasEmStock && !podeProduzir)
         {
@@ -210,6 +210,17 @@
     {
         if (podeProduzir)
         {
+            // Tenta atualizar o stock de materiais + adicionar casas
+            var resultadoStock = await StockService.AtualizarStockAposProducaoAsync(produtosEncomenda);
+
+            // Se o método retornar algo diferente de "Stock atualizado com sucesso.", é porque deu erro
+            if (resultadoStock != "Stock atualizado com sucesso.")
+            {
+                mensagemErro = resultadoStock;
+                return;
+            }
+
+            // Caso tudo OK, encomenda passa para "Em produção"
             estadoAtual = "Em produção";
             await OrderService.AtualizarEstadoEncomendaAsync(id, "Em produção");
         }
@@ -218,8 +229,7 @@
             mensagemErro = "Não há materiais suficientes para iniciar a produção.";
         }
 
-        StateHasChanged(); 
-        // Força nova renderização logo após mudar o estado
+        StateHasChanged();
     }
 
     private async Task EnviarEncomenda()
@@ -232,7 +242,10 @@
                 var resultadoEncomenda = await OrderService.AtualizarEstadoEncomendaAsync(id, estadoAtual);
                 if (resultadoEncomenda == "Estado da encomenda atualizado com sucesso!")
                 {
+                    // Se a encomenda foi atualizada com sucesso, tira as casas do stock
                     await StockService.AtualizarStockApósEnvioAsync(produtosEncomenda);
+
+                    // Atualiza a data de entrega para a data atual
                     var dataAtual = DateTime.Now;
                     var sucesso = await OrderService.AtualizarDataEncomendaAsync(id, dataAtual);
 
@@ -254,7 +267,6 @@
         }
 
         StateHasChanged();
-        // Faz o re-render assim que o estado passar a “Entregue” 
     }
 
     private void VerLinhaDeMontagem(int produtoId)
