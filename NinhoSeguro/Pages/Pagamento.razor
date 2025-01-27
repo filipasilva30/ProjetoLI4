@@ -69,6 +69,17 @@
     </div>
 </div>
 
+@if (mostrarPopup)
+{
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <p>Pagamento efetuado com sucesso!</p>
+            <p class="sub-texto">Clique no botão abaixo para voltar.</p>
+            <button class="modal-close" @onclick="FecharPopup">Voltar</button>
+        </div>
+    </div>
+}
+
 @code {
     [Parameter] public int numeroEncomenda { get; set; }
 
@@ -76,6 +87,7 @@
     private List<Produto> produtos = new();
     private string encomendaClienteNome = "";
     private string encomendaClienteNIF = "";
+    private bool mostrarPopup = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -125,8 +137,7 @@
 
             if (sucesso)
             {
-                Console.WriteLine("Pagamento realizado com sucesso.");
-                NavigationManager.NavigateTo("/menucliente");
+                mostrarPopup = true;
             }
             else
             {
@@ -137,6 +148,12 @@
         {
             Console.WriteLine($"Erro ao processar pagamento: {ex.Message}");
         }
+    }
+
+    private void FecharPopup()
+    {
+        mostrarPopup = false;
+        NavigationManager.NavigateTo("/menucliente");
     }
 
     private async Task Cancelar()
