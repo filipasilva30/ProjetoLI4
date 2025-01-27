@@ -5,7 +5,6 @@ body {
     color: white;
 }
 
-/* Contêiner principal da encomenda */
 .encomenda-container {
     width: 90%;
     max-width: 1100px;
@@ -20,7 +19,6 @@ body {
     margin: 15px auto;
 }
 
-/* Cabeçalho da encomenda */
 .header {
     display: flex;
     justify-content: space-between;
@@ -37,7 +35,6 @@ body {
     margin: 0;
 }
 
-/* Informações da encomenda */
 .encomenda-info {
     display: flex;
     flex-direction: column;
@@ -46,7 +43,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* Lista de produtos com barra de rolagem */
 .produtos-list {
     display: flex;
     flex-direction: column;
@@ -56,7 +52,6 @@ body {
     padding-right: 10px;
 }
 
-/* Estilização da barra de rolagem */
 .produtos-list::-webkit-scrollbar {
     width: 10px;
 }
@@ -70,7 +65,6 @@ body {
     background: #f1f1f1;
 }
 
-/* Estilo de cada item do produto */
 .produto-item {
     display: flex;
     align-items: center;
@@ -102,7 +96,7 @@ body {
     background-color: white;
 }
 
-/* Botões estilizados com o novo design */
+
 button {
     font-size: 20px;
     font-family: 'Comic Sans MS', cursive;
@@ -121,7 +115,7 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* Botões de navegação alinhados corretamente */
+
 .nav-buttons {
     text-align: center;
     margin-top: 30px;
@@ -134,7 +128,7 @@ button:hover {
     margin: 0;
 }
 
-/* Ajuste do botão de voltar */
+
 .botao-voltar {
     font-size: 20px;
     font-family: 'Comic Sans MS', cursive;
@@ -185,7 +179,6 @@ button:hover {
     border-bottom: none;
 }
 
-/* Modal overlay para fundo escurecido */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -198,7 +191,6 @@ button:hover {
     align-items: center;
 }
 
-/* Conteúdo do modal */
 .modal-content {
     background: #fff;
     padding: 30px;
@@ -210,7 +202,6 @@ button:hover {
     color: #333;
 }
 
-/* Cabeçalho do modal */
 .modal-header {
     display: flex;
     align-items: center;
@@ -221,14 +212,13 @@ button:hover {
     color: #333;
 }
 
-/* Ícone do modal */
 .modal-icon {
     font-size: 40px;
     margin-right: 10px;
-    color: #ffcc00; /* Cor de alerta */
+    color: #ffcc00; 
 }
 
-/* Botão de fechar modal */
+
 .modal-close {
     padding: 10px 20px;
     border: none;
@@ -244,7 +234,7 @@ button:hover {
     background: #cc0000;
 }
 
-/* Animação de entrada do modal */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
