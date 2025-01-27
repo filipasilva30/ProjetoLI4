@@ -4,8 +4,16 @@
 @inject LI4.Data.Services.OrderService OrderService
 @inject LI4.Data.Services.StockService StockService
 @inject LI4.Data.Services.ProductionService ProductionService
+@inject LI4.Data.Services.NotificationService NotificationService  
 
 <link rel="stylesheet" href="css/EncomendaId.css" />
+
+@if (mostrandoAlertaSucesso)
+{
+    <div class="alert-success">
+        A notificação foi enviada com sucesso para o(a) @clienteNome
+    </div>
+}
 
 <div class="encomenda-container">
     <div class="header">
@@ -93,25 +101,32 @@
     <div class="nav-buttons">
         <button @onclick="Voltar">VOLTAR</button>
         <button @onclick="MostrarModal">Enviar notificação</button>
+
         @if (estadoAtual == "Em produção" || (estadoAtual == "Em espera" && temCasasEmStock))
         {
             <button @onclick="EnviarEncomenda" disabled="@(!temCasasEmStock && estadoAtual != "Em produção")">
                 Enviar Encomenda
             </button>
-        }   
+        }
     </div>
 </div>
 
+@* Modal para Enviar Notificação *@
 @if (mostrarModal)
 {
     <div class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="modal-icon">⚠️</span>
-                <h3>Aviso</h3>
+                <span class="modal-icon">📣</span>
+                <h3>Enviar Notificação</h3>
             </div>
-            <p>Não é possível enviar notificações de momento. </p>
-            <button class="modal-close" @onclick="FecharModal">Fechar</button>
+            <p>Notificar @clienteNome sobre a encomenda #@id:</p>
+            <textarea class="textarea-notificacao" @bind="mensagemNotificacao" placeholder="Digite a mensagem..."></textarea>
+
+            <div class="modal-footer">
+                <button @onclick="EnviarNotificacao">Enviar</button>
+                <button class="modal-close" @onclick="FecharModal">Fechar</button>
+            </div>
         </div>
     </div>
 }
@@ -121,7 +136,8 @@
 
     private string dataPrevista;
     private string estadoAtual;
-    private string clienteNome="";
+    private string clienteNome = "";
+    private int clienteId;  // <-- Novo para armazenar Id do cliente
     private Dictionary<int, string> nomesProdutos = new();
     private List<Encomenda_tem_Produto> produtosEncomenda = new();
     private bool verificacaoConcluida = false;
@@ -132,6 +148,10 @@
     private Dictionary<int, int> casasDisponiveis = new();
     private bool mostrarModal = false;
 
+    // NOVO: Controle e mensagem para notificação
+    private bool mostrandoAlertaSucesso = false;
+    private string mensagemNotificacao = "";
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -141,10 +161,15 @@
 
             if (encomendaSelecionada != null)
             {
+                // Salva o Id do cliente para usar ao enviar a notificação
+                clienteId = encomendaSelecionada.IdCliente;
+
                 var cliente = await OrderService.ObterClientePorIdAsync(encomendaSelecionada.IdCliente);
                 clienteNome = cliente.Nome;
+
                 dataPrevista = encomendaSelecionada.DataPrevEntrega.ToString("dd/MM/yyyy");
                 estadoAtual = encomendaSelecionada.Estado;
+
                 produtosEncomenda = (await OrderService.ListarProdutosPorEncomendaAsync(id))
                     .Select(p => new Encomenda_tem_Produto
                     {
@@ -169,7 +194,7 @@
 
     private async Task ConfirmarStockDisponivel()
     {
-        // Primeiro, verificar se há casas prontas em stock
+        // -- Lógica existente, não alterada
         casasDisponiveis.Clear();
         temCasasEmStock = true;
 
@@ -187,7 +212,6 @@
             }
         }
 
-        // Se não houver casas em stock, verificar materiais para produção
         if (!temCasasEmStock)
         {
             var resultado = await ProductionService.VerificarMateriaisParaProducaoAsync(id);
@@ -197,8 +221,7 @@
         }
 
         verificacaoConcluida = true;
-        StateHasChanged(); 
-        // Assim que terminar, re-renderiza para atualizar o UI
+        StateHasChanged();
 
         if (!temCasasEmStock && !podeProduzir)
         {
@@ -208,14 +231,13 @@
 
     private async Task ProduzirTodos()
     {
+        // -- Lógica existente, não alterada
         if (podeProduzir)
         {
             estadoAtual = "Em produção";
             await OrderService.AtualizarEstadoEncomendaAsync(id, "Em produção");
 
-            // Verifica a quantidade de produtos que pode ser produzida
             var resultadoVerificacao = await ProductionService.VerificarMateriaisParaProducaoAsync(id);
-
             if (!resultadoVerificacao.PodeProduzir)
             {
                 mensagemErro = resultadoVerificacao.Mensagem;
@@ -223,7 +245,6 @@
                 return;
             }
 
-            // Para cada produto, produzir de acordo com a quantidade possível
             foreach (var item in resultadoVerificacao.ProdutosProduziveis)
             {
                 var produtoId = item.Key;
@@ -258,6 +279,7 @@
 
     private async Task EnviarEncomenda()
     {
+        // -- Lógica existente, não alterada
         if (estadoAtual != "Entregue")
         {
             if (temCasasEmStock || estadoAtual == "Em produção")
@@ -288,12 +310,11 @@
         }
 
         StateHasChanged();
-        // Faz o re-render assim que o estado passar a “Entregue” 
     }
 
     private void VerLinhaDeMontagem(int produtoId)
     {
-        NavigationManager.NavigateTo($"/linhademontagem/{produtoId}/{id}",true);
+        NavigationManager.NavigateTo($"/linhademontagem/{produtoId}/{id}", true);
     }
 
     private void Voltar()
@@ -304,11 +325,29 @@
     private void MostrarModal()
     {
         mostrarModal = true;
+        mostrandoAlertaSucesso = false;
     }
 
     private void FecharModal()
     {
         mostrarModal = false;
+        mensagemNotificacao = string.Empty;
+    }
+
+    // Passa a ser async pois chamará NotificationService
+    private async Task EnviarNotificacao()
+    {
+        // Chamando o NotificationService
+        if (!string.IsNullOrWhiteSpace(mensagemNotificacao))
+        {
+            // Ex: "Sua encomenda #XYZ está pronta..." etc.
+            var resultado = await NotificationService.EnviarNotificacaoAsync(clienteId, mensagemNotificacao);
+            Console.WriteLine(resultado); // "Notificação enviada ao cliente."
+        }
+
+        mostrandoAlertaSucesso = true;
+        mostrarModal = false;
+        mensagemNotificacao = string.Empty;
     }
 
     private string GetImageName(int idProduto)

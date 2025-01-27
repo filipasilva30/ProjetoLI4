@@ -14,31 +14,23 @@ namespace LI4.Data.Services
             _db = db;
         }
 
-        public async Task<string> EnviarNotificacaoAsync(int clienteId, string mensagem)
+        public async Task<string> EnviarNotificacaoAsync(int idCliente, string descricao)
         {
-            var sql = @"INSERT INTO Notificacao (ClienteId, Mensagem, DataHora) 
-                        VALUES (@ClienteId, @Mensagem, @DataHora)";
+            var sql = @"INSERT INTO Notificacao (IdCliente, Descricao, DataHora) 
+                        VALUES (@IdCliente, @Descricao, @DataHora)";
             await _db.SaveData(sql, new 
             {
-                ClienteId = clienteId,
-                Mensagem = mensagem,
+                IdCliente = idCliente,
+                Descricao = descricao,
                 DataHora = DateTime.Now
             });
             return "Notificação enviada ao cliente.";
         }
 
-        public async Task<List<Notificacao>> ConsultarNotificacoesAsync(int clienteId)
+        public async Task<List<Notificacao>> ConsultarNotificacoesAsync(int idCliente)
         {
-            var sql = @"SELECT * FROM Notificacao WHERE ClienteId = @ClienteId ORDER BY DataHora DESC";
-            return await _db.LoadData<Notificacao, dynamic>(sql, new { ClienteId = clienteId });
+            var sql = @"SELECT * FROM Notificacao WHERE IdCliente = @IdCliente ORDER BY DataHora DESC";
+            return await _db.LoadData<Notificacao, dynamic>(sql, new { IdCliente = idCliente });
         }
-    }
-
-    public class Notificacao
-    {
-        public int Id { get; set; }
-        public int ClienteId { get; set; }
-        public string Mensagem { get; set; }
-        public DateTime DataHora { get; set; }
     }
 }

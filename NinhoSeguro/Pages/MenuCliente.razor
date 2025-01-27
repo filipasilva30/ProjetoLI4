@@ -18,7 +18,7 @@
     </div>
 
     <div class="notificacao">
-        <img src="assets/sino.png" alt="sino" class="sino" />
+        <img src="assets/sino.png" alt="sino" class="sino" @onclick="NavigateToNotificacao" />
     </div>
 }
 else
@@ -56,6 +56,10 @@ else
         }
     }
 
+    private void NavigateToNotificacao()
+    {
+        NavigationManager.NavigateTo("/notificacoes");
+    }
     private void NavigateToEncomendar()
     {
         NavigationManager.NavigateTo("/encomendar");
