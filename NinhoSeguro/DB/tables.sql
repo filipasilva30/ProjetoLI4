@@ -64,3 +64,11 @@
 		FOREIGN KEY (IdMaterial) REFERENCES Material(Id),
 		PRIMARY KEY (IdProduto, IdMaterial)
 	)
+
+	CREATE TABLE Notificacao (
+		Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+		IdCliente INT NOT NULL,
+		Descricao TEXT NOT NULL,
+		DataHora DATETIME,
+		FOREIGN KEY (IdCliente) REFERENCES Utilizador(Id)
+	)

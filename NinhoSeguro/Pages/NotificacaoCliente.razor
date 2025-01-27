@@ -1,0 +1,70 @@
+@page "/notificacoes"
+@using LI4.Data.Models
+@using LI4.Data.Services
+@using LI4.Auth
+@using System.Security.Claims;
+@inject NavigationManager NavigationManager
+@inject NotificationService NotificationService
+@inject AuthProvider AuthenticationStateProvider
+
+<link rel="stylesheet" href="css/Notificacoes.css" />
+
+<div class="notificacoes-container">
+    <h1 class="titulo">NOTIFICAÇÕES</h1>
+    <div class="lista-notificacoes">
+        @if (notificacoes == null || !notificacoes.Any())
+        {
+            <p class="mensagem-nao-ha-notificacoes">Não há notificações disponíveis de momento.</p>
+        }
+        else
+        {
+            @foreach (var notificacao in notificacoes)
+            {
+                <div class="notificacao-item">
+                    <div class="notificacao-header">
+                        <span>Encomenda #@notificacao.IdCliente</span>
+                        <span>@notificacao.DataHora.ToString("dd/MM/yyyy HH:mm")</span>
+                    </div>
+                    <div class="notificacao-descricao">
+                        @notificacao.Descricao
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="botao-voltar-container">
+        <button class="botao-voltar" @onclick="NavigateToMenu">Voltar</button>
+    </div>
+</div>
+
+@code {
+    private List<Notificacao> notificacoes = new();
+    private int clienteId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var ourProvider = (AuthProvider)AuthenticationStateProvider;
+        var authState = await ourProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated ?? false)
+        {
+            clienteId = int.Parse(user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "0");
+        }
+        else
+        {
+            clienteId = 0; // não autenticado
+        }
+
+        // CORREÇÃO: use a variável de classe "notificacoes"
+        if (clienteId > 0)
+        {
+            notificacoes = await NotificationService.ConsultarNotificacoesAsync(clienteId);
+        }
+    }
+
+    private void NavigateToMenu()
+    {
+        NavigationManager.NavigateTo("/menucliente");
+    }
+}
