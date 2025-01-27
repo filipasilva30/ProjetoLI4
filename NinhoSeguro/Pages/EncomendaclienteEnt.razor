@@ -1,0 +1,103 @@
+﻿@page "/encomendaclienteent/{id:int}"
+@using LI4.Data.Models
+@inject NavigationManager NavigationManager
+@inject LI4.Data.Services.OrderService OrderService
+@inject LI4.Data.Services.StockService StockService
+
+<link rel="stylesheet" href="css/EncomendaId.css" />
+
+<div class="encomenda-container">
+    <div class="header">
+        <h1 class="titulo">ENCOMENDA #@id</h1>
+        <p class="cliente-info">Cliente: <b>@clienteNome</b></p>
+    </div>
+
+    <div class="encomenda-info">
+        <p>Data de Entrega: <b>@dataEntrega</b></p>
+    </div>
+
+    <div class="produtos-list">
+        @foreach (var produtoEncomenda in produtosEncomenda)
+        {
+            var nomeProduto = nomesProdutos.ContainsKey(produtoEncomenda.IdProduto) ? nomesProdutos[produtoEncomenda.IdProduto] : "Desconhecido";
+
+            <div class="produto-item">
+                <div class="produto-info">
+                    <h3 class="produto-nome">@nomeProduto</h3>
+                    <p>Quantidade entregue: <b>@produtoEncomenda.Quantidade</b></p>
+                </div>
+                <div class="produto-image">
+                    <img src="assets/casas/@GetImageName(produtoEncomenda.IdProduto)" alt="@nomeProduto" />
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="nav-buttons">
+        <button @onclick="Voltar">VOLTAR</button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    private string dataEntrega;
+    private string estadoAtual;
+    private string clienteNome;
+    private Dictionary<int, string> nomesProdutos = new Dictionary<int, string>();
+    private List<Encomenda_tem_Produto> produtosEncomenda = new List<Encomenda_tem_Produto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Obter a encomenda com os produtos
+            var encomenda = await OrderService.ListarTodasEncomendasAsync();
+            var encomendaSelecionada = encomenda.FirstOrDefault(e => e.Numero == id);
+
+            if (encomendaSelecionada != null)
+            {
+                var cliente = await OrderService.ObterClientePorIdAsync(encomendaSelecionada.IdCliente);
+                clienteNome = cliente?.Nome ?? "Desconhecido";
+                dataEntrega = encomendaSelecionada.DataPrevEntrega.ToString("dd/MM/yyyy");
+                produtosEncomenda = (await OrderService.ListarProdutosPorEncomendaAsync(id))
+                    .Select(p => new Encomenda_tem_Produto
+                        {
+                            Quantidade = p.Quantidade,
+                            IdEncomenda = id,
+                            IdProduto = p.Id
+                        }).ToList();
+
+                foreach (var produto in produtosEncomenda)
+                {
+                    var nomeProduto = await OrderService.ObterNomeProdutoPorIdAsync(produto.IdProduto);
+                    nomesProdutos[produto.IdProduto] = nomeProduto;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao carregar encomenda: {ex.Message}");
+        }
+    }
+
+    private void Voltar()
+    {
+        NavigationManager.NavigateTo("/historico");
+    }
+
+    private string GetImageName(int idProduto)
+    {
+        switch (idProduto)
+        {
+            case 1:
+                return "casa1.png";
+            case 2:
+                return "casa2.png";
+            case 3:
+                return "casa3.png";
+            default:
+                return "default.png";
+        }
+    }
+}
