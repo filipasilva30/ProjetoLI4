@@ -77,91 +77,35 @@ namespace LI4.Data.Services
                         WHERE Id = @MaterialId";
 
             var matData = await _db.LoadData<Material, dynamic>(sql, new { MaterialId = materialId });
-            return matData.FirstOrDefault(); 
-        }
-
-        /// <summary>
-        /// Ao produzir casas, subtrai os materiais e adiciona ao stock o(s) produto(s).
-        /// Retorna uma mensagem de erro ou "Stock atualizado com sucesso." se tudo correr bem.
-        /// </summary>
-        public async Task<string> AtualizarStockAposProducaoAsync(List<Encomenda_tem_Produto> produtosEncomendados)
-        {
-            foreach (var item in produtosEncomendados)
+            var material = matData.Select(m => new Material
             {
-                // 1) Obter quantos materiais são necessários para produzir 1 unidade do produto
-                var materiaisNecessarios = ObterMateriaisNecessarios(item.IdProduto);
-
-                // Se não houver definição (ex.: default case), podes retornar erro ou ignorar
-                if (materiaisNecessarios.Count == 0)
-                {
-                    return $"Não há definição de materiais para o produto (ID={item.IdProduto}).";
-                }
-
-                // 2) Retirar cada material do stock
-                foreach (var (idMaterial, qtdNecessariaPorUnidade) in materiaisNecessarios)
-                {
-                    int totalNecessario = qtdNecessariaPorUnidade * item.Quantidade;
-
-                    var mat = await GetMaterialPorIdAsync(idMaterial);
-                    if (mat == null)
-                    {
-                        return $"Material com ID {idMaterial} não encontrado.";
-                    }
-
-                    if (mat.Quantidade < totalNecessario)
-                    {
-                        return $"Estoque insuficiente do material '{mat.Nome}' (ID={mat.Id}).";
-                    }
-
-                    int novaQtdMaterial = mat.Quantidade - totalNecessario;
-                    await AtualizarStockMaterialAsync(mat.Id, novaQtdMaterial);
-                }
-
-                // 3) Adicionar o produto (casa) ao stock de Produto
-                var produto = await GetProdutoPorIdAsync(item.IdProduto);
-                if (produto == null)
-                {
-                    return $"Produto com ID {item.IdProduto} não encontrado.";
-                }
-
-                int novaQuantidadeProduto = produto.Quantidade + item.Quantidade;
-                await AtualizarStockProdutoAsync(produto.Id, novaQuantidadeProduto);
-            }
-
-            // Se tudo correu bem para todos os produtos
-            return "Stock atualizado com sucesso.";
+                Id = m.Id,
+                Nome = m.Nome,
+                Quantidade = m.Quantidade
+            }).FirstOrDefault();
+            return material; 
         }
 
-        /// <summary>
-        /// Exemplo “Bill of Materials” fixo. Ajusta consoante a tua BD real.
-        /// </summary>
-        private Dictionary<int, int> ObterMateriaisNecessarios(int idProduto)
+        public async Task<List<Produto_tem_Material>> ListarMateriaisProdutoAsync(int produtoId)
         {
-            // Exemplo: para Produto 1 precisas de 14 tábuas (ID=10), 5 cilindros (ID=11) e 3 tubos (ID=12)
-            // Ajusta para os IDs/quantidades que realmente tens na tabela 'Material'.
-            switch (idProduto)
+            var sql = @"
+                SELECT ptm.IdProduto, ptm.IdMaterial, ptm.Quantidade AS QuantidadeNecessaria
+                FROM Produto_tem_Material ptm
+                INNER JOIN Material m ON m.Id = ptm.IdMaterial
+                WHERE ptm.IdProduto = @ProdutoId";
+
+            var produtosTemMateriaisData = await _db.LoadData<dynamic, dynamic>(sql, new { ProdutoId = produtoId });
+
+            var listaProdutoTemMaterial = produtosTemMateriaisData.Select(ptm => new Produto_tem_Material
             {
-                case 1:
-                    return new Dictionary<int, int>
-                    {
-                        { 10, 14 },
-                        { 11, 5 },
-                        { 12, 3 }
-                    };
-                case 2:
-                    return new Dictionary<int, int>
-                    {
-                        { 10, 20 },
-                        { 11, 4 }
-                    };
-                default:
-                    return new Dictionary<int, int>();
-            }
+                IdProduto = ptm.IdProduto,
+                IdMaterial = ptm.IdMaterial,
+                Quantidade = ptm.QuantidadeNecessaria
+            }).ToList();
+
+            return listaProdutoTemMaterial;
         }
 
-        /// <summary>
-        /// Ao enviar as casas, decrementa o stock de Produto. Retorna mensagem de sucesso ou erro.
-        /// </summary>
         public async Task<string> AtualizarStockApósEnvioAsync(List<Encomenda_tem_Produto> produtosEncomendados)
         {
             foreach (var item in produtosEncomendados)
