@@ -36,28 +36,28 @@ body {
 }
 
 
-    .botao.encomendas {
-        padding: 10px 5px;
-        background-color: #ece8e8;
-        color: black;
-    }
+ .botao.encomendas {
+    padding: 10px 5px;
+    background-color: #ece8e8;
+    color: black;
+ }
 
-        .botao.encomendas:hover {
-            background-color: #1c1c1cd7; 
-            color: white;
-            transform: scale(1.05); 
-        }
+ .botao.encomendas:hover {
+    background-color: #1c1c1cd7; 
+    color: white;
+    transform: scale(1.05); 
+ }
 
-    .botao.stock {
-        background-color: #ece8e8; 
-        color: black; 
-    }
+ .botao.stock {
+    background-color: #ece8e8; 
+    color: black; 
+ }
 
-        .botao.stock:hover {
-            background-color: #1c1c1cd7; 
-            color: white;
-            transform: scale(1.05); 
-        }
+ .botao.stock:hover {
+    background-color: #1c1c1cd7; 
+    color: white;
+    transform: scale(1.05); 
+ }
 
 .imagem {
     position: absolute;
@@ -77,18 +77,17 @@ body {
     height: auto;
 }
 
-/* a porta está com um erro no hover*/
 
 .porta {
-    position: absolute;
-    top: -135px;
-    right: -265px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
     width: 60px;
     height: auto;
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-    .porta:hover {
-        transform: scale(1.03);
-        filter: brightness(1.2);
-    }
+.porta:hover {
+    transform: scale(1.03);
+    filter: brightness(1.2);
+}

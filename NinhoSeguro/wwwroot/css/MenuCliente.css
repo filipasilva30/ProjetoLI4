@@ -43,29 +43,29 @@
     width: 100%;
 }
 
-    .botao.encomendar {
-        padding: 10px 5px;
-        background-color: #ece8e8;
-        color: black;
-    }
+.botao.encomendar {
+    padding: 10px 5px;
+    background-color: #ece8e8;
+    color: black;
+}
 
-        .botao.encomendar:hover {
-            background-color: #1c1c1cd7; 
-            color: white;
-            transform: scale(1.05); 
-        }
+.botao.encomendar:hover {
+     background-color: #1c1c1cd7; 
+     color: white;
+     transform: scale(1.05); 
+}
 
     
-    .botao.historico {
-        background-color: #ece8e8; 
-        color: black; 
-    }
+.botao.historico {
+    background-color: #ece8e8; 
+    color: black; 
+}
 
-        .botao.historico:hover {
-            background-color: #1c1c1cd7;
-            color: white;
-            transform: scale(1.05);
-        }
+.botao.historico:hover {
+    background-color: #1c1c1cd7;
+    color: white;
+    transform: scale(1.05);
+}
 
 .imagem {
     position: absolute;
@@ -85,32 +85,30 @@
     height: auto;
 }
 
-/* a porta está com um erro no hover*/
-
 .porta {
-    position: absolute; 
-    top: -155px; 
-    right: -265px;
+    position: fixed;
+    top: 20px; 
+    right: 20px;
     width: 60px;
     height: auto;
-    transition: transform 0.3s ease, filter 0.3s ease; 
-}
-
-    .porta:hover {
-        transform: scale(1.03);
-        filter: brightness(1.2);
-    }
-
-.sino {
-    position: fixed; 
-    bottom: 20px;
-    right: 20px;
-    color: white;
-    width: 50px;
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-    .sino:hover {
-        transform: scale(1.1); 
-        filter: brightness(1.2); 
-    }
+.porta:hover {
+   transform: scale(1.03);
+   filter: brightness(1.2);
+}
+
+.sino {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    width: 60px; 
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.sino:hover {
+    transform: scale(1.1); 
+    filter: brightness(1.2); 
+}
