@@ -8,7 +8,7 @@
 @inject AuthProvider AuthenticationStateProvider
 @inject ProtectedSessionStorage sessionStorage
 
-<link rel="stylesheet" href="css/Encomendas.css" />
+<link rel="stylesheet" href="css/Historico.css" />
 
 <div class="tabela-container">
     <h1 class="titulo">Histórico de Encomendas</h1>
@@ -19,34 +19,44 @@
     }
     else
     {
-        <table>
-            <thead>
-                <tr>
-                    <th>Encomendas Realizadas</th>
-                    <th>Encomendas Entregues</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        @foreach (var encomenda in encomendas.Where(e => e.Estado != "Entregue"))
-                        {
-                            <div style="cursor: pointer;" @onclick="() => IrParaEncomenda(encomenda.Numero)">
-                                Encomenda #@encomenda.Numero
-                            </div>
-                        }
-                    </td>
-                    <td>
-                        @foreach (var encomenda in encomendas.Where(e => e.Estado == "Entregue"))
-                        {
-                            <div style="cursor: pointer;" @onclick="() => IrParaEncomenda(encomenda.Numero)">
-                                Encomenda #@encomenda.Numero
-                            </div>
-                        }
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="tabela-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Encomendas Realizadas</th>
+                        <th>Encomendas Entregues</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Math.Max(
+                   encomendas.Count(e => e.Estado != "Entregue"),
+                   encomendas.Count(e => e.Estado == "Entregue")
+                   ); i++)
+                    {
+                        <tr>
+                            <td>
+                                @if (i < encomendas.Count(e => e.Estado != "Entregue"))
+                                {
+                                    var encomenda = encomendas.Where(e => e.Estado != "Entregue").ElementAt(i);
+                                    <p @onclick="() => IrParaEncomenda(encomenda.Numero)">
+                                        Encomenda #@encomenda.Numero
+                                    </p>
+                                }
+                            </td>
+                            <td>
+                                @if (i < encomendas.Count(e => e.Estado == "Entregue"))
+                                {
+                                    var encomenda = encomendas.Where(e => e.Estado == "Entregue").ElementAt(i);
+                                    <p>
+                                        Encomenda #@encomenda.Numero
+                                    </p>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
 
     <button class="botao-voltar" @onclick="VoltarMenu">Voltar</button>
