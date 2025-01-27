@@ -1,27 +1,59 @@
 ﻿@page "/menucliente"
 @using LI4.Data.Models
+@using LI4.Auth
+@using System.Security.Claims
 @inject NavigationManager NavigationManager
+@inject AuthProvider AuthProvider
 
 <link rel="stylesheet" href="css/MenuCliente.css" />
 
-<img src="assets/exit.png" alt="porta" class="porta" @onclick="NavigateToHome" />
+@if (isAuthenticated && isCliente)
+{
+    <img src="assets/exit.png" alt="porta" class="porta" @onclick="Logout" />
 
+    <div class="menu-cliente-container">
+        <h1 class="titulo">Menu</h1>
+        <button class="botao encomendar" @onclick="NavigateToEncomendar">Encomendar <img src="assets/package.png" alt="pacote" class="imagem" /></button>
+        <button class="botao historico" @onclick="NavigateToHistorico">Histórico <img src="assets/box.png" alt="box" class="imagem2" /></button>
+    </div>
 
-<div class="menu-cliente-container">
-    <h1 class="titulo">Menu</h1>
-    <button class="botao encomendar" @onclick="NavigateToEncomendar" >Encomendar <img src="assets/package.png" alt="pacote" class="imagem" /> </button>
-    <button class="botao historico" @onclick="NavigateToHistorico">Histórico <img src="assets/box.png" alt="box" class="imagem2" /> </button>
-</div>
-
-<div class="notificacao">
-    <img src="assets/sino.png" alt="sino" class="sino" /> 
-</div>
-
+    <div class="notificacao">
+        <img src="assets/sino.png" alt="sino" class="sino" />
+    </div>
+}
+else
+{
+    <p>Acesso Negado</p>
+}
 
 @code {
-    private void NavigateToHome()
+    private bool isAuthenticated = false;
+    private bool isCliente = false;
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
     {
-        NavigationManager.NavigateTo("/");
+        var authState = await AuthProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        isAuthenticated = authState.User.Identity?.IsAuthenticated ?? false;
+        
+        if (isAuthenticated)
+        {
+            var roleClaim = user.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (roleClaim == "Cliente")
+            {
+                isCliente = true;
+            }
+        }
+
+        isLoading = false;
+
+        if (!isAuthenticated || !isCliente)
+        {
+            NavigationManager.NavigateTo("/", true);
+        }
     }
 
     private void NavigateToEncomendar()
@@ -32,5 +64,11 @@
     private void NavigateToHistorico()
     {
         NavigationManager.NavigateTo("/historico");
+    }
+
+    private async Task Logout()
+    {
+        await AuthProvider.Logout();
+        NavigationManager.NavigateTo("/");
     }
 }
