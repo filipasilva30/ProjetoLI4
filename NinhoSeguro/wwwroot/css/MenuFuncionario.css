@@ -77,17 +77,15 @@ body {
     height: auto;
 }
 
-
 .porta {
     position: fixed;
     top: 20px;
     right: 20px;
     width: 60px;
-    height: auto;
-    transition: transform 0.3s ease, filter 0.3s ease;
+    transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
-.porta:hover {
-    transform: scale(1.03);
-    filter: brightness(1.2);
-}
+    .porta:hover {
+        transform: scale(1.1);
+    }
