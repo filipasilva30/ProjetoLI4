@@ -47,7 +47,7 @@
                                 @if (i < encomendas.Count(e => e.Estado == "Entregue"))
                                 {
                                     var encomenda = encomendas.Where(e => e.Estado == "Entregue").ElementAt(i);
-                                    <p>
+                                    <p @onclick="() => IrParaEncomendaEnt(encomenda.Numero)">
                                         Encomenda #@encomenda.Numero
                                     </p>
                                 }
@@ -92,5 +92,10 @@
     private void IrParaEncomenda(int id)
     {
         NavigationManager.NavigateTo($"/encomendacliente/{id}");
+    }
+
+    private void IrParaEncomendaEnt(int id)
+    {
+        NavigationManager.NavigateTo($"/encomendaclienteent/{id}");
     }
 }
