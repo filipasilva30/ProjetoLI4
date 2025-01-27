@@ -212,14 +212,48 @@
         {
             estadoAtual = "Em produção";
             await OrderService.AtualizarEstadoEncomendaAsync(id, "Em produção");
+
+            // Verifica a quantidade de produtos que pode ser produzida
+            var resultadoVerificacao = await ProductionService.VerificarMateriaisParaProducaoAsync(id);
+
+            if (!resultadoVerificacao.PodeProduzir)
+            {
+                mensagemErro = resultadoVerificacao.Mensagem;
+                StateHasChanged();
+                return;
+            }
+
+            // Para cada produto, produzir de acordo com a quantidade possível
+            foreach (var item in resultadoVerificacao.ProdutosProduziveis)
+            {
+                var produtoId = item.Key;
+                var quantidadeProduzida = item.Value;
+
+                var produto = await StockService.GetProdutoPorIdAsync(produtoId);
+                if (produto != null)
+                {
+                    int novaQuantidadeProduto = produto.Quantidade + quantidadeProduzida;
+                    await StockService.AtualizarStockProdutoAsync(produtoId, novaQuantidadeProduto);
+
+                    var materiaisNecessarios = await StockService.ListarMateriaisProdutoAsync(produtoId);
+                    foreach (var material in materiaisNecessarios)
+                    {
+                        var materialEmStock = await StockService.GetMaterialPorIdAsync(material.IdMaterial);
+                        if (materialEmStock != null)
+                        {
+                            int quantidadeNecessaria = material.Quantidade * quantidadeProduzida;
+                            int novaQuantidadeMaterial = materialEmStock.Quantidade - quantidadeNecessaria;
+                            await StockService.AtualizarStockMaterialAsync(material.IdMaterial, novaQuantidadeMaterial);
+                        }
+                    }
+                }
+            }
+            StateHasChanged();
         }
         else
         {
             mensagemErro = "Não há materiais suficientes para iniciar a produção.";
         }
-
-        StateHasChanged(); 
-        // Força nova renderização logo após mudar o estado
     }
 
     private async Task EnviarEncomenda()
@@ -259,7 +293,7 @@
 
     private void VerLinhaDeMontagem(int produtoId)
     {
-        NavigationManager.NavigateTo($"/linhademontagem/{produtoId}/{id}");
+        NavigationManager.NavigateTo($"/linhademontagem/{produtoId}/{id}",true);
     }
 
     private void Voltar()
