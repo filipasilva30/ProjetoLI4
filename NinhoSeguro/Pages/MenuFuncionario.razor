@@ -1,40 +1,66 @@
 @page "/menufuncionario"
 @using LI4.Data.Models
+@using LI4.Auth
+@using System.Security.Claims
 @inject NavigationManager NavigationManager
+@inject AuthProvider AuthProvider
 
 <link rel="stylesheet" href="css/MenuFuncionario.css" />
 
+@if (isAuthenticated && isFuncionario)
+{
+    <img src="assets/exit.png" alt="porta" class="porta" @onclick="Logout" />
 
-<img src="assets/exit.png" alt="porta" class="porta" @onclick="exitPage" /> 
-
-
-<div class="menu-funcionario-container">
-
-    <h1 class="titulo">Menu</h1>
-    <button class="botao encomendas" @onclick="NavigateToEncomendas">
-        Encomendas
-        <img src="assets/package.png" alt="Ícone" class="imagem"/>
-    </button>
-    <button type="button" class="botao stock" @onclick="NavigateToConsultarStock">
-        Consultar Stock
-        <img src="assets/in-stock.png" alt="Ícone" class="imagem"/>
-    </button>
-        
-</div>
-
-
+    <div class="menu-funcionario-container">
+        <h1 class="titulo">Menu</h1>
+        <button class="botao encomendas" @onclick="NavigateToEncomendas">
+            Encomendas
+            <img src="assets/package.png" alt="Ícone" class="imagem" />
+        </button>
+        <button type="button" class="botao stock" @onclick="NavigateToConsultarStock">
+            Consultar Stock
+            <img src="assets/in-stock.png" alt="Ícone" class="imagem" />
+        </button>
+    </div>
+}
+else if (!isLoading)
+{
+    <p>Acesso Negado. Redirecionando...</p>
+}
 
 @code {
-    
+    private bool isAuthenticated = false;
+    private bool isFuncionario = false;
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        isAuthenticated = user.Identity?.IsAuthenticated ?? false;
+
+        if (isAuthenticated)
+        {
+            var roleClaim = user.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (roleClaim == "Funcionário")
+            {
+                isFuncionario = true;
+            }
+        }
+
+        isLoading = false;
+
+        if (!isAuthenticated || !isFuncionario)
+        {
+            NavigationManager.NavigateTo("/", true);
+        }
+    }
 
     private void NavigateToEncomendas()
     {
         NavigationManager.NavigateTo("/encomendas");
-    }
-
-    private void NavigateToLinhadeMontagem()
-    {
-        NavigationManager.NavigateTo("/linhademontagem/1");
     }
 
     private void NavigateToConsultarStock()
@@ -42,8 +68,9 @@
         NavigationManager.NavigateTo("/consultarstock");
     }
 
-    private void exitPage()
+    private async Task Logout()
     {
-        NavigationManager.NavigateTo("/");
+        await AuthProvider.Logout();
+        NavigationManager.NavigateTo("/", true);
     }
 }
