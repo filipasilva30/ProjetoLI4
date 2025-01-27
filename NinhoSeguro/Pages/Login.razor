@@ -52,11 +52,11 @@
 
             if (tipo == 1) 
             {
-                NavigationManager.NavigateTo("/menucliente");
+                NavigationManager.NavigateTo("/menucliente",true);
             }
             else if (tipo == 2) 
             {
-                NavigationManager.NavigateTo("/menufuncionario");
+                NavigationManager.NavigateTo("/menufuncionario",true);
             }
             else
             {
@@ -72,6 +72,6 @@
 
     private void NavigateToRegister()
     {
-        NavigationManager.NavigateTo("/registo");
+        NavigationManager.NavigateTo("/registo",true);
     }
 }
