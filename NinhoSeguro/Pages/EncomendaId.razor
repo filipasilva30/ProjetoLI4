@@ -18,16 +18,30 @@
         <p>Estado atual: <em>@estadoAtual</em></p>
     </div>
 
-    @if (estadoAtual == "Em espera")
+    @* Só mostra o botão se a encomenda estiver em espera e ainda não foi feita a verificação *@
+    @if (estadoAtual == "Em espera" && !verificacaoConcluida)
     {
         <div class="produzir-container">
-            <button @onclick="VerificarMateriais">Verificar Materiais</button>
+            <button @onclick="ConfirmarStockDisponivel">Confirmar Stock disponível</button>
         </div>
     }
 
-    @if (verificacaoConcluida)
+    @* Só mostra a secção de verificação se a encomenda continuar em espera depois da verificação *@
+    @if (verificacaoConcluida && estadoAtual == "Em espera")
     {
-        @if (podeProduzir)
+        @if (temCasasEmStock)
+        {
+            <div class="produzir-container">
+                <button @onclick="EnviarEncomenda">Enviar Encomenda</button>
+            </div>
+            <ul class="produtos-disponiveis">
+                @foreach (var produto in casasDisponiveis)
+                {
+                    <li>Casa @produto.Key: Disponível em stock (@produto.Value unidade(s))</li>
+                }
+            </ul>
+        }
+        else if (podeProduzir)
         {
             <div class="produzir-container">
                 <button @onclick="ProduzirTodos">Produzir Todos os Produtos</button>
@@ -48,20 +62,16 @@
     <div class="produtos-list">
         @foreach (var produtoEncomenda in produtosEncomenda)
         {
-            var nomeProduto = nomesProdutos.ContainsKey(produtoEncomenda.IdProduto) ? nomesProdutos[produtoEncomenda.IdProduto] : "Desconhecido";
+            var nomeProduto = nomesProdutos.ContainsKey(produtoEncomenda.IdProduto) 
+                ? nomesProdutos[produtoEncomenda.IdProduto] 
+                : "Desconhecido";
 
             <div class="produto-item">
                 <div class="produto-info">
                     <h3 class="produto-nome">@nomeProduto</h3>
                     <p>Quantidade encomendada: <b>@produtoEncomenda.Quantidade</b></p>
                     <div class="produto-actions">
-                        @if (estadoAtual == "Em espera")
-                        {
-                            <div class="produto-actions">
-                                <button @onclick="() => ProduzirProduto(produtoEncomenda.IdProduto)">Produzir</button>
-                            </div>
-                        }
-                        else if (estadoAtual == "Em produção")
+                        @if (estadoAtual == "Em produção")
                         {
                             <div class="produto-actions">
                                 <button @onclick="() => VerLinhaDeMontagem(produtoEncomenda.IdProduto)">Ver Linha de Montagem</button>
@@ -83,9 +93,11 @@
     <div class="nav-buttons">
         <button @onclick="Voltar">VOLTAR</button>
         <button @onclick="MostrarModal">Enviar notificação</button>
-        @if (estadoAtual == "Em produção")
+        @if (estadoAtual == "Em produção" || (estadoAtual == "Em espera" && temCasasEmStock))
         {
-            <button @onclick="EnviarEncomenda">Enviar Encomenda</button>
+            <button @onclick="EnviarEncomenda" disabled="@(!temCasasEmStock && estadoAtual != "Em produção")">
+                Enviar Encomenda
+            </button>
         }   
     </div>
 </div>
@@ -110,20 +122,22 @@
     private string dataPrevista;
     private string estadoAtual;
     private string clienteNome="";
-    private Dictionary<int, string> nomesProdutos = new Dictionary<int, string>();
-    private List<Encomenda_tem_Produto> produtosEncomenda = new List<Encomenda_tem_Produto>();
+    private Dictionary<int, string> nomesProdutos = new();
+    private List<Encomenda_tem_Produto> produtosEncomenda = new();
     private bool verificacaoConcluida = false;
     private bool podeProduzir = false;
+    private bool temCasasEmStock = false;
     private string mensagemErro;
     private Dictionary<int, int> produtosProduziveis = new();
+    private Dictionary<int, int> casasDisponiveis = new();
     private bool mostrarModal = false;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            var encomenda = await OrderService.ListarTodasEncomendasAsync();
-            var encomendaSelecionada = encomenda.FirstOrDefault(e => e.Numero == id);
+            var encomendas = await OrderService.ListarTodasEncomendasAsync();
+            var encomendaSelecionada = encomendas.FirstOrDefault(e => e.Numero == id);
 
             if (encomendaSelecionada != null)
             {
@@ -133,11 +147,11 @@
                 estadoAtual = encomendaSelecionada.Estado;
                 produtosEncomenda = (await OrderService.ListarProdutosPorEncomendaAsync(id))
                     .Select(p => new Encomenda_tem_Produto
-                        {
-                            Quantidade = p.Quantidade,
-                            IdEncomenda = id,
-                            IdProduto = p.Id
-                        })
+                    {
+                        Quantidade = p.Quantidade,
+                        IdEncomenda = id,
+                        IdProduto = p.Id
+                    })
                     .ToList();
 
                 foreach (var produto in produtosEncomenda)
@@ -153,52 +167,94 @@
         }
     }
 
-    private async Task ProduzirTodos()
+    private async Task ConfirmarStockDisponivel()
     {
-        await OrderService.AtualizarEstadoEncomendaAsync(id, "Em produção");
+        // Primeiro, verificar se há casas prontas em stock
+        casasDisponiveis.Clear();
+        temCasasEmStock = true;
+
+        foreach (var produto in produtosEncomenda)
+        {
+            var produtoStock = await StockService.GetProdutoPorIdAsync(produto.IdProduto);
+            if (produtoStock != null && produtoStock.Quantidade >= produto.Quantidade)
+            {
+                casasDisponiveis[produto.IdProduto] = produtoStock.Quantidade;
+            }
+            else
+            {
+                temCasasEmStock = false;
+                break;
+            }
+        }
+
+        // Se não houver casas em stock, verificar materiais para produção
+        if (!temCasasEmStock)
+        {
+            var resultado = await ProductionService.VerificarMateriaisParaProducaoAsync(id);
+            podeProduzir = resultado.PodeProduzir;
+            mensagemErro = resultado.Mensagem;
+            produtosProduziveis = resultado.ProdutosProduziveis;
+        }
+
+        verificacaoConcluida = true;
+        StateHasChanged(); 
+        // Assim que terminar, re-renderiza para atualizar o UI
+
+        if (!temCasasEmStock && !podeProduzir)
+        {
+            mensagemErro = "Não há casas disponíveis em stock nem materiais suficientes para produção, é solicitado que o stock seja reposto.";
+        }
     }
 
-    private async Task ProduzirProduto(int produtoId)
+    private async Task ProduzirTodos()
     {
-        if (estadoAtual == "Em espera")
+        if (podeProduzir)
         {
-            estadoAtual = "Em produção"; 
-            await OrderService.AtualizarEstadoEncomendaAsync(id, estadoAtual);
+            estadoAtual = "Em produção";
+            await OrderService.AtualizarEstadoEncomendaAsync(id, "Em produção");
         }
+        else
+        {
+            mensagemErro = "Não há materiais suficientes para iniciar a produção.";
+        }
+
+        StateHasChanged(); 
+        // Força nova renderização logo após mudar o estado
     }
 
     private async Task EnviarEncomenda()
     {
         if (estadoAtual != "Entregue")
         {
-            estadoAtual = "Entregue";
-            var resultadoEncomenda = await OrderService.AtualizarEstadoEncomendaAsync(id, estadoAtual);
-            if (resultadoEncomenda == "Estado da encomenda atualizado com sucesso!")
+            if (temCasasEmStock || estadoAtual == "Em produção")
             {
-                await StockService.AtualizarStockApósEnvioAsync(produtosEncomenda);
-                var dataAtual = DateTime.Now;
-                var sucesso = await OrderService.AtualizarDataEncomendaAsync(id, dataAtual);
+                estadoAtual = "Entregue";
+                var resultadoEncomenda = await OrderService.AtualizarEstadoEncomendaAsync(id, estadoAtual);
+                if (resultadoEncomenda == "Estado da encomenda atualizado com sucesso!")
+                {
+                    await StockService.AtualizarStockApósEnvioAsync(produtosEncomenda);
+                    var dataAtual = DateTime.Now;
+                    var sucesso = await OrderService.AtualizarDataEncomendaAsync(id, dataAtual);
 
-                if (sucesso)
-                {
-                    dataPrevista = dataAtual.ToString("dd/MM/yyyy");
-                    Console.WriteLine("Data de entrega atualizada para a data atual!");
-                }
-                else
-                {
-                    Console.WriteLine("Erro ao atualizar a data de entrega.");
+                    if (sucesso)
+                    {
+                        dataPrevista = dataAtual.ToString("dd/MM/yyyy");
+                        Console.WriteLine("Data de entrega atualizada para a data atual!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Erro ao atualizar a data de entrega.");
+                    }
                 }
             }
+            else
+            {
+                mensagemErro = "Não é possível enviar a encomenda. Stock insuficiente.";
+            }
         }
-    }
 
-    private async Task VerificarMateriais()
-    {
-        var resultado = await ProductionService.VerificarMateriaisParaProducaoAsync(id);
-        verificacaoConcluida = true;
-        podeProduzir = resultado.PodeProduzir;
-        mensagemErro = resultado.Mensagem;
-        produtosProduziveis = resultado.ProdutosProduziveis;
+        StateHasChanged();
+        // Faz o re-render assim que o estado passar a “Entregue” 
     }
 
     private void VerLinhaDeMontagem(int produtoId)

@@ -10,6 +10,7 @@ namespace LI4.Data.Services
         {
             _db = db;
         }
+
         public async Task<List<Produto>> ListarProdutosEmStockAsync()
         {
             var sql = @"
@@ -49,7 +50,7 @@ namespace LI4.Data.Services
             return "Stock do material atualizado com sucesso.";
         }
 
-        private async Task<Produto> GetProdutoPorIdAsync(int produtoId)
+        public async Task<Produto> GetProdutoPorIdAsync(int produtoId)
         {
             var sql = @"SELECT Id, Nome, Descricao, Quantidade, Preco FROM Produto WHERE Id = @ProdutoId";
             var produtoData = await _db.LoadData<dynamic, object>(sql, new { ProdutoId = produtoId });
@@ -70,7 +71,6 @@ namespace LI4.Data.Services
         {
             foreach (var item in produtosEncomendados)
             {
-                // Busca o produto correspondente ao IdProduto da encomenda
                 var produto = await GetProdutoPorIdAsync(item.IdProduto);
 
                 if (produto == null)
