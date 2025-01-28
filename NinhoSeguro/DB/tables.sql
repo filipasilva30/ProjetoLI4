@@ -67,8 +67,10 @@
 
 	CREATE TABLE Notificacao (
 		Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+		NumEncomenda INT NOT NULL,
 		IdCliente INT NOT NULL,
 		Descricao TEXT NOT NULL,
 		DataHora DATETIME,
-		FOREIGN KEY (IdCliente) REFERENCES Utilizador(Id)
+		FOREIGN KEY (IdCliente) REFERENCES Utilizador(Id),
+		FOREIGN KEY (NumEncomenda) REFERENCES Encomenda(Numero)
 	)

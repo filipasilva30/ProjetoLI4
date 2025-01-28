@@ -69,7 +69,6 @@ namespace LI4.Data.Services
             return produto;
         }
 
-        // Modelo Material tem: Id, Nome, Quantidade
         public async Task<Material> GetMaterialPorIdAsync(int materialId)
         {
             var sql = @"SELECT Id, Nome, Quantidade

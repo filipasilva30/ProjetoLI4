@@ -40,7 +40,19 @@ namespace LI4.Auth
                 return await Task.FromResult(new AuthenticationState(_anonymous));
             }
         }
-
+        public async Task<bool> IsAuthenticated()
+        {
+            try
+            {
+                var userSessionResult = await _storage.GetAsync<Session>("UserSession");
+                var userSession = userSessionResult.Success ? userSessionResult.Value : null;
+                return userSession != null;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public async Task UpdateAuthenticationState(Session? session)
         {
             ClaimsPrincipal claimsPrincipal;

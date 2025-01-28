@@ -14,12 +14,13 @@ namespace LI4.Data.Services
             _db = db;
         }
 
-        public async Task<string> EnviarNotificacaoAsync(int idCliente, string descricao)
+        public async Task<string> EnviarNotificacaoAsync(int numEncomenda, int idCliente, string descricao)
         {
-            var sql = @"INSERT INTO Notificacao (IdCliente, Descricao, DataHora) 
-                        VALUES (@IdCliente, @Descricao, @DataHora)";
+            var sql = @"INSERT INTO Notificacao (NumEncomenda, IdCliente, Descricao, DataHora) 
+                        VALUES (@NumEncomenda, @IdCliente, @Descricao, @DataHora)";
             await _db.SaveData(sql, new 
             {
+                NumEncomenda = numEncomenda,
                 IdCliente = idCliente,
                 Descricao = descricao,
                 DataHora = DateTime.Now

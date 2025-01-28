@@ -22,7 +22,6 @@
                         <p><b>Descrição:</b> @produto.Descricao</p>
                         <p><b>Tipo dos materiais:</b> @GetMateriais(produto.Nome)</p>
                         <p><b>Preço:</b> @produto.Preco €</p>
-                        <p><b>Disponível:</b> @produto.Quantidade unidades</p>
                         <input type="number" min="0" class="input-quantidade" placeholder="0"
                                @bind="produtoQuantidade[produto.Id]"
                                @oninput="(e) => AtualizarQuantidade(produto.Id, e.Value.ToString())" />
