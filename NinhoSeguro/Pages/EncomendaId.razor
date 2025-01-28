@@ -26,7 +26,6 @@
         <p>Estado atual: <em>@estadoAtual</em></p>
     </div>
 
-    @* Só mostra o botão se a encomenda estiver em espera e ainda não foi feita a verificação *@
     @if (estadoAtual == "Em espera" && !verificacaoConcluida)
     {
         <div class="produzir-container">
@@ -34,7 +33,6 @@
         </div>
     }
 
-    @* Só mostra a secção de verificação se a encomenda continuar em espera depois da verificação *@
     @if (verificacaoConcluida && estadoAtual == "Em espera")
     {
         @if (temCasasEmStock)
@@ -137,7 +135,7 @@
     private string dataPrevista;
     private string estadoAtual;
     private string clienteNome = "";
-    private int clienteId;  // <-- Novo para armazenar Id do cliente
+    private int clienteId;  
     private Dictionary<int, string> nomesProdutos = new();
     private List<Encomenda_tem_Produto> produtosEncomenda = new();
     private bool verificacaoConcluida = false;
@@ -194,7 +192,6 @@
 
     private async Task ConfirmarStockDisponivel()
     {
-        // -- Lógica existente, não alterada
         casasDisponiveis.Clear();
         temCasasEmStock = true;
 
@@ -231,7 +228,6 @@
 
     private async Task ProduzirTodos()
     {
-        // -- Lógica existente, não alterada
         if (podeProduzir)
         {
             estadoAtual = "Em produção";
@@ -279,7 +275,6 @@
 
     private async Task EnviarEncomenda()
     {
-        // -- Lógica existente, não alterada
         if (estadoAtual != "Entregue")
         {
             if (temCasasEmStock || estadoAtual == "Em produção")
@@ -334,15 +329,12 @@
         mensagemNotificacao = string.Empty;
     }
 
-    // Passa a ser async pois chamará NotificationService
     private async Task EnviarNotificacao()
     {
-        // Chamando o NotificationService
         if (!string.IsNullOrWhiteSpace(mensagemNotificacao))
         {
-            // Ex: "Sua encomenda #XYZ está pronta..." etc.
-            var resultado = await NotificationService.EnviarNotificacaoAsync(clienteId, mensagemNotificacao);
-            Console.WriteLine(resultado); // "Notificação enviada ao cliente."
+            var resultado = await NotificationService.EnviarNotificacaoAsync(id, clienteId, mensagemNotificacao);
+            Console.WriteLine(resultado); 
         }
 
         mostrandoAlertaSucesso = true;

@@ -22,7 +22,7 @@
             {
                 <div class="notificacao-item">
                     <div class="notificacao-header">
-                        <span>Encomenda #@notificacao.IdCliente</span>
+                        <span>Encomenda #@notificacao.NumEncomenda</span>
                         <span>@notificacao.DataHora.ToString("dd/MM/yyyy HH:mm")</span>
                     </div>
                     <div class="notificacao-descricao">
@@ -56,7 +56,7 @@
             clienteId = 0; // não autenticado
         }
 
-        // CORREÇÃO: use a variável de classe "notificacoes"
+
         if (clienteId > 0)
         {
             notificacoes = await NotificationService.ConsultarNotificacoesAsync(clienteId);

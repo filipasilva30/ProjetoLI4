@@ -37,7 +37,7 @@
 
     private async Task HandleLogin()
     {
-        var (sucesso, mensagem, tipo, clienteId, utilizador) = await LoginService.IniciarSessaoAsync(loginModel);
+        var (sucesso, mensagem, tipo, clienteId,utilizador) = await LoginService.IniciarSessaoAsync(loginModel);
 
         if (sucesso && utilizador != null)
         {
@@ -50,22 +50,11 @@
 
             await AuthProvider.UpdateAuthenticationState(session);
 
-            // Verifique se os dados da sessão foram salvos corretamente
-            var authState = await AuthProvider.GetAuthenticationStateAsync();
-            if (authState.User.Identity?.IsAuthenticated == true)
-            {
-                Console.WriteLine("Usuário autenticado com sucesso.");
-            }
-            else
-            {
-                Console.WriteLine("Falha ao autenticar usuário.");
-            }
-
-            if (tipo == 1)
+            if (tipo == 1) 
             {
                 NavigationManager.NavigateTo("/menucliente");
             }
-            else if (tipo == 2)
+            else if (tipo == 2) 
             {
                 NavigationManager.NavigateTo("/menufuncionario");
             }
@@ -76,6 +65,7 @@
         }
         else
         {
+            // Mostra mensagem de erro no login
             loginMessage = mensagem;
         }
     }

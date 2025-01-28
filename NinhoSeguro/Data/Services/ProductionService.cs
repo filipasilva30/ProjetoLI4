@@ -27,79 +27,94 @@ namespace LI4.Data.Services
 
         public async Task<(bool PodeProduzir, string Mensagem, Dictionary<int, int> ProdutosProduziveis)> VerificarMateriaisParaProducaoAsync(int encomendaId)
         {
-            var sqlProdutosEncomenda = @"
-        SELECT ep.IdProduto, ep.Quantidade, pm.IdMaterial, pm.Quantidade AS QtdNecessaria
-        FROM Encomenda_tem_Produto ep
-        JOIN Produto_tem_Material pm ON ep.IdProduto = pm.IdProduto
-        WHERE ep.NumEncomenda = @EncId";
+            var sqlProdutosEncomenda = @"SELECT ep.IdProduto, ep.Quantidade, pm.IdMaterial, pm.Quantidade AS QtdNecessaria
+                                        FROM Encomenda_tem_Produto ep
+                                        JOIN Produto_tem_Material pm ON ep.IdProduto = pm.IdProduto
+                                        WHERE ep.NumEncomenda = @EncId";
 
             var produtosEncomenda = await _db.LoadData<dynamic, dynamic>(sqlProdutosEncomenda, new { EncId = encomendaId });
 
             if (produtosEncomenda == null || produtosEncomenda.Count == 0)
+            {
                 return (false, "Nenhum produto encontrado para esta encomenda.", null);
+            }
 
+            // Obter stock atual de materiais e produtos
             var sqlMateriaisStock = "SELECT Id, Quantidade FROM Material";
             var materiaisStock = await _db.LoadData<Material, dynamic>(sqlMateriaisStock, new { });
+            var materiaisDisponiveis = materiaisStock.ToDictionary(m => m.Id, m => m.Quantidade);
 
-            // Mapeia os materiais disponíveis
-            Dictionary<int, int> materiaisDisponiveis = materiaisStock.ToDictionary(m => m.Id, m => m.Quantidade);
-            Dictionary<int, int> produtosProduziveis = new();
+            var sqlProdutosStock = "SELECT Id, Quantidade FROM Produto";
+            var produtosStock = await _db.LoadData<Produto, dynamic>(sqlProdutosStock, new { });
+            var produtosDisponiveis = produtosStock.ToDictionary(p => p.Id, p => p.Quantidade);
 
-            // Para cada produto na encomenda, verifica a quantidade de produção
-            foreach (var item in produtosEncomenda)
+            // Calcular quantidades que faltam
+            var produtosFaltantes = new Dictionary<int, int>();
+            var produtosQuantidadeTotal = new Dictionary<int, int>();
+
+            foreach (var grupo in produtosEncomenda.GroupBy(p => p.IdProduto))
             {
-                int idProduto = item.IdProduto;
-                int qtdProduto = item.Quantidade;
+                int idProduto = grupo.Key;
+                int qtdSolicitada = grupo.First().Quantidade;
+                produtosQuantidadeTotal[idProduto] = qtdSolicitada;
 
-                // Busca os materiais necessários para o produto
-                var materiaisNecessarios = await _db.LoadData<dynamic, dynamic>(
-                    @"
-            SELECT pm.IdMaterial, pm.Quantidade AS QtdNecessaria
-            FROM Produto_tem_Material pm
-            WHERE pm.IdProduto = @ProdutoId", new { ProdutoId = idProduto });
+                int qtdEmStock = produtosDisponiveis.ContainsKey(idProduto) ? produtosDisponiveis[idProduto] : 0;
+                int qtdFaltante = Math.Max(0, qtdSolicitada - qtdEmStock);
 
-                int qtdMaxProduzivel = int.MaxValue; // Começa com o valor máximo possível
-
-                foreach (var material in materiaisNecessarios)
+                if (qtdFaltante > 0)
                 {
-                    int idMaterial = material.IdMaterial;
-                    int qtdNecessaria = material.QtdNecessaria * qtdProduto;  // Total de material necessário para a quantidade de produtos
-
-                    if (materiaisDisponiveis.ContainsKey(idMaterial))
-                    {
-                        int qtdDisponivel = materiaisDisponiveis[idMaterial];
-
-                        // Se o material não tem quantidade suficiente, calcula a capacidade máxima de produção
-                        if (qtdDisponivel < qtdNecessaria)
-                        {
-                            int maxProduzivelParaMaterial = qtdDisponivel / material.QtdNecessaria;
-                            qtdMaxProduzivel = Math.Min(qtdMaxProduzivel, maxProduzivelParaMaterial);
-                        }
-                    }
-                    else
-                    {
-                        return (false, $"Material necessário para o produto {idProduto} não encontrado no stock.", null);
-                    }
-                }
-
-                // Agora, definimos a quantidade máxima que pode ser produzida com base no material mais restritivo
-                if (qtdMaxProduzivel == int.MaxValue)
-                {
-                    qtdMaxProduzivel = qtdProduto;  // Se todos os materiais têm quantidade suficiente
-                }
-
-                produtosProduziveis[idProduto] = qtdMaxProduzivel;
-
-                if (qtdMaxProduzivel == 0)
-                {
-                    return (false, $"Material insuficiente para produzir o produto {idProduto}.", produtosProduziveis);
+                    produtosFaltantes[idProduto] = qtdFaltante;
                 }
             }
 
-            return (true, "Materiais disponíveis para produção.", produtosProduziveis);
+            if (!produtosFaltantes.Any())
+            {
+                return (true, "Todos os produtos estão disponíveis em stock.", new Dictionary<int, int>());
+            }
+
+            // Para cada produto que falta, calcula a quantidade máxima produzível
+            var produtosProduziveis = new Dictionary<int, int>();
+            foreach (var produto in produtosFaltantes)
+            {
+                int idProduto = produto.Key;
+                int qtdNecessaria = produto.Value;
+
+                var materiaisNecessarios = produtosEncomenda
+                    .Where(p => (int)p.IdProduto == idProduto)
+                    .Select(p => new { IdMaterial = (int)p.IdMaterial, QtdNecessaria = (int)p.QtdNecessaria })
+                    .ToList();
+
+                // Calcular o máximo produzível para este produto
+                int maxProduzivel = int.MaxValue;
+                foreach (var material in materiaisNecessarios)
+                {
+                    if (!materiaisDisponiveis.ContainsKey(material.IdMaterial))
+                    {
+                        return (false, $"Material {material.IdMaterial} não encontrado no stock.", null);
+                    }
+
+                    int materialDisponivel = materiaisDisponiveis[material.IdMaterial];
+                    int maxPorMaterial = materialDisponivel / material.QtdNecessaria;
+                    maxProduzivel = Math.Min(maxProduzivel, maxPorMaterial);
+                }
+
+                if (maxProduzivel < qtdNecessaria)
+                {
+                    return (false, $"Material insuficiente para produzir a quantidade necessária do produto {idProduto}.", null);
+                }
+
+                // Retorna a quantidade máxima que pode ser produzida
+                produtosProduziveis[idProduto] = maxProduzivel;
+
+                // Atualiza a quantidade de materiais disponíveis baseado na quantidade máxima
+                foreach (var material in materiaisNecessarios)
+                {
+                    materiaisDisponiveis[material.IdMaterial] -= material.QtdNecessaria * maxProduzivel;
+                }
+            }
+
+            return (true, "Produção possível com os materiais disponíveis.", produtosProduziveis);
         }
-
-
 
         public async Task<string> EnviarEncomendaAsync(int encomendaId)
         {

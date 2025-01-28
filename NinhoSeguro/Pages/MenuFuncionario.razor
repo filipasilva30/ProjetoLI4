@@ -4,13 +4,15 @@
 @using System.Security.Claims
 @inject NavigationManager NavigationManager
 @inject AuthProvider AuthProvider
-
 <link rel="stylesheet" href="css/MenuFuncionario.css" />
 
-@if (isAuthenticated && isFuncionario)
+@if (isLoading)
+{
+    // Optional: Add a loading indicator here if desired
+}
+else if (isAuthenticated && isFuncionario)
 {
     <img src="assets/exit.png" alt="porta" class="porta" @onclick="Logout" />
-
     <div class="menu-funcionario-container">
         <h1 class="titulo">Menu</h1>
         <button class="botao encomendas" @onclick="NavigateToEncomendas">
@@ -23,9 +25,9 @@
         </button>
     </div>
 }
-else if (!isLoading)
+else
 {
-    <p>Acesso Negado. Redirecionando...</p>
+    <p>Acesso Negado</p>
 }
 
 @code {
